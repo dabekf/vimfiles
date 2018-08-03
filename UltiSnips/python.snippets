@@ -1,0 +1,10 @@
+priority -50
+
+snippet pp "Prettyprint" b
+pp($1, '$1', exit_=${2:False})
+endsnippet
+
+snippet ppe "Prettyprint with exit" b
+pp($1, '$1', exit_=${2:True})
+endsnippet
+

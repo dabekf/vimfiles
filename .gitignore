@@ -1,0 +1,10 @@
+# Vim
+*.swp
+*.swo
+
+# Bundle
+/bundle/
+
+# Tmp
+/autoload/myconf/sync.py
+

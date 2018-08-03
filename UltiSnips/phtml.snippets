@@ -1,0 +1,29 @@
+priority -50
+
+snippet zd "Zend Debug" b
+Zend_Debug::dump($1, '${2:$1}');
+endsnippet
+
+snippet cdc "Console Debug Dump" b
+CDC::$1($${2:$1});
+endsnippet
+
+snippet d "Kint UI" b
+d($1);
+endsnippet
+
+snippet dd "Kint UI&Exit" b
+dd($1);
+endsnippet
+
+snippet s "Kint Text" b
+s($1);
+endsnippet
+
+snippet ss "Kint Text&Exit" b
+ss($1);
+endsnippet
+
+snippet pc "PhpConsole\Helper" b
+\PC::$1($${2:$1});
+endsnippet
