@@ -13,6 +13,14 @@ endif
 
 set nocompatible
 
+" Theme first
+let g:zenburn_high_Contrast = 1
+let g:zenburn_old_Visual = 1
+let g:zenburn_alternate_Visual = 1
+let g:zenburn_unified_CursorColumn = 1
+colorscheme fixedzenburn
+"
+
 set autoindent
 set autoread
 set autowrite " Automatically save before commands like :next and :make
@@ -27,6 +35,9 @@ set encoding=utf-8
 set fileformat=unix
 set fileformats=unix,dos
 set formatoptions=qn12
+" set guifont=Consolas:h12
+set guifont=Fixed_9x15:h11
+set guioptions=egcA
 set hidden
 set history=100
 set hlsearch
@@ -35,6 +46,7 @@ set incsearch " Incremental search
 set indentexpr=
 set keymodel=startsel
 set langmenu=en
+set laststatus=2
 set listchars=eol:¬,precedes:«,extends:»,tab:▸·,trail:›,nbsp:_
 set mouse=a
 set nobackup " Don't keep a backup file
@@ -65,8 +77,11 @@ set viminfo='2000,\"50000,h,n$APPDATA/_viminfo"
 set virtualedit=block,onemore
 set whichwrap=b,s,<,>
 set wildignore=.git,.svn,.hg,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.swo,*.jpg,*.png,*.gif,*.zip,*.pdf,*.exe,*.pyc,tags,*.tags
+set wildmode=longest:full
 set winaltkeys=no
 set wrap " Add binding!
+
+let mapleader = ","
 
 " MyVim
 let $myvimrc = expand('<sfile>')
@@ -101,7 +116,7 @@ if has("unix")
 endif
 
 " File Explorer
-function! ToggleNERDTree()
+function! s:ToggleNERDTree()
 	let bufname = bufname("%")
 
 	if bufname == ""
@@ -115,10 +130,8 @@ endf
 let g:NERDTreeWinSize=42
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeDirArrowExpandable = '▸'
-nnoremap <silent> <F4> :call ToggleNERDTree()<CR>
-map! <silent> <F4> <C-c><F4>
+nnoremap <silent> <F4> :call <SID>ToggleNERDTree()<CR>
 nnoremap <silent> <S-F4> :NERDTreeClose<CR>
-map! <silent> <S-F4> <C-c><S-F4>
 
 " CtrlP + rg
 if executable("rg")
@@ -130,9 +143,7 @@ let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 " let g:ctrlp_use_caching = 0
 let g:ctrlp_lazy_update = 1
 nnoremap <silent> <C-b> :CtrlPBuffer<CR>
-map! <silent> <C-b> <C-c><C-b>
 nnoremap <silent> <C-h> :CtrlPMRU<CR>
-map! <silent> <C-h> <C-c><C-h>
 
 command! -nargs=* Rg :silent grep! <args> | cw
 " nmap <silent> <A->> :cn<CR>zr
@@ -150,7 +161,6 @@ imap <silent> <A-P> <C-o>:cp<CR>zr
 
 " Clear search highlight
 nnoremap <A-h> :noh<CR>
-noremap! <A-h> <C-o>:noh<CR>
 
 " Identify highlight group
 nnoremap <A-H> :redraw \| echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -161,17 +171,17 @@ nnoremap <A-H> :redraw \| echo "hi<" . synIDattr(synID(line("."),col("."),1),"na
 nmap <silent> <A-#> :setlocal cursorcolumn! cursorline!<CR>
 imap <silent> <A-#> <C-o>:setlocal cursorcolumn! cursorline!<CR>
 
-" ,v brings up my .vimrc
-" ,V reloads it -- making all changes active (have to save first)
-nnoremap ,v :e $myvimrc<CR>
+" <Leader>v brings up my .vimrc
+" <Leader>V reloads it -- making all changes active (have to save first)
+nnoremap <Leader>v :e $myvimrc<CR>
 
-" ,f is fileformat
-nnoremap ,f :set fileformat=unix<CR>
-nnoremap ,F :set fileformat=dos<CR>
+" <Leader>f is fileformat
+nnoremap <Leader>f :set fileformat=unix<CR>
+nnoremap <Leader>F :set fileformat=dos<CR>
 
-" ,s is sort
-xnoremap ,s :sort<CR>
-xnoremap ,S :sort u<CR>
+" <Leader>s is sort
+xnoremap <Leader>s :sort<CR>
+xnoremap <Leader>S :sort u<CR>
 
 " Select whole word
 nnoremap <A-v> viW
@@ -186,8 +196,8 @@ nnoremap <C-Del> "_dd
 inoremap <C-Del> <C-o>"_dd
 vnoremap <C-Del> "_d
 
-" ,n is find nonprintable characters
-nnoremap ,n /\(\p\\|$\\|\s\)\@!.<CR>
+" <Leader>n is find nonprintable characters
+nnoremap <Leader>n /\(\p\\|$\\|\s\)\@!.<CR>
 
 " Undo
 if has("unix")
@@ -203,7 +213,9 @@ noremap! <A-r> <C-o><C-R>
 
 " Fix completion
 inoremap <expr> <C-Y> pumvisible() ? "\<C-Y>" : "\<C-O>\<C-R>"
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
+call lexima#insmode#map_hook('before', '<CR>', '')
 
 " Paste in Insert mode on the end of line
 " Fix copied from paste.vim and ms.vim
@@ -229,17 +241,15 @@ xnoremap P "_d:set paste<CR>P:set nopaste<CR>
 inoremap <silent> <A-t> <C-r>=localtime()<CR>
 
 " Syntax toggle
-function! ToggleSyntax()
+function! s:ToggleSyntax()
 	if exists("g:syntax_on")
 		syntax off
 	else
 		syntax enable
-		source $myconf/plugin/gui.vim
-		source $myconf/plugin/statusline.vim
 	endif
 endf
-nnoremap <S-F1> :call ToggleSyntax()<CR>
-noremap! <S-F1> <C-o>::call ToggleSyntax()<CR>
+nnoremap <S-F1> :call <SID>ToggleSyntax()<CR>
+noremap! <S-F1> <C-o>::call <SID>ToggleSyntax()<CR>
 
 " Win32 like
 if has("unix")
@@ -262,8 +272,8 @@ if has("win32")
 endif
 
 " Toggle matching parens
-nnoremap <A-m> :call myconf#sync#ToggleMatchParen()<CR>
-noremap! <A-m> <C-o>:call myconf#sync#ToggleMatchParen()<CR>
+nnoremap <A-m> :call myconf#func#ToggleMatchParen()<CR>
+noremap! <A-m> <C-o>:call myconf#func#ToggleMatchParen()<CR>
 " let loaded_matchparen = 1
 
 " Commenting
@@ -303,22 +313,22 @@ smap < <C-o><
 smap > <C-o>>
 
 " Fixing indentation
-nnoremap <silent> ,t :%s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-nnoremap <silent> ,<M-t> :%s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
-vnoremap <silent> ,t :s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-vnoremap <silent> ,<M-t> :s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
+nnoremap <silent> <Leader>t :%s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
+nnoremap <silent> <Leader><M-t> :%s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
+vnoremap <silent> <Leader>t :s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
+vnoremap <silent> <Leader><M-t> :s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
 
-nnoremap <silent> ,y :%s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
-vnoremap <silent> ,y :s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
+nnoremap <silent> <Leader>y :%s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
+vnoremap <silent> <Leader>y :s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
 
-nnoremap <silent> ,T :%s@^\s\+$@@g<CR>:noh<CR>
-vnoremap <silent> ,T :s@^\s\+$@@g<CR>:noh<CR>
+nnoremap <silent> <Leader>T :%s@^\s\+$@@g<CR>:noh<CR>
+vnoremap <silent> <Leader>T :s@^\s\+$@@g<CR>:noh<CR>
 
 nnoremap <A-l> :set list!<CR>
 inoremap <A-l> <C-O>:set list!<CR>
 
 " Fixing broken endings
-nnoremap ,m :%s:\%x0d::g<CR>
+nnoremap <Leader>m :%s:\%x0d::g<CR>
 
 " Mercurial
 if executable('hg')
@@ -332,21 +342,17 @@ endif
 nnoremap <Space> zz
 
 " Help
-function! MyHelp(topic)
+function! s:Help(topic)
 	try
 		exe "help" a:topic
 		if &buftype == 'help'
 			exe "silent! normal \<C-w>o"
-			set buflisted
-			if exists("g:CtrlSpaceLoaded")
-				exe "CtrlSpace q"
-			endif
 		endif
 	catch
 		echoerr v:exception
 	endtry
 endf
-command! -nargs=1 -complete=help H :call MyHelp("<args>")
+command! -nargs=1 -complete=help H :call <SID>Help("<args>")
 
 " Windows
 nmap <M-Down> <C-w><Down>
@@ -408,7 +414,7 @@ let g:better_whitespace_filetypes_blacklist = ['', 'diff', 'gitcommit', 'unite',
 let g:better_whitespace_enabled = 0
 " let g:better_whitespace_verbosity = 1
 " let g:current_line_whitespace_disabled_soft = 1
-nmap <silent> ,w :ToggleStripWhitespaceOnSave<CR>:echo 'Changed b:strip_whitespace_on_save to ' . b:strip_whitespace_on_save<CR>
+nmap <silent> <Leader>w :ToggleStripWhitespaceOnSave<CR>:echo 'Changed b:strip_whitespace_on_save to ' . b:strip_whitespace_on_save<CR>
 
 " Quickfix Toggle
 let g:toggle_list_no_mappings = 1
@@ -421,11 +427,12 @@ map! <S-F9> <Esc><S-F9>
 let g:localvimrc_ask = 0
 
 " Lexima
-call lexima#add_rule({'char': '(', 'at': '\%#.'})
-call lexima#add_rule({'char': '[', 'at': '\%#.'})
-call lexima#add_rule({'char': '{', 'at': '\%#.'})
-call lexima#add_rule({'char': "'", 'at': '\%#.'})
-call lexima#add_rule({'char': '"', 'at': '\%#.'})
+call lexima#add_rule({'char': '(', 'at': '\%#\S'})
+call lexima#add_rule({'char': '[', 'at': '\%#\S'})
+call lexima#add_rule({'char': '{', 'at': '\%#\S'})
+call lexima#add_rule({'char': "'", 'at': '\%#\S'})
+call lexima#add_rule({'char': '"', 'at': '\%#\S'})
+call lexima#add_rule({'char': '"', 'at': '\w\%#''\@!'})
 
 " Autocommand
 augroup myconf
@@ -457,7 +464,7 @@ augroup myconf
 
 	" Whitespace
 	if exists("g:loaded_better_whitespace_plugin")
-		autocmd BufEnter * if index(g:better_whitespace_filetypes_blacklist, &ft) < 0 | exec 'EnableStripWhitespaceOnSave' | endif
+		autocmd BufNewFile,BufRead * if index(g:better_whitespace_filetypes_blacklist, &ft) < 0 | exec 'EnableStripWhitespaceOnSave' | endif
 	endif
 
 	" Commenting
@@ -471,16 +478,16 @@ augroup myconf
 	autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
 	autocmd CursorHold,CursorHoldI * silent! checktime
 
-	function! FixHtmlItalics()
+	function! s:FixHtmlItalics()
 		hi htmlItalic gui=undercurl
 		hi htmlBoldItalic gui=bold,undercurl
 		hi htmlBoldUnderlineItalic gui=bold,underline,undercurl
 		hi htmlUnderlineItalic gui=underline,undercurl
 	endf
 
-	" fix italics
+	" Fix italics
 	if has("gui")
-		autocmd BufNewFile,BufRead *.htm,*.html,*.phtml call FixHtmlItalics()
+		autocmd BufNewFile,BufRead *.htm,*.html,*.phtml call <SID>FixHtmlItalics()
 	endif
 augroup END
 

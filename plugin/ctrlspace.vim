@@ -26,10 +26,16 @@ imap <silent> <A-Right> <C-c>:CtrlSpaceGoDown<CR>
 " nmap <silent> <A-]> <C-c>:tabnext<CR>
 " nmap <silent> <A-[> <C-c>:tabprev<CR>
 
-noremap <silent> <A-q> :call myconf#ctrlspace#Close('quit')<CR>
-noremap! <silent> <A-q> <C-c>:call myconf#ctrlspace#Close('quit')<CR>
-noremap <silent> <A-w> :call myconf#ctrlspace#Close('write')<CR>
-noremap! <silent> <A-w> <C-c>:call myconf#ctrlspace#Close('write')<CR>
+noremap <silent> <A-q> :call myconf#ctrlspace#Quit()<CR>
+noremap! <silent> <A-q> <C-c>:call myconf#ctrlspace#Quit()<CR>
+noremap <silent> <A-w> :call myconf#ctrlspace#Write()<CR>
+noremap! <silent> <A-w> <C-c>:call myconf#ctrlspace#Write()<CR>
 
 map <A-E> :call myconf#ctrlspace#ReloadAll()<CR>
 map <A-e> :e!<CR>
+
+augroup myconf_ctrlspace
+	autocmd!
+	" Help as normal buffers
+	autocmd BufRead * if &buftype == 'help' | setlocal bl | endif
+augroup END

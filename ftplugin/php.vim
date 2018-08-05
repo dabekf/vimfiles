@@ -1,15 +1,12 @@
 let g:myconf_markers_pattern = 'function \?[a-zA-Z0-9_ ]*(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{'
 call myconf#func#Markers()
-"exe "NoMatchParen"
-
-" map ,l :echo system('php -l ' . shellescape(expand("%:p")) . ' \| grep -v "No syntax errors detected"')<CR>
 
 if match(expand('%:p'), '\v\\nt-.{-}\\') != -1
-	map ,p :call ft#php#Phpcbf()<CR>
+	map <Leader>p :call ft#php#Phpcbf()<CR>
 else
-	" map ,p :call ft#php#Phpcbf()<CR>
-	map ,p :call ft#php#FixParens()<CR>
-	map ,P :call ft#php#FixParensPsr2()<CR>
+	" map <Leader>p :call ft#php#Phpcbf()<CR>
+	map <Leader>p :call ft#php#FixParens()<CR>
+	map <Leader>P :call ft#php#FixParensPsr2()<CR>
 endif
 
 let tlist_php_settings = 'php;f:function'

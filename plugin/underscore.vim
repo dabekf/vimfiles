@@ -1,7 +1,7 @@
 " Underscore and camelcase
 function! UnderscoreToCamelCase(s)
 	let result = substitute(a:s, '\C\S\@<=_\([a-z]\)', '\u\1', 'ge')
-	if (exists("b:underscoreToCamelCaseFirstUpper") && b:underscoreToCamelCaseFirstUpper == 1)
+	if (exists("b:underscore_to_camel_case_first_upper") && b:underscore_to_camel_case_first_upper == 1)
 		return substitute(result, '\([a-z]\)', '\u\1', 'e')
 	else
 		return result

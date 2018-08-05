@@ -1,14 +1,14 @@
 function! myconf#statusline#Mode()
 	if (mode() =~# '\v(n|no)')
 		let hi_0=2
-	elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
+	elseif (mode() =~# '\v(v|V)' || g:myconf_statusline_currentmode[mode()] ==# 'V·Block' || get(g:myconf_statusline_currentmode, mode(), '') ==# 't')
 		let hi_0=3
 	elseif (mode() ==# 'i')
 		let hi_0=4
 	else
 		let hi_0=5
 	endif
-	return "%" . hi_0 . "* " . toupper(g:currentmode[mode()]) . " %*"
+	return "%" . hi_0 . "* " . toupper(g:myconf_statusline_currentmode[mode()]) . " %*"
 endf
 
 function! myconf#statusline#Paste()
@@ -173,6 +173,10 @@ function! myconf#statusline#FileFormat()
 	endif
 endf
 
+function! myconf#statusline#getDefaultLine()
+	return "%<%F\ %h%m%r%w%y\ %{&ff}\ %=\ %{(&paste==0)?'':'P'}\ char:%b\(0x%B\)\ col:%c%V\ lin:%l\,%L\ pos:%o\ %P"
+endfunction
+
 function! myconf#statusline#getStatusLine()
 	let sl = myconf#statusline#Mode()
 	let sl .= myconf#statusline#Paste()
@@ -198,52 +202,11 @@ function! myconf#statusline#getStatusLine()
 endf
 
 function! myconf#statusline#Init()
-	let g:currentmode={
-		\ 'n'  : 'N',
-		\ 'no' : 'N·Operator Pending',
-		\ 'v'  : 'V',
-		\ 'V'  : 'V·Line',
-		\ '' : 'V·Block',
-		\ 's'  : 'Select',
-		\ 'S'  : 'S·Line',
-		\ '' : 'S·Block',
-		\ 'i'  : 'I',
-		\ 'R'  : 'R',
-		\ 'Rv' : 'V·Replace',
-		\ 'c'  : 'Command',
-		\ 'cv' : 'Vim Ex',
-		\ 'ce' : 'Ex',
-		\ 'r'  : 'Prompt',
-		\ 'rm' : 'More',
-		\ 'r?' : 'Confirm',
-		\ '!'  : 'Shell',
-		\ 't'  : 'Terminal'
-		\}
-
-	" Paste
-	hi User1 guifg=#ffffff guibg=#313633
-
-	" Modes
-	hi User2 guifg=#000000 guibg=#ccdc90
-	hi User3 guifg=white guibg=firebrick3
-	hi User4 guifg=yellow guibg=forestgreen
-	hi User5 guifg=yellow guibg=darkorchid
-
-	" Errors
-	hi User6 guifg=#efef87 guibg=#313633
-	hi User7 guifg=#e37170 guibg=#313633
-	" hi User7 guifg=#cc9393 guibg=#313633
-
-	" Buffers
-	hi User8 guifg=#ffffff guibg=#313633 gui=underline
-	
 	" Fallback
 	if exists('g:CtrlSpaceLoaded')
 		set statusline=%!myconf#statusline#getStatusLine()
 	else
-		set statusline=%<%F\ %h%m%r%w%y\ %{&ff}\ %=\ %{(&paste==0)?'':'P'}\ char:%b\(0x%B\)\ col:%c%V\ lin:%l\,%L\ pos:%o\ %P
+		set statusline=%!myconf#statusline#getDefaultLine()
 	endif
-
-	set laststatus=2
 endfunction
 
