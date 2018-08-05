@@ -10,10 +10,10 @@ function! myconf#func#ToggleMatchParen()
 endf
 
 " Folding marker generator
-function! myconf#func#Markers()
+function! myconf#func#Markers(pattern)
 	exe 'normal mZ'
 	call cursor(1,1)
-	while search(b:myconf_markers_pattern, "We") > 0
+	while search(a:pattern, "We") > 0
 		exe 'normal zf%'
 		exe 'normal zo'
 	endwhile

@@ -1,5 +1,4 @@
-let g:myconf_markers_pattern = 'function \?[a-zA-Z0-9_ ]*(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{'
-call myconf#func#Markers()
+call myconf#func#Markers('function \?[a-zA-Z0-9_ ]*(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{')
 
 if match(expand('%:p'), '\v\\nt-.{-}\\') != -1
 	map <Leader>p :call ft#php#Phpcbf()<CR>
