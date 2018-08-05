@@ -60,8 +60,8 @@ let g:zenburn_old_Visual = 1
 let g:zenburn_alternate_Visual = 1
 let g:zenburn_unified_CursorColumn = 1
 colorscheme fixedzenburn
-"
 
+" Settings
 set autoindent
 set autoread
 set autowrite " Automatically save before commands like :next and :make
@@ -444,7 +444,6 @@ nmap <A-p> <Plug>(ale_previous)
 imap <A-p> <C-o><Plug>(ale_previous)
 
 " BetterWhitespace
-highlight ExtraWhitespace gui=undercurl guifg=#dc8c6c guisp=#bc6c4c
 let g:better_whitespace_filetypes_blacklist = ['', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
 let g:better_whitespace_enabled = 0
 " let g:better_whitespace_verbosity = 1
@@ -489,11 +488,6 @@ augroup myconf
 	autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=0 softtabstop=0 tabstop=4
 	autocmd FileType python setlocal nosmartindent
 
-	" Whitespace
-	if exists("g:loaded_better_whitespace_plugin")
-		autocmd BufNewFile,BufRead * if index(g:better_whitespace_filetypes_blacklist, &ft) < 0 | exec 'EnableStripWhitespaceOnSave' | endif
-	endif
-
 	" Commenting
 	" autocmd BufNewFile,BufRead *.php setlocal commentstring=//%s
 	" autocmd BufNewFile,BufRead *.phtml setlocal commentstring=<?php\ /*%s*/\ ?>
@@ -530,8 +524,15 @@ augroup myconf
 		call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
 		call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
 	endfunction
-
 	autocmd VimEnter * call <SID>InitLexima()
+	
+	" Better Whitespace
+	function! s:EnableStripWhiteSpace()
+		if exists("g:loaded_better_whitespace_plugin") && index(g:better_whitespace_filetypes_blacklist, &ft) < 0
+			exec 'EnableStripWhitespaceOnSave'
+		endif
+	endfunction
+	autocmd BufNewFile,BufRead * call <SID>EnableStripWhiteSpace()
 augroup END
 
 filetype plugin on

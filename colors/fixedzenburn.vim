@@ -41,4 +41,8 @@ hi User7 guifg=#e37170 guibg=#313633
 " Buffers
 hi User8 guifg=#ffffff guibg=#313633 gui=underline
 
+" BetterWhitespace
+highlight ExtraWhitespace gui=undercurl guifg=#dc8c6c guisp=#bc6c4c
+
 let g:colors_name="fixedzenburn"
+
