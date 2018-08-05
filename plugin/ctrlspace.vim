@@ -7,8 +7,8 @@ endif
 if executable("rg")
 	let g:CtrlSpaceGlobCommand = 'rg %s -l --color=never -g ""'
 endif
-let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
-let g:CtrlSpaceSearchTiming = 250
+" let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
+" let g:CtrlSpaceSearchTiming = 250
 
 map <silent> <C-Enter> <C-c>:CtrlSpace /<CR>
 map! <silent> <C-Enter> <C-c>:CtrlSpace /<CR>

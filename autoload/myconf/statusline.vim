@@ -80,17 +80,17 @@ function! myconf#statusline#LinterStatus() abort
 endfunction
 
 function! myconf#statusline#Gitbranch() abort
-	if !exists('b:gitbranch')
+	if !exists('b:myconf_statusline_gitbranch') || b:myconf_statusline_gitbranch == 'default'
 		return ''
 	endif
-	return b:gitbranch != '' ? ' %([⅄:' . b:gitbranch . ']%)' : ''
+	return b:myconf_statusline_gitbranch != '' ? ' %([⅄:' . b:myconf_statusline_gitbranch . ']%)' : ''
 endf
 
 function! myconf#statusline#Hgbranch() abort
-	if !exists('b:hgbranch')
+	if !exists('b:myconf_statusline_hgbranch') || b:myconf_statusline_hgbranch == 'default'
 		return ''
 	endif
-	return b:hgbranch != '' ? ' %([⅄:' . b:hgbranch . ']%)' : ''
+	return b:myconf_statusline_hgbranch != '' ? ' %([⅄:' . b:myconf_statusline_hgbranch . ']%)' : ''
 endf
 
 function! myconf#statusline#BuffersInit()
@@ -186,8 +186,8 @@ function! myconf#statusline#getStatusLine()
 	if exists('g:loaded_ale')
 		let sl .= myconf#statusline#LinterStatus()
 	endif
-	" let sl .= myconf#statusline#Gitbranch()
-	" let sl .= myconf#statusline#Hgbranch()
+	let sl .= myconf#statusline#Gitbranch()
+	let sl .= myconf#statusline#Hgbranch()
 	" let sl .= myconf#statusline#HowLong()
 	let sl .= myconf#statusline#AsyncRun()
 	let sl .= myconf#statusline#Sync()

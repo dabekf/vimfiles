@@ -1,5 +1,9 @@
 runtime colors/zenburn.vim
 
+if !exists('g:colors_name') || g:colors_name != 'zenburn'
+	runtime colors/darkblue.vim
+endif
+
 " MyZenburn
 hi WarningMsg guifg=#efef87
 hi Cursor guifg=#000d18 guibg=#efefef

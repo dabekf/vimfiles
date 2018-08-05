@@ -1,4 +1,45 @@
-execute pathogen#infect()
+" MyVim
+let $myvimrc = expand('<sfile>')
+let $myconf = fnamemodify($myvimrc, ':h')
+
+" First things first
+let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
+let g:CtrlSpaceSearchTiming = 250
+
+" execute pathogen#infect()
+call plug#begin($myconf . '/plugged')
+Plug 'w0rp/ale'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
+Plug 'vim-scripts/ingo-library'
+Plug 'cohama/lexima.vim'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
+Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
+Plug 'shawncplus/phpcomplete.vim', { 'for': ['php', 'phtml'] }
+Plug 'vim-scripts/QuickFixCurrentNumber'
+Plug 'ervandew/supertab'
+Plug 'majutsushi/tagbar'
+Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'phtml'] }
+Plug 'tomtom/tcomment_vim'
+Plug 'SirVer/ultisnips'
+Plug 'moll/vim-bbye'
+Plug 'filedil/vim-better-whitespace', { 'branch': 'search-history-fix' }
+Plug 'filedil/vim-buffer-history', { 'branch': 'bwipeout-fix' }
+Plug 'alvan/vim-closetag'
+Plug 'filedil/vim-ctrlspace', { 'branch': 'workspaces-fix' }
+Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx'] }
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'mxw/vim-jsx', { 'for': 'jsx' }
+Plug 'embear/vim-localvimrc'
+Plug 'okcompute/vim-python-match', { 'for': 'python' }
+Plug 'tpope/vim-scriptease'
+Plug 'honza/vim-snippets'
+Plug 'jnurmine/Zenburn'
+call plug#end()
 
 " menu language to english
 let $LANG = 'en'
@@ -82,10 +123,6 @@ set winaltkeys=no
 set wrap " Add binding!
 
 let mapleader = ","
-
-" MyVim
-let $myvimrc = expand('<sfile>')
-let $myconf = fnamemodify($myvimrc, ':h')
 
 " Quits and writes
 noremap <A-q> <C-c>:q!<CR>
@@ -214,8 +251,6 @@ noremap! <A-r> <C-o><C-R>
 " Fix completion
 inoremap <expr> <C-Y> pumvisible() ? "\<C-Y>" : "\<C-O>\<C-R>"
 let g:lexima_no_default_rules = 1
-call lexima#set_default_rules()
-call lexima#insmode#map_hook('before', '<CR>', '')
 
 " Paste in Insert mode on the end of line
 " Fix copied from paste.vim and ms.vim
@@ -417,22 +452,14 @@ let g:better_whitespace_enabled = 0
 nmap <silent> <Leader>w :ToggleStripWhitespaceOnSave<CR>:echo 'Changed b:strip_whitespace_on_save to ' . b:strip_whitespace_on_save<CR>
 
 " Quickfix Toggle
-let g:toggle_list_no_mappings = 1
-noremap <F9> :call ToggleLocationList()<CR>
-map! <F9> <Esc><F9>
-noremap <S-F9> :call ToggleQuickfixList()<CR>
-map! <S-F9> <Esc><S-F9>
+" let g:toggle_list_no_mappings = 1
+" noremap <F9> :call ToggleLocationList()<CR>
+" map! <F9> <Esc><F9>
+" noremap <S-F9> :call ToggleQuickfixList()<CR>
+" map! <S-F9> <Esc><S-F9>
 
 " Localrc
 let g:localvimrc_ask = 0
-
-" Lexima
-call lexima#add_rule({'char': '(', 'at': '\%#\S'})
-call lexima#add_rule({'char': '[', 'at': '\%#\S'})
-call lexima#add_rule({'char': '{', 'at': '\%#\S'})
-call lexima#add_rule({'char': "'", 'at': '\%#\S'})
-call lexima#add_rule({'char': '"', 'at': '\%#\S'})
-call lexima#add_rule({'char': '"', 'at': '\w\%#''\@!'})
 
 " Autocommand
 augroup myconf
@@ -489,6 +516,22 @@ augroup myconf
 	if has("gui")
 		autocmd BufNewFile,BufRead *.htm,*.html,*.phtml call <SID>FixHtmlItalics()
 	endif
+
+	function! s:InitLexima()
+		call lexima#set_default_rules()
+		call lexima#insmode#map_hook('before', '<CR>', '')
+
+		call lexima#add_rule({'char': '(', 'at': '\%#\S'})
+		call lexima#add_rule({'char': '[', 'at': '\%#\S'})
+		call lexima#add_rule({'char': '{', 'at': '\%#\S'})
+		call lexima#add_rule({'char': "'", 'at': '\%#\S'})
+		call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
+		call lexima#add_rule({'char': '"', 'at': '\%#\S'})
+		call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
+		call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
+	endfunction
+
+	autocmd VimEnter * call <SID>InitLexima()
 augroup END
 
 filetype plugin on

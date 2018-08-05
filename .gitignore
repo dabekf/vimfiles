@@ -4,6 +4,7 @@
 
 # Bundle
 /bundle/
+/plugged/
 
 # Tmp
 /autoload/myconf/sync.py
