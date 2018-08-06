@@ -338,9 +338,6 @@ let g:closetag_close_shortcut = '®'
 " JSX
 let g:jsx_ext_required = 0
 
-" MRU
-let MRU_File = $APPDATA . '\_vimmru'
-
 " Indenting
 xnoremap < <gv
 xnoremap > >gv
@@ -450,13 +447,6 @@ let g:better_whitespace_enabled = 0
 " let g:current_line_whitespace_disabled_soft = 1
 nmap <silent> <Leader>w :ToggleStripWhitespaceOnSave<CR>:echo 'Changed b:strip_whitespace_on_save to ' . b:strip_whitespace_on_save<CR>
 
-" Quickfix Toggle
-" let g:toggle_list_no_mappings = 1
-" noremap <F9> :call ToggleLocationList()<CR>
-" map! <F9> <Esc><F9>
-" noremap <S-F9> :call ToggleQuickfixList()<CR>
-" map! <S-F9> <Esc><S-F9>
-
 " Localrc
 let g:localvimrc_ask = 0
 
@@ -488,14 +478,7 @@ augroup myconf
 	autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=0 softtabstop=0 tabstop=4
 	autocmd FileType python setlocal nosmartindent
 
-	" Commenting
-	" autocmd BufNewFile,BufRead *.php setlocal commentstring=//%s
-	" autocmd BufNewFile,BufRead *.phtml setlocal commentstring=<?php\ /*%s*/\ ?>
-	" autocmd BufNewFile,BufRead *.css.phtml setlocal commentstring=/*%s*/
-	" autocmd BufNewFile,BufRead *.sql setlocal commentstring=/*%s*/
-	" autocmd BufNewFile,BufRead *.py setlocal commentstring=#→%s
-	" autocmd FileType apache setlocal commentstring=#→%s
-
+	" Misc
 	autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
 	autocmd CursorHold,CursorHoldI * silent! checktime
 
@@ -519,15 +502,18 @@ augroup myconf
 			call lexima#add_rule({'char': '(', 'at': '\%#\S'})
 			call lexima#add_rule({'char': '[', 'at': '\%#\S'})
 			call lexima#add_rule({'char': '{', 'at': '\%#\S'})
-			call lexima#add_rule({'char': "'", 'at': '\%#\S'})
+			" call lexima#add_rule({'char': "'", 'at': '\%#\S'})
 			call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
-			call lexima#add_rule({'char': '"', 'at': '\%#\S'})
+			" call lexima#add_rule({'char': '"', 'at': '\%#\S'})
 			call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
 			call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
+
+			inoremap <M-'> '
+			inoremap <M-"> "
 		endif
 	endfunction
 	autocmd VimEnter * call <SID>InitLexima()
-	
+
 	" Better Whitespace
 	function! s:EnableStripWhiteSpace()
 		if exists("g:loaded_better_whitespace_plugin") && index(g:better_whitespace_filetypes_blacklist, &ft) < 0
