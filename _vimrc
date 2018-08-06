@@ -512,17 +512,19 @@ augroup myconf
 	endif
 
 	function! s:InitLexima()
-		call lexima#set_default_rules()
-		call lexima#insmode#map_hook('before', '<CR>', '')
+		if exists('g:loaded_lexima')
+			call lexima#set_default_rules()
+			call lexima#insmode#map_hook('before', '<CR>', '')
 
-		call lexima#add_rule({'char': '(', 'at': '\%#\S'})
-		call lexima#add_rule({'char': '[', 'at': '\%#\S'})
-		call lexima#add_rule({'char': '{', 'at': '\%#\S'})
-		call lexima#add_rule({'char': "'", 'at': '\%#\S'})
-		call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
-		call lexima#add_rule({'char': '"', 'at': '\%#\S'})
-		call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
-		call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
+			call lexima#add_rule({'char': '(', 'at': '\%#\S'})
+			call lexima#add_rule({'char': '[', 'at': '\%#\S'})
+			call lexima#add_rule({'char': '{', 'at': '\%#\S'})
+			call lexima#add_rule({'char': "'", 'at': '\%#\S'})
+			call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
+			call lexima#add_rule({'char': '"', 'at': '\%#\S'})
+			call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
+			call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
+		endif
 	endfunction
 	autocmd VimEnter * call <SID>InitLexima()
 	
