@@ -20,14 +20,14 @@ function! ToggleList(bufname, pfx)
       return
   endif
   let winnr = winnr()
-  exec(a:pfx.'open')
+  exec(a:pfx . 'open')
   if winnr() != winnr
     wincmd p
   endif
 endfunction
 
-nnoremap <silent> <F9> :call ToggleList("Location List", 'l')<CR>
+nnoremap <silent> <F9> :call ToggleList("Quickfix List", 'c')<CR>
 map! <F9> <C-o><F9>
-nnoremap <silent> <S-F9> :call ToggleList("Quickfix List", 'c')<CR>
+nnoremap <silent> <S-F9> :call ToggleList("Location List", 'l')<CR>
 map! <S-F9> <C-o><S-F9>
 
