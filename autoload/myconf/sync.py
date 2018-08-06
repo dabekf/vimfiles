@@ -55,7 +55,7 @@ projects = {
 		'source': r'^.+/Projects/(redNet/)?([a-z0-9]+)\.polskikoszyk\.pl', # regular expression
 		'destination': {
 			'test': {
-				'directory': r'/home/www/\1.polskikoszyk.pl', # regular replacement
+				'directory': r'/home/www/\2.polskikoszyk.pl', # regular replacement
 				'hosts': ['fdabek@inzynier'],
 			},
 			'production': {
