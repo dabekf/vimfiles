@@ -10,8 +10,8 @@ nnoremap <silent> <M-F12> :if !exists('b:myconf_sync') \| let b:myconf_sync='tes
 augroup myconf_sync
 	autocmd!
 	autocmd BufWritePost * call myconf#sync#Save()
+	autocmd BufNewFile,BufRead ~/Projects/* let b:myconf_sync='test'
+	autocmd BufNewFile,BufRead ~/Documents/Projects/redNet/* let b:myconf_sync='test'
 augroup END
 
-autocmd BufNewFile,BufRead ~/Projects/* let b:myconf_sync='test'
-autocmd BufNewFile,BufRead ~/Documents/Projects/redNet/* let b:myconf_sync='test'
 
