@@ -56,8 +56,7 @@ function! myconf#ctrlspace#Close(mode)
 	let buffers = myconf#ctrlspace#BufferList(tabpagenr())
 
 	if &buflisted == 0
-		" exe "Bdelete!"
-		echohl WarningMsg | echo "Buffer is unlisted, cannot close, please switch to another buffer" | echohl None
+		echo "⌗  Cannot close unlisted buffer this way."
 	elseif exists("g:CtrlSpaceLoaded") && len(buffers) > 1
 		if a:mode == 'write'
 			exe "w"
