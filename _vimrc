@@ -12,22 +12,18 @@ Plug 'w0rp/ale'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'sgur/vim-editorconfig'
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
-Plug 'vim-scripts/ingo-library'
 Plug 'cohama/lexima.vim'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
 Plug 'shawncplus/phpcomplete.vim', { 'for': ['php', 'phtml'] }
-Plug 'vim-scripts/QuickFixCurrentNumber'
 Plug 'ervandew/supertab'
 Plug 'majutsushi/tagbar'
 Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'phtml'] }
 Plug 'tomtom/tcomment_vim'
 Plug 'SirVer/ultisnips'
-Plug 'moll/vim-bbye'
 Plug 'filedil/vim-better-whitespace', { 'branch': 'search-history-fix' }
-Plug 'filedil/vim-buffer-history', { 'branch': 'bwipeout-fix' }
 Plug 'alvan/vim-closetag'
 Plug 'filedil/vim-ctrlspace', { 'branch': 'workspaces-fix' }
 Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
@@ -179,22 +175,10 @@ endif
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 " let g:ctrlp_use_caching = 0
 let g:ctrlp_lazy_update = 1
+let g:ctrlp_clear_cache_on_exit = 1
 nnoremap <silent> <C-b> :CtrlPBuffer<CR>
 nnoremap <silent> <C-h> :CtrlPMRU<CR>
-
 command! -nargs=* Rg :silent grep! <args> | cw
-" nmap <silent> <A->> :cn<CR>zr
-" imap <silent> <A->> <C-o>:cn<CR>zr
-" nmap <silent> <A-<> :cp<CR>zr
-" imap <silent> <A-<> <C-o>:cp<CR>zr
-" nmap <silent> <A-.> ]qzr
-" imap <silent> <A-.> <C-o>]q<C-o>zr
-" nmap <silent> <A-,> [qzr
-" imap <silent> <A-,> <C-o>]q<C-o>zr
-nmap <silent> <A-N> :cn<CR>zr
-imap <silent> <A-N> <C-o>:cn<CR>zr
-nmap <silent> <A-P> :cp<CR>zr
-imap <silent> <A-P> <C-o>:cp<CR>zr
 
 " Clear search highlight
 nnoremap <A-h> :noh<CR>
@@ -210,7 +194,7 @@ imap <silent> <A-#> <C-o>:setlocal cursorcolumn! cursorline!<CR>
 
 " <Leader>v brings up my .vimrc
 " <Leader>V reloads it -- making all changes active (have to save first)
-nnoremap <Leader>v :e $myvimrc<CR>
+nnoremap <silent> <Leader>v :e $myvimrc<CR>:cd $myconf<CR>
 
 " <Leader>f is fileformat
 nnoremap <Leader>f :set fileformat=unix<CR>
@@ -225,7 +209,7 @@ nnoremap <A-v> viW
 inoremap <A-v> <C-o>viW
 vnoremap <A-v> <C-c>viW
 
-" M-d is delete line
+" A-d is delete line
 nnoremap <A-d> "_dd
 inoremap <A-d> <C-o>"_dd
 vnoremap <A-d> "_d
@@ -346,9 +330,9 @@ smap > <C-o>>
 
 " Fixing indentation
 nnoremap <silent> <Leader>t :%s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-nnoremap <silent> <Leader><M-t> :%s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
+nnoremap <silent> <Leader><A-t> :%s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
 vnoremap <silent> <Leader>t :s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-vnoremap <silent> <Leader><M-t> :s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
+vnoremap <silent> <Leader><A-t> :s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
 
 nnoremap <silent> <Leader>y :%s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
 vnoremap <silent> <Leader>y :s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
@@ -385,6 +369,7 @@ function! s:Help(topic)
 	endtry
 endf
 command! -nargs=1 -complete=help H :call <SID>Help("<args>")
+command! -bar Helptags :call pathogen#helptags()
 
 " Windows
 nmap <M-Down> <C-w><Down>
@@ -432,13 +417,9 @@ let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \}
 nmap <silent> <F3> <Plug>(ale_lint)
-imap <silent> <F3> <C-o><Plug>(ale_lint)
-nmap <silent> <A-F3> <Plug>(ale_fix)
-imap <silent> <A-F3> <C-o><Plug>(ale_fix)
-nmap <A-n> <Plug>(ale_next)
-imap <A-n> <C-o><Plug>(ale_next)
-nmap <A-p> <Plug>(ale_previous)
-imap <A-p> <C-o><Plug>(ale_previous)
+nmap <silent> <S-F3> <Plug>(ale_fix)
+nmap <silent> <A-n> <Plug>(ale_next_wrap)zv
+nmap <silent> <A-p> <BS><Plug>(ale_previous_wrap)zv
 
 " BetterWhitespace
 let g:better_whitespace_filetypes_blacklist = ['', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']

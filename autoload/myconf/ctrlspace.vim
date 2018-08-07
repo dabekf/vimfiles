@@ -53,20 +53,33 @@ endf
 
 " Closing
 function! myconf#ctrlspace#Close(mode)
+	let buffers = myconf#ctrlspace#BufferList(tabpagenr())
+
 	if &buflisted == 0
 		" exe "Bdelete!"
 		echohl WarningMsg | echo "Buffer is unlisted, cannot close, please switch to another buffer" | echohl None
-	elseif exists("g:CtrlSpaceLoaded") && len(ctrlspace#api#BufferList(tabpagenr())) > 1
+	elseif exists("g:CtrlSpaceLoaded") && len(buffers) > 1
 		if a:mode == 'write'
 			exe "w"
 		elseif a:mode == 'quit'
 			exe "setlocal nomod"
 		endif
-		" exe "silent CtrlSpace cq"
-		" exe "Bdelete"
-		let l:prevbufnr = bufnr('%')
-		silent normal gbp
-		exe 'bw ' . l:prevbufnr
+		let bufnr = bufnr('%')
+
+		if bufnr == buffers[-1]['index']
+			silent exe 'buf ' . buffers[-2]['index']
+			silent exe 'bdelete ' . bufnr
+		else
+			let index = 0
+			for buf in buffers
+				if buf['index'] == bufnr
+					silent exe 'buf ' . buffers[index + 1]['index']
+					silent exe 'bdelete ' . bufnr
+					break
+				endif
+				let index += 1
+			endfor
+		endif
 	else
 		if a:mode == 'write'
 			exe "wq"
