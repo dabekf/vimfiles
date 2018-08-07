@@ -6,7 +6,7 @@ let $myconf = fnamemodify($myvimrc, ':h')
 let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
 let g:CtrlSpaceSearchTiming = 250
 if executable("rg")
-	let g:CtrlSpaceGlobCommand = 'rg %s -l --nocolor -g ""'
+	let g:CtrlSpaceGlobCommand = 'rg "" -l --color=never'
 endif
 if has("gui_running")
 	let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
