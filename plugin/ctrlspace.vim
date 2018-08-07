@@ -1,15 +1,3 @@
-" set showtabline=0
-if has("gui_running")
-	" Settings for MacVim and Inconsolata font
-	" let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
-	let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓" }
-endif
-if executable("rg")
-	let g:CtrlSpaceGlobCommand = 'rg %s -l --color=never -g ""'
-endif
-" let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
-" let g:CtrlSpaceSearchTiming = 250
-
 map <silent> <C-Enter> <C-c>:CtrlSpace /<CR>
 map! <silent> <C-Enter> <C-c>:CtrlSpace /<CR>
 

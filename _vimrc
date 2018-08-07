@@ -5,6 +5,12 @@ let $myconf = fnamemodify($myvimrc, ':h')
 " First things first
 let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
 let g:CtrlSpaceSearchTiming = 250
+if executable("rg")
+	let g:CtrlSpaceGlobCommand = 'rg %s -l --nocolor -g ""'
+endif
+if has("gui_running")
+	let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
+endif
 
 " execute pathogen#infect()
 call plug#begin($myconf . '/plugged')
