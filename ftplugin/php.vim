@@ -1,6 +1,9 @@
-setlocal foldmethod=indent
-setlocal foldlevel=1
-setlocal foldnestmax=2
+" setlocal foldmethod=indent
+" setlocal foldlevel=1
+" setlocal foldnestmax=2
+
+setlocal foldexpr=ft#php#Fold(v:lnum)
+setlocal foldmethod=expr
 
 " call myconf#func#Markers('function \?[a-zA-Z0-9_ ]*(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{')
 
