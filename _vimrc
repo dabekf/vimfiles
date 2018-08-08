@@ -21,7 +21,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sgur/vim-editorconfig'
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
 Plug 'cohama/lexima.vim'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
+Plug 'scrooloose/nerdtree' ", { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
 Plug 'shawncplus/phpcomplete.vim', { 'for': ['php', 'phtml'] }
 Plug 'ervandew/supertab'
@@ -41,6 +41,7 @@ Plug 'okcompute/vim-python-match', { 'for': 'python' }
 Plug 'tpope/vim-scriptease'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
+Plug 'andymass/vim-matchup'
 call plug#end()
 
 " menu language to english
@@ -166,9 +167,10 @@ function! s:ToggleNERDTree()
 		exe "NERDTreeFind"
 	endif
 endf
-let g:NERDTreeWinSize=42
+let g:NERDTreeWinSize = 42
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeQuitOnOpen = 1
 nnoremap <silent> <F4> :call <SID>ToggleNERDTree()<CR>
 nnoremap <silent> <S-F4> :NERDTreeClose<CR>
 
@@ -300,6 +302,10 @@ endif
 nnoremap <A-m> :call myconf#func#ToggleMatchParen()<CR>
 noremap! <A-m> <C-o>:call myconf#func#ToggleMatchParen()<CR>
 " let loaded_matchparen = 1
+let g:matchup_matchparen_deferred = 1
+let g:matchup_matchparen_timeout = 200
+let g:matchup_matchparen_insert_timeout = 40
+let g:matchup_matchparen_status_offscreen = 0
 
 " Commenting
 nmap <A-c> gcc<Down>
@@ -309,7 +315,7 @@ smap <A-c> <C-g>gc
 imap <A-c> <C-_><C-_><C-o><Down>
 
 " Folding
-set foldmethod=manual
+" set foldmethod=manual
 nnoremap <silent> <A-f> za[z<End>
 inoremap <silent> <A-f> <C-O>za<C-O>[z<End>
 

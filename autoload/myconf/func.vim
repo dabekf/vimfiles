@@ -10,6 +10,7 @@ function! myconf#func#ToggleMatchParen()
 endf
 
 " Folding marker generator
+" @deprecated Too slow, conflicts with andymass/vim-matchup
 function! myconf#func#Markers(pattern)
 	exe 'normal mZ'
 	call cursor(1,1)
@@ -80,4 +81,10 @@ function! myconf#func#ToggleClipboard()
 		unlet b:clipboard
 	endif
 endf
+
+function! myconf#func#StartProfiling()
+	profile start $myconf/profile.log
+	profile func *
+	profile file *
+endfunction
 
