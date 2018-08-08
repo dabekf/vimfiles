@@ -302,11 +302,11 @@ noremap! <A-m> <C-o>:call myconf#func#ToggleMatchParen()<CR>
 " let loaded_matchparen = 1
 
 " Commenting
-nmap <A-c> gccj
+nmap <A-c> gcc<Down>
 " nmap <A-C> gcgc
 xmap <A-c> gc
 smap <A-c> <C-g>gc
-imap <A-c> <C-_><C-_><C-o>j
+imap <A-c> <C-_><C-_><C-o><Down>
 
 " Folding
 set foldmethod=manual
