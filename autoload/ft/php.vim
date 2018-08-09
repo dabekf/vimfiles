@@ -40,13 +40,13 @@ endf
 function! ft#php#Fold(lnum)
 	let linem1 = getline(a:lnum - 1)
 	let line0 = getline(a:lnum)
-	let linep1 = getline(a:lnum + 1)
 
-	if linem1 =~# '\v^\t[^\t]{-}function .{-}[^{]$' && line0 =~ '{$'
+	if line0 =~ '^\t{$' && linem1 =~# '\v^\t[^\t]{-}function .{-}[^{]$'
 		return '>1'
-	elseif line0 =~ '\v^\t}$'
+	elseif line0 =~ '^\t}$'
 		return '<1'
+	else
+		return '='
 	endif
-	return '='
 endfunction
 
