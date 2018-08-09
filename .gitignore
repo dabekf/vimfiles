@@ -1,6 +1,7 @@
 # Vim
 *.swp
 *.swo
+/tags
 
 # Bundle
 /bundle/
@@ -8,5 +9,4 @@
 
 # Logs
 /profile.log
-
 
