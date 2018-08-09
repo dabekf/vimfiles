@@ -10,18 +10,37 @@ function! myconf#func#ToggleMatchParen()
 endf
 
 " Folding marker generator
-" @deprecated Too slow, conflicts with andymass/vim-matchup
 function! myconf#func#Markers(pattern)
-	exe 'normal mZ'
-	call cursor(1,1)
+	mark Z
+	call cursor(1, 1)
+
 	while search(a:pattern, "We") > 0
-		exe 'normal zf%'
-		exe 'normal zo'
+		exe 'normal zfa}'
 	endwhile
-	exe 'normal zM'
-	exe "normal g'Z"
-"     exe 'silent! normal zo'
+	exe "silent normal g'Z"
 endf
+
+" Different approach, probably slower than Markers
+function! myconf#func#Markers2(function, foldlevel)
+	mark Z
+	call cursor(1, 1)
+
+	let lastline = line('$')
+	while 1
+		let linenr = line('.')
+		let foldexpr = a:function(linenr)
+		if foldexpr == '>1'
+			" echo 'fold found on line ' . linenr
+			exe 'silent normal zfa}zo]z'
+		endif
+		call cursor(line('.') + 1, 1)
+		if line('.') >= lastline
+			break
+		endif
+	endwhile
+	exe 'silent normal g`Z'
+	exe 'setlocal foldlevel=' . a:foldlevel
+endfunction
 
 " Times the number of times a particular command takes to execute the specified number of times (in seconds).
 function! myconf#func#HowLong(command, numberOfTimes)
