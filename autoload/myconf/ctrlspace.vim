@@ -51,6 +51,34 @@ function! myconf#ctrlspace#Buffer(n)
 	endif
 endf
 
+function! myconf#ctrlspace#Go(where)
+	let buffers = myconf#ctrlspace#BufferList(tabpagenr())
+
+	if len(buffers) <= 1
+		return
+	endif
+
+	if !&buflisted
+		exe "silent! b " . (a:where == 'up' ? buffers[-1]['index'] : buffers[0]['index'])
+		return
+	endif
+
+	let bufnr = bufnr('%')
+	let index = 0
+	for buffer in buffers
+		if buffer['index'] == bufnr
+			if a:where == 'up'
+				let newbufnr = (index == 0 ? buffers[-1]['index'] : buffers[index - 1]['index'])
+			else
+				let newbufnr = (index == len(buffers) - 1 ? buffers[0]['index'] : buffers[index + 1]['index'])
+			endif
+			exe "silent! b " . newbufnr
+			return
+		endif
+		let index += 1
+	endfor
+endfunction
+
 " Closing
 function! myconf#ctrlspace#Close(mode)
 	let buffers = myconf#ctrlspace#BufferList(tabpagenr())

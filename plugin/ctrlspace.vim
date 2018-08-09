@@ -6,10 +6,15 @@ for index in [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 	execute "imap <silent> <A-".index."> <Esc>:call myconf#ctrlspace#Buffer(".index.")<CR>"
 endfor
 
-nmap <silent> <A-Left> :CtrlSpaceGoUp<CR>
-imap <silent> <A-Left> <C-c>:CtrlSpaceGoUp<CR>
-nmap <silent> <A-Right> :CtrlSpaceGoDown<CR>
-imap <silent> <A-Right> <C-c>:CtrlSpaceGoDown<CR>
+" nmap <silent> <A-Left> :CtrlSpaceGoUp<CR>
+" imap <silent> <A-Left> <C-c>:CtrlSpaceGoUp<CR>
+" nmap <silent> <A-Right> :CtrlSpaceGoDown<CR>
+" imap <silent> <A-Right> <C-c>:CtrlSpaceGoDown<CR>
+
+nmap <silent> <A-Left> :call myconf#ctrlspace#Go('up')<CR>
+imap <silent> <A-Left> <C-c>:call myconf#ctrlspace#Go('up')<CR>
+nmap <silent> <A-Right> :call myconf#ctrlspace#Go('down')<CR>
+imap <silent> <A-Right> <C-c>:call myconf#ctrlspace#Go('down')<CR>
 
 " nmap <silent> <A-]> <C-c>:tabnext<CR>
 " nmap <silent> <A-[> <C-c>:tabprev<CR>
