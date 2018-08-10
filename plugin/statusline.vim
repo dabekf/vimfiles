@@ -26,7 +26,7 @@ augroup myconf_statusline
 	autocmd!
 	autocmd BufNewFile,BufRead * if exists('g:loaded_gitbranch') | let b:myconf_statusline_gitbranch = gitbranch#name() | endif
 	autocmd BufNewFile,BufRead * if exists('g:loaded_hgbranch') | let b:myconf_statusline_hgbranch = hgbranch#name() | endif
-	autocmd BufAdd,BufWritePost,CmdlineLeave,InsertLeave,TextYankPost,CursorHold,TabEnter * let b:myconf_statusline_buffers_changed = 1
+	autocmd BufAdd,BufWritePost,CmdlineLeave,InsertLeave,TextYankPost,CursorHold * let b:myconf_statusline_buffers_changed = 1
 	autocmd VimEnter * call myconf#statusline#Init()
 	" autocmd BufRead * if &buftype == 'help' | setlocal statusline=%!myconf#statusline#getDefaultLine() | endif
 augroup END
