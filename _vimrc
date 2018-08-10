@@ -184,6 +184,7 @@ let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 " let g:ctrlp_use_caching = 0
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_clear_cache_on_exit = 0
+
 nnoremap <silent> <C-b> :CtrlPBuffer<CR>
 nnoremap <silent> <C-h> :CtrlPMRU<CR>
 command! -nargs=* Rg :silent grep! <args> | cw
@@ -450,7 +451,7 @@ augroup myconf
 	autocmd FileType mail set tw=75
 
 	" When editing a file, always jump to the last cursor position
-	autocmd BufWinEnter * call myconf#func#JumpToLastPosition()
+	autocmd BufReadPost * call myconf#func#JumpToLastPosition()
 	autocmd BufReadPost * stopinsert
 
 	" When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
