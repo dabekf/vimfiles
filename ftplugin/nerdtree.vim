@@ -1,2 +1,2 @@
-map <silent> <S-CR> go
+map <buffer> <silent> <S-CR> go
 

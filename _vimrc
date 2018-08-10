@@ -12,6 +12,8 @@ if has("gui_running")
 	let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
 endif
 
+" call myconf#func#StartProfiling()
+
 " execute pathogen#infect()
 call plug#begin($myconf . '/plugged')
 Plug 'w0rp/ale'
@@ -316,9 +318,11 @@ smap <A-c> <C-g>gc
 imap <A-c> <C-_><C-_><C-o><Down>
 
 " Folding
-" set foldmethod=manual
-nnoremap <silent> <A-f> za[z<End>
-inoremap <silent> <A-f> <C-O>za<C-O>[z<End>
+set foldmethod=manual
+" nnoremap <silent> <A-f> za[z<End>
+" inoremap <silent> <A-f> <C-O>za<C-O>[z<End>
+nnoremap <silent> <A-f> za
+inoremap <silent> <A-f> <C-O>za
 
 " Taglist
 if executable('ctags')
@@ -496,9 +500,9 @@ augroup myconf
 			call lexima#add_rule({'char': '(', 'at': '\%#\S'})
 			call lexima#add_rule({'char': '[', 'at': '\%#\S'})
 			call lexima#add_rule({'char': '{', 'at': '\%#\S'})
-			" call lexima#add_rule({'char': "'", 'at': '\%#\S'})
+			call lexima#add_rule({'char': "'", 'at': '\%#\w'})
 			call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
-			" call lexima#add_rule({'char': '"', 'at': '\%#\S'})
+			call lexima#add_rule({'char': '"', 'at': '\%#\w'})
 			call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
 			call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
 

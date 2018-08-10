@@ -80,7 +80,7 @@ function! myconf#statusline#LinterStatus() abort
 endfunction
 
 function! myconf#statusline#Gitbranch() abort
-	if !exists('b:myconf_statusline_gitbranch') || b:myconf_statusline_gitbranch == 'default'
+	if !exists('b:myconf_statusline_gitbranch') || b:myconf_statusline_gitbranch == 'master'
 		return ''
 	endif
 	return b:myconf_statusline_gitbranch != '' ? ' %([⅄:' . b:myconf_statusline_gitbranch . ']%)' : ''
