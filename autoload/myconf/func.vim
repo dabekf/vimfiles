@@ -1,10 +1,12 @@
 " Matching parentheses
 function! myconf#func#ToggleMatchParen()
-	if exists("g:loaded_matchparen")
-		exe "NoMatchParen"
+	if !exists("b:matchup_matchparen_enabled") || b:matchup_matchparen_enabled == 1
+		let b:matchup_matchparen_enabled = 0
+		let b:matchup_matchparen_fallback = 0
 		echo "Stopped matching parentheses"
 	else
-		exe "DoMatchParen"
+		let b:matchup_matchparen_enabled = 1
+		let b:matchup_matchparen_fallback = 1
 		echo "Now matching parentheses"
 	endif
 endf

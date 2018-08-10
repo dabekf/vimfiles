@@ -305,10 +305,7 @@ endif
 " Toggle matching parens
 nnoremap <A-m> :call myconf#func#ToggleMatchParen()<CR>
 noremap! <A-m> <C-o>:call myconf#func#ToggleMatchParen()<CR>
-" let loaded_matchparen = 1
 let g:matchup_matchparen_deferred = 1
-let g:matchup_matchparen_timeout = 200
-let g:matchup_matchparen_insert_timeout = 40
 let g:matchup_matchparen_status_offscreen = 0
 
 " Commenting
@@ -456,7 +453,7 @@ augroup myconf
 	autocmd FileType mail set tw=75
 
 	" When editing a file, always jump to the last cursor position
-	autocmd BufWinEnter * call myconf#func#JumpToLastPosition()
+	autocmd BufReadPost * call myconf#func#JumpToLastPosition()
 	autocmd BufReadPost * stopinsert
 
 	" When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
