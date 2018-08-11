@@ -25,6 +25,8 @@ if 'paramiko' in sys.modules:
 	except FileNotFoundError:
 		_pkey = None
 
+	_connections = {}
+
 _projects = {
 	'to5': {
 		'source': r'^.+/Projects/(redNet/)?([a-z0-9]+)\.to5\.tabelaofert\.pl', # regular expression
@@ -181,23 +183,31 @@ def MyconfRsyncUpload():
 						port = 22
 
 					try:
-						hostkeytype = None
-						hostkey = None
-						if hostname in _host_keys:
-							hostkeytype = _host_keys[hostname].keys()[0]
-							hostkey = _host_keys[hostname][hostkeytype]
+						global _connections
 
-						if not _pkey:
-							raise FileNotFoundError('Private key file is missing')
+						cache_key = '{}_{}'.format(project_name, host)
 
-						t = paramiko.Transport((hostname, port))
-						t.connect(
-							hostkey,
-							username,
-							password,
-							pkey=_pkey,
-						)
-						sftp = paramiko.SFTPClient.from_transport(t)
+						if cache_key in _connections and _connections[cache_key][0].is_active():
+							(t, sftp) = _connections[cache_key]
+						else:
+							hostkeytype = None
+							hostkey = None
+							if hostname in _host_keys:
+								hostkeytype = _host_keys[hostname].keys()[0]
+								hostkey = _host_keys[hostname][hostkeytype]
+
+							if not _pkey:
+								raise FileNotFoundError('Private key file is missing')
+
+							t = paramiko.Transport((hostname, port))
+							t.connect(
+								hostkey,
+								username,
+								password,
+								pkey=_pkey,
+							)
+							sftp = paramiko.SFTPClient.from_transport(t)
+							_connections[cache_key] = (t, sftp)
 
 						try:
 							sftp.put(filename, destination)
