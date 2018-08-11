@@ -495,14 +495,14 @@ augroup myconf
 			call lexima#set_default_rules()
 			call lexima#insmode#map_hook('before', '<CR>', '')
 
-			call lexima#add_rule({'char': '(', 'at': '\%#\S'})
-			call lexima#add_rule({'char': '[', 'at': '\%#\S'})
-			call lexima#add_rule({'char': '{', 'at': '\%#\S'})
-			call lexima#add_rule({'char': "'", 'at': '\%#\w'})
-			call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
-			call lexima#add_rule({'char': '"', 'at': '\%#\w'})
+			" call lexima#add_rule({'char': '(', 'at': '\%#\S'})
+			" call lexima#add_rule({'char': '[', 'at': '\%#\S'})
+			" call lexima#add_rule({'char': '{', 'at': '\%#\S'})
+			" call lexima#add_rule({'char': "'", 'at': '\%#\w'})
+			" call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
+			" call lexima#add_rule({'char': '"', 'at': '\%#\w'})
 			call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
-			call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
+			" call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
 
 			inoremap <M-'> '
 			inoremap <M-"> "

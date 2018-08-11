@@ -45,9 +45,31 @@ function! myconf#statusline#AsyncRun() abort
 	return "%( " . hi_1 . "[ar:%{g:asyncrun_status}]%)" . hi_2
 endf
 
-function! myconf#statusline#Sync() abort
-	if exists("b:myconf_sync") && b:myconf_sync != ""
-		return " [⇒:" . b:myconf_sync . "]"
+function! myconf#statusline#Rsync() abort
+	if exists("b:myconf_rsync_target") && b:myconf_rsync_target != ""
+		let lines = []
+
+		if b:myconf_rsync_status == 'error'
+			let lines += ["%7*"]
+		endif
+
+		let lines += [" [⇒:", b:myconf_rsync_target]
+
+		if b:myconf_rsync_status == 'running'
+			let lines += [":⎋"]
+		elseif b:myconf_rsync_status == 'error'
+			let lines += [":×"]
+		elseif b:myconf_rsync_status == 'done'
+			let lines += [":✓"]
+		endif
+
+		let lines += ["]"]
+
+		if b:myconf_rsync_status == 'error'
+			let lines += ["%*"]
+		endif
+
+		return join(lines, "")
 	else
 		return ""
 	endif
@@ -190,7 +212,7 @@ function! myconf#statusline#getStatusLine()
 	let sl .= myconf#statusline#Hgbranch()
 	" let sl .= myconf#statusline#HowLong()
 	let sl .= myconf#statusline#AsyncRun()
-	let sl .= myconf#statusline#Sync()
+	let sl .= myconf#statusline#Rsync()
 	let sl .= "%( %h%m%r%w%y%)"
 	let sl .= myconf#statusline#FileFormat()
 	let sl .= " ch:%b\(0x%B\)"
