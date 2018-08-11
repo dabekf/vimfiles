@@ -471,7 +471,7 @@ augroup myconf
 	autocmd BufNewFile,BufRead *.php,*.phtml,*.js,*.jsx,*.json setlocal indentexpr= smartindent autoindent nocindent
 	autocmd BufNewFile,BufRead *.php setlocal nobomb
 	autocmd BufNewFile,BufRead *.html,*.phtml,*.js,*.jsx,*.json,*.css setlocal tabstop=2
-	autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=0 softtabstop=0 tabstop=4
+	autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=0 softtabstop=0 tabstop=4 foldlevel=1
 	autocmd FileType python setlocal nosmartindent
 
 	" Misc
