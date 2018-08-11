@@ -2,10 +2,28 @@
 import vim
 import re
 import os
-import subprocess
+import posixpath
+import sys
 import traceback
 from pprint import pprint
 assert pprint
+
+import subprocess
+try:
+	import paramiko
+except ImportError:
+	pass
+
+if 'paramiko' in sys.modules:
+	try:
+		_host_keys = paramiko.util.load_host_keys(os.path.expandvars("C:/Cygwin64/home/$USERNAME/.ssh/known_hosts"))
+	except FileNotFoundError:
+		_host_keys = {}
+
+	try:
+		_pkey = paramiko.RSAKey.from_private_key_file(os.path.expandvars('C:/Cygwin64/home/$USERNAME/.ssh/id_rsa'))
+	except FileNotFoundError:
+		_pkey = None
 
 _projects = {
 	'to5': {
@@ -122,9 +140,13 @@ def MyconfRsyncUpload():
 
 		if type(message) == list:
 			for line in message:
-				vim.command("cadde '{}'".format(line.replace("'", '"')))
+				add_message(line)
 		else:
-			vim.command("cadde '{}'".format(message))
+			add_message(message)
+
+
+	def add_message(message):
+		vim.command("cadde '{}'".format(str(message).replace("'", '"')))
 
 
 	def set_status(status):
@@ -139,7 +161,7 @@ def MyconfRsyncUpload():
 	for (project_name, project) in _projects.items():
 		try:
 			(destination, count) = re.subn(project['source'], project['destination'][target]['directory'], filename, flags=re.IGNORECASE)
-			destination = os.path.dirname(destination) + '/'
+			destination_dir = os.path.dirname(destination) + '/'
 		except KeyError:
 			add_error("project %s doesn't have target %s" % (project_name, target))
 			set_status("error")
@@ -147,34 +169,90 @@ def MyconfRsyncUpload():
 
 		if count > 0:
 			config = project['destination'][target]
-			command = list(scp_command)
-			command.append("-v")
-			command.append("-rclD")
-			command.append("-zO")
-			command.append("--chmod=D775,F664")
 
-			command.append(re.sub('^([A-Z]):/', '/cygdrive/\\1/'.lower(), filename))
+			if 'paramiko' in sys.modules:
+				# use paramiko
+				for host in config['hosts']:
+					password = None # always use publickey
+					(username, hostname) = host.split('@')
+					try:
+						(hostname, port) = hostname.split(':')
+					except ValueError:
+						port = 22
 
-			for host in config['hosts']:
-				command.append("{}:{}".format(host, destination))
+					try:
+						hostkeytype = None
+						hostkey = None
+						if hostname in _host_keys:
+							hostkeytype = _host_keys[hostname].keys()[0]
+							hostkey = _host_keys[hostname][hostkeytype]
 
-				print_debug(command)
-				try:
-					subprocess.run(command, capture_output=True, creationflags=subprocess.DETACHED_PROCESS, timeout=10, check=True)
-					# print('Upload of {} to {} successful'.format(filename, host))
-					set_status("done")
-					return True
-				except subprocess.CalledProcessError as ex:
-					add_error("command was: {}".format(" ".join(['"%s"' % item for item in command])))
-					add_error(ex.stderr.decode().split('\n'))
-					set_status("error")
-					return False
-				except Exception as ex:
-					add_error(traceback.format_exc().split('\n'))
-					set_status("error")
-					return False
+						if not _pkey:
+							raise FileNotFoundError('Private key file is missing')
 
-				command.pop()
+						t = paramiko.Transport((hostname, port))
+						t.connect(
+							hostkey,
+							username,
+							password,
+							pkey=_pkey,
+						)
+						sftp = paramiko.SFTPClient.from_transport(t)
+
+						try:
+							sftp.put(filename, destination)
+						except FileNotFoundError:
+							# make all missing directiories
+							path = "/".join(destination_dir.split('/')[0:len(project['destination'][target]['directory'].split('/'))])
+							subdirs = destination_dir.split('/')[len(project['destination'][target]['directory'].split('/')):-1]
+
+							for subdir in subdirs:
+								path = posixpath.join(path, subdir)
+
+								try:
+									sftp.listdir(path)
+								except FileNotFoundError:
+									sftp.mkdir(path)
+
+							sftp.put(filename, destination)
+
+						set_status("done")
+						return True
+					except Exception as ex:
+						add_error(traceback.format_exc().split('\n'))
+						set_status("error")
+						return False
+			else:
+				# use subprocess
+				command = list(scp_command)
+				command.append("-v")
+				command.append("-rclD")
+				command.append("-zO")
+				command.append("--chmod=D775,F664")
+
+				command.append(re.sub('^([A-Z]):/', '/cygdrive/\\1/'.lower(), filename))
+
+				for host in config['hosts']:
+					command.append("{}:{}".format(host, destination_dir))
+
+					print_debug(command)
+					try:
+						subprocess.run(command, capture_output=True, creationflags=subprocess.DETACHED_PROCESS, timeout=10, check=True)
+						# print('Upload of {} to {} successful'.format(filename, host))
+						set_status("done")
+						return True
+					except subprocess.CalledProcessError as ex:
+						add_error("command was: {}".format(" ".join(['"%s"' % item for item in command])))
+						add_error(ex.stderr.decode().split('\n'))
+						set_status("error")
+						return False
+					except Exception as ex:
+						add_error(traceback.format_exc().split('\n'))
+						set_status("error")
+						return False
+
+					command.pop()
+
 		else:
 			print_debug("filename %s doesn't match project %s" % (filename, project_name))
 

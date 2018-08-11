@@ -3,14 +3,11 @@ if !has('python3')
 	finish
 endif
 
-" nnoremap <F12> :call myconf#rsync#rsync('test')<CR>
-" inoremap <F12> <C-o>:call myconf#rsync#rsync('test')<CR>
-" nnoremap <S-F12> :call myconf#rsync#rsync('production')<CR>
-" inoremap <S-F12> <C-o>:call myconf#rsync#rsync('production')<CR>
-" nnoremap <C-F12> :call myconf#rsync#rsync('beta')<CR>
-" inoremap <C-F12> <C-o>:call myconf#rsync#rsync('beta')<CR>
+nnoremap <silent> <F12> :call myconf#rsync#Upload(expand('%:p'), 'test')<CR>
+nnoremap <silent> <S-F12> :call myconf#rsync#Upload(expand('%:p'), 'emisja')<CR>
+nnoremap <silent> <C-F12> :call myconf#rsync#Upload(expand('%:p'), 'beta')<CR>
 
-" nnoremap <silent> <M-F12> :if !exists('b:myconf_rsync') \| let b:myconf_rsync='test' \| else \| unlet b:myconf_rsync \| endif<CR>
+nnoremap <silent> <M-F12> :call myconf#rsync#Cycle()<CR>
 
 augroup myconf_rsync
 	autocmd!
@@ -22,9 +19,4 @@ augroup END
 
 let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
 execute 'py3file ' . s:plugin_path . '/rsync.py'
-
-nnoremap <silent> <F12> :call myconf#rsync#Upload(expand('%:p'), 'test')<CR>
-
-" nnoremap <silent> <M-F12> :if !exists('b:myconf_rsync_target') \| let b:myconf_rsync_target='test' \| else \| unlet b:myconf_rsync_target \| endif<CR>
-
 

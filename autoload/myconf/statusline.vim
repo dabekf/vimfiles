@@ -46,7 +46,7 @@ function! myconf#statusline#AsyncRun() abort
 endf
 
 function! myconf#statusline#Rsync() abort
-	if exists("b:myconf_rsync_target") && b:myconf_rsync_target != ""
+	if exists("b:myconf_rsync_target") && b:myconf_rsync_target != "" && exists("b:myconf_rsync_status")
 		let lines = []
 
 		if b:myconf_rsync_status == 'error'

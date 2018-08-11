@@ -10,7 +10,9 @@ function! myconf#rsync#Upload(filename, target)
 endfunction
 
 function! myconf#rsync#UploadAsync(timer)
+	" let start_time = reltimefloat(reltime())
 	execute 'python3 MyconfRsyncUpload()'
+	" echo printf('Time: %f', reltimefloat(reltime()) - start_time)
 	let &ro = &ro " update statusline
 endfunction
 
@@ -21,6 +23,18 @@ function! myconf#rsync#Save()
 endf
 
 function! myconf#rsync#Init()
-	let b:myconf_rsync_target='test'
-	let b:myconf_rsync_status='ready'
+	if !exists('b:myconf_rsync_target')
+		let b:myconf_rsync_target = 'test'
+		let b:myconf_rsync_status = 'ready'
+	endif
+endfunction
+
+function! myconf#rsync#Cycle()
+	if b:myconf_rsync_target == 'test'
+		let b:myconf_rsync_target=""
+		unlet b:myconf_rsync_status
+	else
+		let b:myconf_rsync_target = 'test'
+		let b:myconf_rsync_status = 'ready'
+	endif
 endfunction
