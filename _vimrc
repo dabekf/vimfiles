@@ -427,14 +427,16 @@ let g:ale_python_flake8_options = '-m flake8 --select F,E999'
 highlight ALEErrorSign guifg=#cc9393 guibg=#181818
 let g:ale_linters = {
 \	'python': ['flake8'],
+\	'php': ['php'],
 \}
+" let g:ale_linters['php'] = ['php', 'phpcs', 'phpmd']
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \}
 nmap <silent> <F3> <Plug>(ale_lint)
 nmap <silent> <S-F3> <Plug>(ale_fix)
-nmap <silent> <A-n> <Plug>(ale_next_wrap)zv
-nmap <silent> <A-p> <BS><Plug>(ale_previous_wrap)zv
+nmap <silent> <A-n> 0<Plug>(ale_next_wrap)zv
+nmap <silent> <A-p> 0<Plug>(ale_previous_wrap)zv
 
 " BetterWhitespace
 let g:better_whitespace_filetypes_blacklist = ['', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
