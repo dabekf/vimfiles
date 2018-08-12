@@ -1,20 +1,29 @@
 function! myconf#tags#Find()
-	let l:dir = '..'
+	let dir = '.'
+	let markers = ['.git', '.hg', '.svn']
 
 	while 1
-		let l:tags = dir . '/tags'
+		let tags = dir . '/.tags'
 		" echo 'tags=' . tags
-		if filereadable(l:tags) && !isdirectory(l:tags)
-			exe "setlocal tags+=" . l:tags
+		if filereadable(tags)
+			exe "setlocal tags+=" . tags[2:]
 		endif
 
-		let l:parent = fnamemodify(l:dir, ':p:h:t')
+		for marker in markers
+			" echo 'marker=' . dir . '/' . marker
+			if isdirectory(dir . '/' . marker)
+				" echo "found marker " . marker
+				return
+			endif
+		endfor
+
+		let parent = fnamemodify(dir, ':p:h:t')
 		" echo 'parent=' . parent
-		if l:parent == 'Projects' || l:parent == ''
-			break
+		if parent == 'Projects' || parent == ''
+			return
 		endif
 
-		let l:dir = l:dir . '/..'
+		let dir = dir . '/..'
 		" echo 'dir=' . dir
 	endwhile
 endf
