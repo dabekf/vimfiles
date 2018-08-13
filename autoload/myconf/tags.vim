@@ -6,7 +6,8 @@ function! myconf#tags#Find()
 		let tags = dir . '/.tags'
 		" echo 'tags=' . tags
 		if filereadable(tags)
-			exe "setlocal tags+=" . tags[2:]
+			" exe "setlocal tags+=" . tags
+			exe "setlocal tags+=" . fnamemodify(tags, ':p')
 		endif
 
 		for marker in markers
