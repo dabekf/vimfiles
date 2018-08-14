@@ -4,7 +4,7 @@ if !has('python3')
 endif
 
 nnoremap <silent> <F12> :call myconf#rsync#Upload(expand('%:p'), 'test')<CR>
-nnoremap <silent> <S-F12> :call myconf#rsync#Upload(expand('%:p'), 'emisja')<CR>
+nnoremap <silent> <S-F12> :call myconf#rsync#Upload(expand('%:p'), 'production')<CR>
 nnoremap <silent> <C-F12> :call myconf#rsync#Upload(expand('%:p'), 'beta')<CR>
 
 nnoremap <silent> <M-F12> :call myconf#rsync#Cycle()<CR>
