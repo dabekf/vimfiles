@@ -18,8 +18,9 @@ endif
 call plug#begin($myconf . '/plugged')
 Plug 'w0rp/ale'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'FelikZ/ctrlp-py-matcher'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
 Plug 'sgur/vim-editorconfig'
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
 Plug 'cohama/lexima.vim'
@@ -178,20 +179,48 @@ nnoremap <silent> <F4> :call <SID>ToggleNERDTree()<CR>
 nnoremap <silent> <S-F4> :NERDTreeClose<CR>
 
 " CtrlP + rg
+" if executable("rg")
+" 	let g:ctrlp_user_command = 'rg %s --files --color=never -g ""'
+" endif
+" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" let g:ctrlp_lazy_update = 1
+" let g:ctrlp_clear_cache_on_exit = 0
+" let g:ctrlp_open_new_file = 'r'
+" let g:ctrlp_open_multiple_files = 'rv'
+" nnoremap <silent> <C-b> :CtrlPBuffer<CR>
+" nnoremap <silent> <C-h> :CtrlPMRU<CR>
+
+" Rg
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading\ -e
     set grepformat=%f:%l:%c:%m,%f:%l:%m
-	let g:ctrlp_user_command = 'rg %s --files --color=never -g ""'
+	command! -nargs=* Rg :silent grep! <args> | cw
 endif
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" let g:ctrlp_use_caching = 0
-let g:ctrlp_lazy_update = 1
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_open_multiple_files = 'rv'
-nnoremap <silent> <C-b> :CtrlPBuffer<CR>
-nnoremap <silent> <C-h> :CtrlPMRU<CR>
-command! -nargs=* Rg :silent grep! <args> | cw
+
+" LeaderF
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_IndexTimeLimit = 10
+let g:Lf_WindowHeight = 15
+let g:Lf_DefaultMode = 'FullPath'
+let g:Lf_StlSeparator = { 'left': '▶', 'right': '◀' }
+let g:Lf_WildIgnore = { 'dir': [], 'file': ['.*'] }
+let g:Lf_StlPalette = {
+\ 'stlName': { 'gui': 'NONE', 'guifg': '#baffa3', 'guibg': '#313633' },
+\ 'stlCategory': { 'guifg': '#f28379', 'guibg': '#161616' },
+\ 'stlNameOnlyMode': { 'guifg': '#e8ed51', 'guibg': '#313633' },
+\ 'stlFullPathMode': { 'guifg': '#aaaaff', 'guibg': '#313633' },
+\ 'stlFuzzyMode': { 'guifg': '#e8ed51', 'guibg': '#313633' },
+\ 'stlRegexMode': { 'guifg': '#7fecad', 'guibg': '#313633' },
+\ 'stlCwd': { 'guifg': '#ebffef', 'guibg': '#161616' },
+\ 'stlBlank': { 'guifg': '#313633', 'guibg': '#313633' },
+\ 'stlLineInfo': { 'guifg': '#ebffef', 'guibg': '#161616' },
+\ 'stlTotal': { 'guifg': '#bcdc5c', 'guibg': '#313633' },
+\}
+let g:Lf_ShowRelativePath = 0
+let g:Lf_NeedCacheTime = 0.5
+let g:Lf_ShortcutF = '<C-p>'
+let g:Lf_ShortcutB = '<C-b>'
+nmap <silent> <C-h> :LeaderfMru<CR>
 
 " Clear search highlight
 nnoremap <A-h> :noh<CR>
@@ -210,8 +239,8 @@ imap <silent> <A-#> <C-o>:setlocal cursorcolumn! cursorline!<CR>
 nnoremap <silent> <Leader>v :e $myvimrc<CR>:cd $myconf<CR>
 
 " <Leader>f is fileformat
-nnoremap <Leader>f :set fileformat=unix<CR>
-nnoremap <Leader>F :set fileformat=dos<CR>
+" nnoremap <Leader>f :set fileformat=unix<CR>
+" nnoremap <Leader>F :set fileformat=dos<CR>
 
 " <Leader>s is sort
 xnoremap <Leader>s :sort<CR>

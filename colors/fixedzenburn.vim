@@ -42,7 +42,11 @@ hi User7 guifg=#e37170 guibg=#313633
 hi User8 guifg=#ffffff guibg=#313633 gui=underline
 
 " BetterWhitespace
-highlight ExtraWhitespace gui=undercurl guifg=#dc8c6c guisp=#bc6c4c
+hi ExtraWhitespace gui=undercurl guifg=#dc8c6c guisp=#bc6c4c
+
+" LeaderF
+hi Lf_hl_match guifg=#ffcfaf
+hi Lf_hl_matchRefine guifg=#efdcbc
 
 let g:colors_name="fixedzenburn"
 
