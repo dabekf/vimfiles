@@ -487,7 +487,7 @@ augroup myconf
 	autocmd FileType mail set tw=75
 
 	" When editing a file, always jump to the last cursor position
-	autocmd BufReadPost * call myconf#func#JumpToLastPosition()
+	autocmd BufWinEnter * call myconf#func#JumpToLastPosition()
 	autocmd BufReadPost * stopinsert
 
 	" When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
