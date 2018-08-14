@@ -198,12 +198,16 @@ if executable("rg")
 endif
 
 " LeaderF
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_IndexTimeLimit = 10
-let g:Lf_WindowHeight = 15
 let g:Lf_DefaultMode = 'FullPath'
+let g:Lf_HideHelp = 1
+let g:Lf_IndexTimeLimit = 10
+let g:Lf_NeedCacheTime = 0.5
+let g:Lf_RememberLastSearch = 1
+" let g:Lf_ShowRelativePath = 0
 let g:Lf_StlSeparator = { 'left': '▶', 'right': '◀' }
 let g:Lf_WildIgnore = { 'dir': [], 'file': ['.*'] }
+let g:Lf_WindowHeight = 15
+let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_StlPalette = {
 \ 'stlName': { 'gui': 'NONE', 'guifg': '#baffa3', 'guibg': '#313633' },
 \ 'stlCategory': { 'guifg': '#f28379', 'guibg': '#161616' },
@@ -216,8 +220,6 @@ let g:Lf_StlPalette = {
 \ 'stlLineInfo': { 'guifg': '#ebffef', 'guibg': '#161616' },
 \ 'stlTotal': { 'guifg': '#bcdc5c', 'guibg': '#313633' },
 \}
-let g:Lf_ShowRelativePath = 0
-let g:Lf_NeedCacheTime = 0.5
 let g:Lf_ShortcutF = '<C-p>'
 let g:Lf_ShortcutB = '<C-b>'
 nmap <silent> <C-h> :LeaderfMru<CR>
