@@ -46,26 +46,26 @@ function! myconf#statusline#AsyncRun() abort
 endf
 
 function! myconf#statusline#Rsync() abort
-	if exists("b:myconf_rsync_target") && b:myconf_rsync_target != "" && exists("b:myconf_rsync_status")
+	if exists("b:sftpsync_target") && b:sftpsync_target != "" && exists("b:sftpsync_status")
 		let lines = []
 
-		if b:myconf_rsync_status == 'error'
+		if b:sftpsync_status == 'error'
 			let lines += ["%7*"]
 		endif
 
-		let lines += [" [⇒:", b:myconf_rsync_target]
+		let lines += [" [⇒:", b:sftpsync_target]
 
-		if b:myconf_rsync_status == 'running'
+		if b:sftpsync_status == 'running'
 			let lines += [":⎋"]
-		elseif b:myconf_rsync_status == 'error'
+		elseif b:sftpsync_status == 'error'
 			let lines += [":×"]
-		elseif b:myconf_rsync_status == 'done'
+		elseif b:sftpsync_status == 'done'
 			let lines += [":✓"]
 		endif
 
 		let lines += ["]"]
 
-		if b:myconf_rsync_status == 'error'
+		if b:sftpsync_status == 'error'
 			let lines += ["%*"]
 		endif
 

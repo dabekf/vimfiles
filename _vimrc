@@ -45,6 +45,7 @@ Plug 'tpope/vim-scriptease'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
 Plug 'andymass/vim-matchup'
+Plug 'filedil/vim-sftpsync'
 call plug#end()
 
 " menu language to english
@@ -231,6 +232,9 @@ nnoremap <A-h> :noh<CR>
 nnoremap <A-H> :redraw \| echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Redraw screen
+nmap <silent> <C-l> :redraw<CR>:redraws<CR>
 
 " Cursor cross
 nmap <silent> <A-#> :setlocal cursorcolumn! cursorline!<CR>
