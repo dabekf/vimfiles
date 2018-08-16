@@ -245,8 +245,8 @@ imap <silent> <A-#> <C-o>:setlocal cursorcolumn! cursorline!<CR>
 nnoremap <silent> <Leader>v :e $myvimrc<CR>:cd $myconf<CR>
 
 " <Leader>f is fileformat
-" nnoremap <Leader>f :set fileformat=unix<CR>
-" nnoremap <Leader>F :set fileformat=dos<CR>
+nnoremap <Leader>f :set fileformat=unix<CR>
+nnoremap <Leader>F :set fileformat=dos<CR>
 
 " <Leader>s is sort
 xnoremap <Leader>s :sort<CR>
