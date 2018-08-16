@@ -16,36 +16,35 @@ endif
 
 " execute pathogen#infect()
 call plug#begin($myconf . '/plugged')
-Plug 'w0rp/ale'
-Plug 'skywind3000/asyncrun.vim'
-" Plug 'FelikZ/ctrlp-py-matcher'
-" Plug 'ctrlpvim/ctrlp.vim'
-Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
-Plug 'sgur/vim-editorconfig'
-Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
-Plug 'cohama/lexima.vim'
-Plug 'scrooloose/nerdtree' ", { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
-Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
-Plug 'shawncplus/phpcomplete.vim', { 'for': ['php', 'phtml'] }
-Plug 'ervandew/supertab'
-Plug 'majutsushi/tagbar'
-Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'phtml'] }
-Plug 'tomtom/tcomment_vim'
 Plug 'SirVer/ultisnips'
-Plug 'filedil/vim-better-whitespace', { 'branch': 'search-history-fix' }
+Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
+Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
 Plug 'alvan/vim-closetag'
-Plug 'filedil/vim-ctrlspace', { 'branch': 'workspaces-fix' }
-Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx'] }
+Plug 'andymass/vim-matchup'
+Plug 'cohama/lexima.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'embear/vim-localvimrc'
-Plug 'okcompute/vim-python-match', { 'for': 'python' }
-Plug 'tpope/vim-scriptease'
+Plug 'ervandew/supertab'
+Plug 'filedil/vim-better-whitespace', { 'branch': 'filedil/search-history-fix' }
+Plug 'filedil/vim-ctrlspace', { 'branch': 'filedil/workspaces-fix' }
+Plug 'filedil/vim-gitbranch', { 'branch': 'filedil/with-hgbranch' }
+Plug 'filedil/vim-sftpsync'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
-Plug 'andymass/vim-matchup'
-Plug 'filedil/vim-sftpsync'
+Plug 'majutsushi/tagbar'
+Plug 'mxw/vim-jsx', { 'for': 'jsx' }
+Plug 'okcompute/vim-python-match', { 'for': 'python' }
+Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx'] }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
+Plug 'sgur/vim-editorconfig'
+Plug 'shawncplus/phpcomplete.vim', { 'for': ['php', 'phtml'] }
+Plug 'skywind3000/asyncrun.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-surround'
+Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'phtml'] }
+Plug 'w0rp/ale'
 call plug#end()
 
 " menu language to english
