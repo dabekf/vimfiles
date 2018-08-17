@@ -25,9 +25,9 @@ Plug 'cohama/lexima.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'embear/vim-localvimrc'
 Plug 'ervandew/supertab'
-Plug 'filedil/vim-better-whitespace', { 'branch': 'filedil/search-history-fix' }
-Plug 'filedil/vim-ctrlspace', { 'branch': 'filedil/workspaces-fix' }
-Plug 'filedil/vim-gitbranch', { 'branch': 'filedil/with-hgbranch' }
+Plug 'filedil/vim-better-whitespace', { 'branch': 'search-history-fix' }
+Plug 'filedil/vim-ctrlspace', { 'branch': 'workspaces-fix' }
+Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
 Plug 'filedil/vim-sftpsync'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
