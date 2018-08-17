@@ -25,9 +25,9 @@ Plug 'cohama/lexima.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'embear/vim-localvimrc'
 Plug 'ervandew/supertab'
-Plug 'filedil/vim-better-whitespace', { 'branch': 'filedil/search-history-fix' }
-Plug 'filedil/vim-ctrlspace', { 'branch': 'filedil/workspaces-fix' }
-Plug 'filedil/vim-gitbranch', { 'branch': 'filedil/with-hgbranch' }
+Plug 'filedil/vim-better-whitespace', { 'branch': 'search-history-fix' }
+Plug 'filedil/vim-ctrlspace', { 'branch': 'workspaces-fix' }
+Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
 Plug 'filedil/vim-sftpsync'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
@@ -194,7 +194,7 @@ nnoremap <silent> <S-F4> :NERDTreeClose<CR>
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading\ -e
     set grepformat=%f:%l:%c:%m,%f:%l:%m
-	command! -nargs=* Rg :silent grep! <args> | cw
+	command! -nargs=* Rg :silent grep! <args> | cope
 endif
 
 " LeaderF
