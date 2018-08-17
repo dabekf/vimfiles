@@ -43,6 +43,11 @@ endfunction
 
 " Moving
 function! myconf#ctrlspace#Buffer(n)
+	if !&buflisted
+		" Most unlisted buffers are special and shouldn't have navigation
+		return
+	endif
+
 	let buffers = myconf#ctrlspace#BufferList(tabpagenr())
 
 	if exists("buffers[a:n - 1]")
@@ -52,16 +57,21 @@ function! myconf#ctrlspace#Buffer(n)
 endf
 
 function! myconf#ctrlspace#Go(where)
+	if !&buflisted
+		" Most unlisted buffers are special and shouldn't have navigation
+		return
+	endif
+
 	let buffers = myconf#ctrlspace#BufferList(tabpagenr())
 
 	if len(buffers) <= 1
 		return
 	endif
 
-	if !&buflisted
-		exe "silent! b " . (a:where == 'up' ? buffers[-1]['index'] : buffers[0]['index'])
-		return
-	endif
+	" if !&buflisted
+	" 	exe "silent! b " . (a:where == 'up' ? buffers[-1]['index'] : buffers[0]['index'])
+	" 	return
+	" endif
 
 	let bufnr = bufnr('%')
 	let index = 0
@@ -81,11 +91,14 @@ endfunction
 
 " Closing
 function! myconf#ctrlspace#Close(mode)
+	if !&buflisted
+		" Most unlisted buffers are special and shouldn't have navigation
+		return
+	endif
+
 	let buffers = myconf#ctrlspace#BufferList(tabpagenr())
 
-	if &buflisted == 0
-		echo "⌗  Cannot close unlisted buffer this way."
-	elseif exists("g:CtrlSpaceLoaded") && len(buffers) > 1
+	if exists("g:CtrlSpaceLoaded") && len(buffers) > 1
 		if a:mode == 'write'
 			exe "w"
 		elseif a:mode == 'quit'

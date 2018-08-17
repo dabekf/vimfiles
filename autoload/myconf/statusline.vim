@@ -119,7 +119,9 @@ function! myconf#statusline#BuffersInit()
 	if exists('g:CtrlSpaceLoaded')
 		let result = []
 		let visible = 0
-		for item in myconf#ctrlspace#BufferList(tabpagenr())
+		let index = 0
+		let buffers = myconf#ctrlspace#BufferList(tabpagenr())
+		for item in buffers
 			let text = ""
 
 			if match(item.text, "NERD_tree") != -1
@@ -128,7 +130,7 @@ function! myconf#statusline#BuffersInit()
 
 			if item.visible
 				let text .= "%8*"
-				let visible = 1
+				let visible = index
 			endif
 
 			" let name = fnamemodify(item.text, ":p:h:t")[0] . '/' . fnamemodify(item.text, ":t")
@@ -162,13 +164,20 @@ function! myconf#statusline#BuffersInit()
 			endif
 
 			let result += [text]
+			let index += 1
 		endfor
 
-		if 1 || len(result) > 0 " && visible == 1
-			" return "%( %*%<" . join(result, " ") . "%)"
-			return " %*%<" . join(result, " ") . ""
+		if visible < len(buffers) / 2
+			let result[len(buffers) / 2] .= '%<'
 		else
-			" return "%( %8*%f%m%*%)"
+			let result[0] = '%<' . result[0]
+		endif
+
+		if len(result) > 0
+			" return " %*%<" . join(result, " ") . ""
+			return " %*" . join(result, " ") . ""
+		else
+			" return " %8*%f%m%*"
 			return " %8*%f%m%*"
 		endif
 	else
@@ -179,12 +188,12 @@ endf
 
 function! myconf#statusline#Buffers()
 	" return exists('b:bufferlist') ? b:bufferlist : " %f"
-	if !exists('b:myconf_statusline_buffers_changed') || b:myconf_statusline_buffers_changed == 1
-		let b:myconf_statusline_buffers_changed = 0
-		let b:myconf_statusline_buffers = myconf#statusline#BuffersInit()
+	if !exists('t:myconf_statusline_buffers_changed') || t:myconf_statusline_buffers_changed == 1
+		let t:myconf_statusline_buffers_changed = 0
+		let t:myconf_statusline_buffers = myconf#statusline#BuffersInit()
 	endif
 
-	return b:myconf_statusline_buffers
+	return t:myconf_statusline_buffers
 endf
 
 function! myconf#statusline#FileFormat()
