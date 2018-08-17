@@ -178,18 +178,6 @@ let g:NERDTreeQuitOnOpen = 1
 nnoremap <silent> <F4> :call <SID>ToggleNERDTree()<CR>
 nnoremap <silent> <S-F4> :NERDTreeClose<CR>
 
-" CtrlP + rg
-" if executable("rg")
-" 	let g:ctrlp_user_command = 'rg %s --files --color=never -g ""'
-" endif
-" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" let g:ctrlp_lazy_update = 1
-" let g:ctrlp_clear_cache_on_exit = 0
-" let g:ctrlp_open_new_file = 'r'
-" let g:ctrlp_open_multiple_files = 'rv'
-" nnoremap <silent> <C-b> :CtrlPBuffer<CR>
-" nnoremap <silent> <C-h> :CtrlPMRU<CR>
-
 " Rg
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading\ -e
@@ -223,6 +211,8 @@ let g:Lf_StlPalette = {
 let g:Lf_ShortcutF = '<C-p>'
 let g:Lf_ShortcutB = '<C-b>'
 nmap <silent> <C-h> :LeaderfMru<CR>
+nmap <silent> <C-f> :<C-U>LeaderfFunction<CR>
+nmap <silent> <Leader><C-p> :<C-U>Leaderf file --stayOpen<CR>
 
 " Clear search highlight
 nnoremap <A-h> :noh<CR>
