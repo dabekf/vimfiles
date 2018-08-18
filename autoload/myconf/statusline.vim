@@ -168,7 +168,7 @@ function! myconf#statusline#BuffersInit()
 		endfor
 
 		if visible < len(buffers) / 2
-			let result[len(buffers) / 2] .= '%<'
+			let result[len(buffers) / 2] .= ' %<'
 		else
 			let result[0] = '%<' . result[0]
 		endif
