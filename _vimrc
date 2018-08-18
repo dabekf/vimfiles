@@ -31,7 +31,6 @@ Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
 Plug 'filedil/vim-sftpsync'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
-Plug 'majutsushi/tagbar'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'okcompute/vim-python-match', { 'for': 'python' }
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
@@ -43,7 +42,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
-Plug 'vim-php/tagbar-phpctags.vim', { 'for': ['php', 'phtml'] }
+Plug 'vim-vdebug/vdebug'
 Plug 'w0rp/ale'
 call plug#end()
 
@@ -142,9 +141,9 @@ noremap <A-W> <C-c>:xa!<CR>
 noremap! <A-w> <C-c>:x!<CR>
 noremap! <A-W> <C-c>:xa!<CR>
 
-nnoremap <F2> :w<CR>
+nnoremap <F2> :update<CR>
 nnoremap <S-F2> :wa<CR>
-noremap! <F2> <C-o>:w<CR>
+noremap! <F2> <C-o>:update<CR>
 noremap! <S-F2> <C-o>:wa<CR>
 
 " nnoremap <A-g> :echo expand('%:p:gs?\\?/?')<CR>
@@ -212,6 +211,7 @@ let g:Lf_ShortcutF = '<C-p>'
 let g:Lf_ShortcutB = '<C-b>'
 nmap <silent> <C-h> :LeaderfMru<CR>
 nmap <silent> <C-f> :<C-U>LeaderfFunction<CR>
+nmap <silent> <C-g> :<C-U>LeaderfBufTag<CR>
 nmap <silent> <Leader><C-p> :<C-U>Leaderf file --stayOpen<CR>
 
 " Clear search highlight
@@ -282,9 +282,7 @@ exe 'inoremap <silent> <script> <C-V> <C-G>u' . paste#paste_cmd['i']
 exe 'vnoremap <silent> <script> <C-V> ' . paste#paste_cmd['v']
 
 " Paste mode
-nnoremap <silent> <F1> :set paste!<CR>
-noremap! <silent> <F1> <C-o>:set paste!<CR>
-set pastetoggle=<F1>
+set pastetoggle=<Leader>q
 
 " Paste with nopaste
 noremap! <MiddleMouse> <C-o>:set paste<CR><MiddleMouse><C-o>:set nopaste<CR>
@@ -346,13 +344,6 @@ set foldmethod=manual
 " inoremap <silent> <A-f> <C-O>za<C-O>[z<End>
 nnoremap <silent> <A-f> za
 inoremap <silent> <A-f> <C-O>za
-
-" Taglist
-if executable('ctags')
-	nnoremap <silent> <F5> :TagbarOpenAutoClose<CR>
-	nnoremap <silent> <S-F5> :TagbarToggle<CR>
-	let g:tagbar_autoclose = 0
-endif
 
 " Closetag
 let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.php,*.js,*.jsx'
@@ -458,8 +449,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \}
-nmap <silent> <F3> <Plug>(ale_lint)
-nmap <silent> <S-F3> <Plug>(ale_fix)
+nmap <silent> <Leader>a <Plug>(ale_lint)
+nmap <silent> <Leader>A <Plug>(ale_fix)
 nmap <silent> <A-n> 0<Plug>(ale_next_wrap)zv
 nmap <silent> <A-p> 0<Plug>(ale_previous_wrap)zv
 

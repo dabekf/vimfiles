@@ -48,5 +48,11 @@ hi ExtraWhitespace gui=undercurl guifg=#dc8c6c guisp=#bc6c4c
 hi Lf_hl_match guifg=#ffcfaf
 hi Lf_hl_matchRefine guifg=#efdcbc
 
+" Vdebug
+hi default DbgCurrentLine guifg=#ffffff guibg=#834048
+hi default DbgCurrentSign guifg=#ffffff guibg=#834048
+hi default DbgBreakptLine guifg=#ffffff guibg=#284F28
+hi default DbgBreakptSign guifg=#ffffff guibg=#284F28
+
 let g:colors_name="fixedzenburn"
 
