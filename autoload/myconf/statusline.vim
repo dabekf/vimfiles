@@ -167,13 +167,13 @@ function! myconf#statusline#BuffersInit()
 			let index += 1
 		endfor
 
-		if visible < len(buffers) / 2
-			let result[len(buffers) / 2] .= ' %<'
-		else
-			let result[0] = '%<' . result[0]
-		endif
-
 		if len(result) > 0
+			if visible < len(buffers) / 2
+				let result[len(buffers) / 2] .= '%<'
+			else
+				let result[0] = '%<' . result[0]
+			endif
+
 			" return " %*%<" . join(result, " ") . ""
 			return " %*" . join(result, " ") . ""
 		else
