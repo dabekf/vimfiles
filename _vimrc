@@ -109,7 +109,7 @@ set sessionoptions=blank,buffers,curdir,folds,tabpages,help
 " set shell=powershell\ -NoLogo\ -NonInteractive
 " set shellcmdflag=-Command
 set shellslash
-set shiftwidth=0
+set shiftwidth=4
 set showcmd " Show (partial) command in status line.
 set showmatch " Show matching brackets.
 set smartcase
@@ -498,7 +498,7 @@ augroup myconf
 	autocmd BufNewFile,BufRead *.php,*.phtml,*.js,*.jsx,*.json setlocal indentexpr= smartindent autoindent nocindent
 	autocmd BufNewFile,BufRead *.php setlocal nobomb
 	autocmd BufNewFile,BufRead *.html,*.phtml,*.js,*.jsx,*.json,*.css setlocal tabstop=2
-	autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=0 softtabstop=0 tabstop=4 foldlevel=1
+	autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=4 softtabstop=0 tabstop=4 foldlevel=1
 	autocmd FileType python setlocal nosmartindent
 
 	" Misc
