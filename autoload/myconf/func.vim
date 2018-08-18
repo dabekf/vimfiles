@@ -87,7 +87,6 @@ function! myconf#func#JumpToLastPosition()
 		if line("'\"") > 0 && line ("'\"") <= line("$")
 			normal g`"
 			silent! normal zv
-"			let v:errmsg = ""
 			normal zz
 		endif
 	endif

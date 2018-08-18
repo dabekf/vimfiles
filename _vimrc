@@ -31,6 +31,7 @@ Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
 Plug 'filedil/vim-sftpsync'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
+Plug 'kshenoy/vim-signature'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'okcompute/vim-python-match', { 'for': 'python' }
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
@@ -472,6 +473,7 @@ augroup myconf
 
 	" When editing a file, always jump to the last cursor position
 	autocmd BufWinEnter * call myconf#func#JumpToLastPosition()
+	autocmd BufReadPost * delm Z " To stop vim-signature from activating every time
 	autocmd BufReadPost * stopinsert
 
 	" When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
