@@ -100,11 +100,13 @@ nnoremap <silent> <C-F12> :call sftpsync#Upload(expand('%:p'), 'beta')<CR>
 
 nnoremap <silent> <M-F12> :call sftpsync#Cycle(['test', '', 'emisja'])<CR>
 
-augroup sftpsync
-	autocmd!
-	autocmd BufNewFile,BufRead ~/Projects/* call sftpsync#Init('test', 1)
-	autocmd BufNewFile,BufRead ~/Documents/Projects/redNet/* call sftpsync#Init('test', 1)
-	autocmd BufWritePost ~/Projects/* call sftpsync#Upload()
-	autocmd BufWritePost ~/Documents/Projects/redNet/* call sftpsync#Upload()
-augroup END
+if exists('g:sftpsync_loaded')
+	augroup sftpsync
+		autocmd!
+		autocmd BufNewFile,BufRead ~/Projects/* call sftpsync#Init('test', 1)
+		autocmd BufNewFile,BufRead ~/Documents/Projects/redNet/* call sftpsync#Init('test', 1)
+		autocmd BufWritePost ~/Projects/* call sftpsync#Upload()
+		autocmd BufWritePost ~/Documents/Projects/redNet/* call sftpsync#Upload()
+	augroup END
+endif
 
