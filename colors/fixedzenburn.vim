@@ -22,12 +22,9 @@ function! s:DisableFontStyles()
 endfunction
 call s:DisableFontStyles()
 
-" StatusLine
+" StatusLine uses User1 and User2
 
-" Paste
-hi User1 guifg=#ffffff guibg=#313633
-
-" User4 and User5 are free now
+" User3-5 are free now
 
 " Errors
 hi User6 guifg=#efef87 guibg=#313633

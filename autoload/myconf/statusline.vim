@@ -23,21 +23,21 @@ let s:myconf_statusline_currentmode={
 
 function! myconf#statusline#Mode()
 	if (mode() =~# '\v(n|no)')
-		hi User2 guifg=#000000 guibg=#ccdc90
-		hi User3 guifg=#ccdc90 guibg=#313633
+		hi User1 guifg=#000000 guibg=#ccdc90
+		hi User2 guifg=#ccdc90 guibg=#313633
 	elseif (mode() =~# '\v(v|V)' || s:myconf_statusline_currentmode[mode()] ==# 'V·Block' || get(s:myconf_statusline_currentmode, mode(), '') ==# 't')
-		hi User2 guifg=white guibg=firebrick3
-		hi User3 guifg=firebrick3 guibg=#313633
+		hi User1 guifg=white guibg=firebrick3
+		hi User2 guifg=firebrick3 guibg=#313633
 	elseif (mode() ==# 'i')
-		hi User2 guifg=yellow guibg=forestgreen
-		hi User3 guifg=forestgreen guibg=#313633
+		hi User1 guifg=yellow guibg=forestgreen
+		hi User2 guifg=forestgreen guibg=#313633
 	else
-		hi User2 guifg=yellow guibg=darkorchid
-		hi User3 guifg=darkorchid guibg=#313633
+		hi User1 guifg=yellow guibg=darkorchid
+		hi User2 guifg=darkorchid guibg=#313633
 	endif
 	redrawstatus
 	let paste = &paste == 1 ? '·PASTE' : ''
-	return "%2* " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %*%3*▶%*"
+	return "%1* " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %*%2*▶%*"
 endf
 
 function! myconf#statusline#AsyncRunClear(timer) abort
