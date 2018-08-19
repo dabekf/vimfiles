@@ -32,6 +32,7 @@ Plug 'filedil/vim-sftpsync'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
 Plug 'kshenoy/vim-signature'
+Plug 'ludovicchabant/vim-lawrencium'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'okcompute/vim-python-match', { 'for': 'python' }
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
@@ -413,7 +414,8 @@ imap <silent> <C-PageDown> <Esc>:tabnext<CR>
 
 " Asyncrun
 augroup QuickFixStatus
-    au! BufWinEnter quickfix
+   	autocmd!
+	au! BufWinEnter quickfix
 		\ setlocal statusline=%!myconf#statusline#QuickFixLine() |
 		\ setlocal nobl
 augroup END
@@ -423,6 +425,12 @@ function! AsyncRunExit()
 	endif
 endf
 let g:asyncrun_exit = 'call AsyncRunExit()'
+
+" Lawrencium (Hg)
+augroup Lawrencium
+	autocmd!
+	au! FileType hglog,hgstatus,hgannotate,hgcommit setlocal statusline=%!myconf#statusline#SimpleLine() |
+augroup END
 
 " Ale (linting)
 let g:ale_sign_error = '»»'

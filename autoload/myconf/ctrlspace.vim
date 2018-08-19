@@ -108,13 +108,13 @@ function! myconf#ctrlspace#Close(mode)
 
 		if bufnr == buffers[-1]['index']
 			silent exe 'buf ' . buffers[-2]['index']
-			silent exe 'bdelete ' . bufnr
+			silent! exe 'bdelete ' . bufnr
 		else
 			let index = 0
 			for buf in buffers
 				if buf['index'] == bufnr
 					silent exe 'buf ' . buffers[index + 1]['index']
-					silent exe 'bdelete ' . bufnr
+					silent! exe 'bdelete ' . bufnr
 					break
 				endif
 				let index += 1
