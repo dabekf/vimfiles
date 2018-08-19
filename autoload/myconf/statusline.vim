@@ -24,16 +24,16 @@ let s:myconf_statusline_currentmode={
 function! myconf#statusline#Mode()
 	if (mode() =~# '\v(n|no)')
 		hi User1 guifg=#000000 guibg=#ccdc90
-		hi User2 guifg=#ccdc90 guibg=#313633
+		hi User2 guifg=#313633 guibg=#ccdc90 gui=reverse
 	elseif (mode() =~# '\v(v|V)' || s:myconf_statusline_currentmode[mode()] ==# 'V·Block' || get(s:myconf_statusline_currentmode, mode(), '') ==# 't')
 		hi User1 guifg=white guibg=firebrick3
-		hi User2 guifg=firebrick3 guibg=#313633
+		hi User2 guifg=#313633 guibg=firebrick3 gui=reverse
 	elseif (mode() ==# 'i')
 		hi User1 guifg=yellow guibg=forestgreen
-		hi User2 guifg=forestgreen guibg=#313633
+		hi User2 guifg=#313633 guibg=forestgreen gui=reverse
 	else
 		hi User1 guifg=yellow guibg=darkorchid
-		hi User2 guifg=darkorchid guibg=#313633
+		hi User2 guifg=#313633 guibg=darkorchid gui=reverse
 	endif
 	redrawstatus
 	let paste = &paste == 1 ? '·PASTE' : ''
@@ -241,7 +241,7 @@ function! myconf#statusline#RightSide()
 	return sl
 endfunction
 
-function! myconf#statusline#DefaultLine()
+function! myconf#statusline#SimpleLine()
 	let sl = myconf#statusline#Mode()
 	let sl .= s:myconf_statusline_default_buffer_item
 	let sl .= " %= "
@@ -259,7 +259,7 @@ function! myconf#statusline#QuickFixLine()
 	return sl
 endfunction
 
-function! myconf#statusline#StatusLine()
+function! myconf#statusline#DefaultLine()
 	let buffers = myconf#statusline#Buffers()
 	if buffers != s:myconf_statusline_default_buffer_item
 		let sl = myconf#statusline#Mode()
@@ -293,12 +293,12 @@ endf
 function! myconf#statusline#Init()
 	" Fallback
 	let s:myconf_statusline_max_screen_width = winwidth(0)
-	let s:myconf_statusline_default_buffer_item = " %8*\*%f%m%*"
+	let s:myconf_statusline_default_buffer_item = " %8*\*%t%m%*"
 
 	if exists('g:CtrlSpaceLoaded')
-		set statusline=%!myconf#statusline#StatusLine()
-	else
 		set statusline=%!myconf#statusline#DefaultLine()
+	else
+		set statusline=%!myconf#statusline#SimpleLine()
 	endif
 endfunction
 
