@@ -426,12 +426,6 @@ function! AsyncRunExit()
 endf
 let g:asyncrun_exit = 'call AsyncRunExit()'
 
-" Lawrencium (Hg)
-augroup Lawrencium
-	autocmd!
-	au! FileType hglog,hgstatus,hgannotate,hgcommit setlocal statusline=%!myconf#statusline#SimpleLine() |
-augroup END
-
 " Ale (linting)
 let g:ale_sign_error = '»»'
 let g:ale_sign_style_error = "S»"

@@ -108,10 +108,3 @@ function! myconf#func#StartProfiling()
 	profile file *
 endfunction
 
-function! myconf#func#BufferIsSpecial()
-	let filetypes = ['qf', 'hglog', 'hgstatus', 'hgannotate', 'hgcommit']
-	if index(filetypes, &ft) != -1
-		return 1
-	endif
-	return 0
-endfunction

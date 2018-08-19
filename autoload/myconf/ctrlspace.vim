@@ -41,9 +41,17 @@ function! myconf#ctrlspace#CompareByPath(a, b)
 	endif
 endfunction
 
+function! myconf#ctrlspace#FiletypeIsSpecial()
+	let filetypes = ['hgcommit']
+	if index(filetypes, &ft) != -1
+		return 1
+	endif
+	return 0
+endfunction
+
 " Moving
 function! myconf#ctrlspace#Buffer(n)
-	if !&buflisted
+	if !&buflisted || &bt == 'nofile' || myconf#ctrlspace#FiletypeIsSpecial()
 		" Most unlisted buffers are special and shouldn't have navigation
 		return
 	endif
@@ -57,7 +65,7 @@ function! myconf#ctrlspace#Buffer(n)
 endf
 
 function! myconf#ctrlspace#Go(where)
-	if !&buflisted
+	if !&buflisted || &bt == 'nofile' || myconf#ctrlspace#FiletypeIsSpecial()
 		" Most unlisted buffers are special and shouldn't have navigation
 		return
 	endif
@@ -91,8 +99,15 @@ endfunction
 
 " Closing
 function! myconf#ctrlspace#Close(mode)
-	if !&buflisted
+	if !&buflisted || &bt == 'nofile' || myconf#ctrlspace#FiletypeIsSpecial()
 		" Most unlisted buffers are special and shouldn't have navigation
+		if winnr('$') > 1
+			if a:mode == 'write'
+				exe "wq!"
+			else
+				exe "q!"
+			endif
+		endif
 		return
 	endif
 

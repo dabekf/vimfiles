@@ -35,7 +35,7 @@ function! myconf#statusline#Mode()
 		hi User1 guifg=yellow guibg=darkorchid
 		hi User2 guifg=#313633 guibg=darkorchid gui=reverse
 	endif
-	redrawstatus
+	redrawstatus!
 	let paste = &paste == 1 ? '·PASTE' : ''
 	return "%1* " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %*%2*▶%*"
 endf
