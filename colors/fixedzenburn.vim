@@ -27,11 +27,7 @@ call s:DisableFontStyles()
 " Paste
 hi User1 guifg=#ffffff guibg=#313633
 
-" Modes
-hi User2 guifg=#000000 guibg=#ccdc90
-hi User3 guifg=white guibg=firebrick3
-hi User4 guifg=yellow guibg=forestgreen
-hi User5 guifg=yellow guibg=darkorchid
+" User4 and User5 are free now
 
 " Errors
 hi User6 guifg=#efef87 guibg=#313633

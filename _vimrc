@@ -412,9 +412,9 @@ imap <silent> <C-PageUp> <Esc>:tabprev<CR>
 imap <silent> <C-PageDown> <Esc>:tabnext<CR>
 
 " Asyncrun
-augroup QuickfixStatus
+augroup QuickFixStatus
     au! BufWinEnter quickfix
-		\ setlocal statusline=%t\ [%{g:asyncrun_status}]\ %{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%-15(%l,%c%V%)\ %P |
+		\ setlocal statusline=%!myconf#statusline#QuickFixLine() |
 		\ setlocal nobl
 augroup END
 function! AsyncRunExit()

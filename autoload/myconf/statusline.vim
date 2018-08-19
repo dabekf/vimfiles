@@ -1,22 +1,43 @@
+" Gui
+let s:myconf_statusline_currentmode={
+	\ 'n'  : 'N',
+	\ 'no' : 'N·Operator Pending',
+	\ 'v'  : 'V',
+	\ 'V'  : 'V·Line',
+	\ '' : 'V·Block',
+	\ 's'  : 'Select',
+	\ 'S'  : 'S·Line',
+	\ '' : 'S·Block',
+	\ 'i'  : 'I',
+	\ 'R'  : 'R',
+	\ 'Rv' : 'V·Replace',
+	\ 'c'  : 'Command',
+	\ 'cv' : 'Vim Ex',
+	\ 'ce' : 'Ex',
+	\ 'r'  : 'Prompt',
+	\ 'rm' : 'More',
+	\ 'r?' : 'Confirm',
+	\ '!'  : 'Shell',
+	\ 't'  : 'Terminal'
+	\}
+
 function! myconf#statusline#Mode()
 	if (mode() =~# '\v(n|no)')
-		let hi_0=2
-	elseif (mode() =~# '\v(v|V)' || g:myconf_statusline_currentmode[mode()] ==# 'V·Block' || get(g:myconf_statusline_currentmode, mode(), '') ==# 't')
-		let hi_0=3
+		hi User2 guifg=#000000 guibg=#ccdc90
+		hi User3 guifg=#ccdc90 guibg=#313633
+	elseif (mode() =~# '\v(v|V)' || s:myconf_statusline_currentmode[mode()] ==# 'V·Block' || get(s:myconf_statusline_currentmode, mode(), '') ==# 't')
+		hi User2 guifg=white guibg=firebrick3
+		hi User3 guifg=firebrick3 guibg=#313633
 	elseif (mode() ==# 'i')
-		let hi_0=4
+		hi User2 guifg=yellow guibg=forestgreen
+		hi User3 guifg=forestgreen guibg=#313633
 	else
-		let hi_0=5
+		hi User2 guifg=yellow guibg=darkorchid
+		hi User3 guifg=darkorchid guibg=#313633
 	endif
-	return "%" . hi_0 . "* " . toupper(g:myconf_statusline_currentmode[mode()]) . " %*"
-endf
-
-function! myconf#statusline#Paste()
-	if &paste == 1
-		return " %1*PASTE%*"
-	else
-		return ""
-	endif
+	redrawstatus
+	let paste = &paste == 1 ? '·PASTE' : ''
+	return "%2* " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %*%3*▶%*"
 endf
 
 function! myconf#statusline#AsyncRunClear(timer) abort
@@ -45,7 +66,7 @@ function! myconf#statusline#AsyncRun() abort
 	return "%( " . hi_1 . "[ar:%{g:asyncrun_status}]%)" . hi_2
 endf
 
-function! myconf#statusline#Rsync() abort
+function! myconf#statusline#SftpSync() abort
 	if exists("b:sftpsync_target") && b:sftpsync_target != "" && exists("b:sftpsync_status")
 		let lines = []
 
@@ -118,7 +139,7 @@ endf
 function! myconf#statusline#BuffersInit()
 	if exists('g:CtrlSpaceLoaded')
 		let result = []
-		let visible = 0
+		let visible = -1
 		let index = 0
 		let buffers = myconf#ctrlspace#BufferList(tabpagenr())
 		for item in buffers
@@ -167,22 +188,19 @@ function! myconf#statusline#BuffersInit()
 			let index += 1
 		endfor
 
-		if len(result) > 0
+		if visible != -1 && len(result) > 0
 			if visible < len(buffers) / 2
 				let result[len(buffers) / 2] .= '%<'
 			else
 				let result[0] = '%<' . result[0]
 			endif
 
-			" return " %*%<" . join(result, " ") . ""
 			return " %*" . join(result, " ") . ""
 		else
-			" return " %8*%f%m%*"
-			return " %8*%f%m%*"
+			return s:myconf_statusline_default_buffer_item
 		endif
 	else
-		" return "%( %f%)"
-		return " %f"
+		return s:myconf_statusline_default_buffer_item
 	endif
 endf
 
@@ -204,40 +222,83 @@ function! myconf#statusline#FileFormat()
 	endif
 endf
 
-function! myconf#statusline#getDefaultLine()
-	return "%<%F\ %h%m%r%w%y\ %{&ff}\ %=\ %{(&paste==0)?'':'P'}\ char:%b\(0x%B\)\ col:%c%V\ lin:%l\,%L\ pos:%o\ %P"
+function! myconf#statusline#QuickFixTitle()
+	return exists('w:quickfix_title') ? ' ' . w:quickfix_title : ''
 endfunction
 
-function! myconf#statusline#getStatusLine()
-	let sl = myconf#statusline#Mode()
-	let sl .= myconf#statusline#Paste()
-	let sl .= myconf#statusline#Buffers()
-	let sl .= " %= "
-	" let sl .= "%( %{tagbar#currenttag('<%s>', '', 'f')}%)"
-	if exists('g:loaded_ale')
-		let sl .= myconf#statusline#LinterStatus()
+function! myconf#statusline#RightSide()
+	if winwidth(0) < s:myconf_statusline_max_screen_width
+		return ' %P'
 	endif
-	let sl .= myconf#statusline#Gitbranch()
-	let sl .= myconf#statusline#Hgbranch()
-	" let sl .= myconf#statusline#HowLong()
-	let sl .= myconf#statusline#AsyncRun()
-	let sl .= myconf#statusline#Rsync()
-	let sl .= "%( %h%m%r%w%y%)"
+
+	let sl = "%( %m%r%w%y%)"
 	let sl .= myconf#statusline#FileFormat()
 	let sl .= " ch:%b\(0x%B\)"
-	let sl .= " col:%c%V"
-	let sl .= " lin:%l\/%L"
+	let sl .= " ‖:%c%V"
+	let sl .= " =:%l\/%L"
 	let sl .= " %P"
+
+	return sl
+endfunction
+
+function! myconf#statusline#DefaultLine()
+	let sl = myconf#statusline#Mode()
+	let sl .= s:myconf_statusline_default_buffer_item
+	let sl .= " %= "
+	let sl .= myconf#statusline#RightSide()
+
+	return sl
+endfunction
+
+function! myconf#statusline#QuickFixLine()
+	let sl = '%<%F'
+	let sl .= myconf#statusline#QuickFixTitle()
+	let sl .= " %= "
+	let sl .= myconf#statusline#RightSide()
+
+	return sl
+endfunction
+
+function! myconf#statusline#StatusLine()
+	let buffers = myconf#statusline#Buffers()
+	if buffers != s:myconf_statusline_default_buffer_item
+		let sl = myconf#statusline#Mode()
+		if winwidth(0) == s:myconf_statusline_max_screen_width
+			let sl .= buffers
+		else
+			let sl .= s:myconf_statusline_default_buffer_item
+		endif
+
+		let sl .= " %= "
+		if exists('g:loaded_ale')
+			let sl .= myconf#statusline#LinterStatus()
+		endif
+		let sl .= myconf#statusline#Gitbranch()
+		let sl .= myconf#statusline#Hgbranch()
+		let sl .= myconf#statusline#AsyncRun()
+		if exists('g:sftpsync_loaded')
+			let sl .= myconf#statusline#SftpSync()
+		endif
+	else
+		let sl = myconf#statusline#Mode()
+		let sl .= buffers
+		let sl .= " %= "
+	endif
+
+	let sl .= myconf#statusline#RightSide()
 
 	return sl
 endf
 
 function! myconf#statusline#Init()
 	" Fallback
+	let s:myconf_statusline_max_screen_width = winwidth(0)
+	let s:myconf_statusline_default_buffer_item = " %8*\*%f%m%*"
+
 	if exists('g:CtrlSpaceLoaded')
-		set statusline=%!myconf#statusline#getStatusLine()
+		set statusline=%!myconf#statusline#StatusLine()
 	else
-		set statusline=%!myconf#statusline#getDefaultLine()
+		set statusline=%!myconf#statusline#DefaultLine()
 	endif
 endfunction
 
