@@ -51,7 +51,7 @@ endfunction
 
 " Moving
 function! myconf#ctrlspace#Buffer(n)
-	if !&buflisted || &bt == 'nofile' || myconf#ctrlspace#FiletypeIsSpecial()
+	if !&buflisted || &bt == 'nofile' || &previewwindow || myconf#ctrlspace#FiletypeIsSpecial()
 		" Most unlisted buffers are special and shouldn't have navigation
 		return
 	endif
@@ -65,7 +65,7 @@ function! myconf#ctrlspace#Buffer(n)
 endf
 
 function! myconf#ctrlspace#Go(where)
-	if !&buflisted || &bt == 'nofile' || myconf#ctrlspace#FiletypeIsSpecial()
+	if !&buflisted || &bt == 'nofile' || &previewwindow || myconf#ctrlspace#FiletypeIsSpecial()
 		" Most unlisted buffers are special and shouldn't have navigation
 		return
 	endif
@@ -99,7 +99,7 @@ endfunction
 
 " Closing
 function! myconf#ctrlspace#Close(mode)
-	if !&buflisted || &bt == 'nofile' || myconf#ctrlspace#FiletypeIsSpecial()
+	if !&buflisted || &bt == 'nofile' || &previewwindow || myconf#ctrlspace#FiletypeIsSpecial()
 		" Most unlisted buffers are special and shouldn't have navigation
 		if winnr('$') > 1
 			if a:mode == 'write'
