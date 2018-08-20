@@ -22,14 +22,13 @@ function! s:DisableFontStyles()
 endfunction
 call s:DisableFontStyles()
 
-" StatusLine uses User1 and User2
+" User1-3 are free now
 
-" User3-5 are free now
+" StatusLine uses User4 and User5
 
 " Errors
 hi User6 guifg=#efef87 guibg=#313633
 hi User7 guifg=#e37170 guibg=#313633
-" hi User7 guifg=#cc9393 guibg=#313633
 
 " Buffers
 hi User8 guifg=#ffffff guibg=#313633 gui=underline
