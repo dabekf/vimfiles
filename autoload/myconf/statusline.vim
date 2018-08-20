@@ -23,21 +23,18 @@ let s:myconf_statusline_currentmode={
 
 function! myconf#statusline#Mode()
 	if (mode() =~# '\v(n|no)')
-		hi User4 guifg=#000000 guibg=#ccdc90
-		hi User5 guifg=#313633 guibg=#ccdc90 gui=reverse
+		let hiName = 'MyconfStlModeNormal'
 	elseif (mode() =~# '\v(v|V)' || s:myconf_statusline_currentmode[mode()] ==# 'V·Block' || get(s:myconf_statusline_currentmode, mode(), '') ==# 't')
-		hi User4 guifg=white guibg=firebrick3
-		hi User5 guifg=#313633 guibg=firebrick3 gui=reverse
+		let hiName = 'MyconfStlModeVisual'
 	elseif (mode() ==# 'i')
-		hi User4 guifg=yellow guibg=forestgreen
-		hi User5 guifg=#313633 guibg=forestgreen gui=reverse
+		let hiName = 'MyconfStlModeInsert'
+	elseif (mode() ==# 'R')
+		let hiName = 'MyconfStlModeReplace'
 	else
-		hi User4 guifg=yellow guibg=darkorchid
-		hi User5 guifg=#313633 guibg=darkorchid gui=reverse
+		let hiName = 'MyconfStlModeDefault'
 	endif
-	redrawstatus!
 	let paste = &paste == 1 ? '·PASTE' : ''
-	return "%4* " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %*%5*▶%*"
+	return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %#" . hiName. "Rev#▶%*"
 endf
 
 function! myconf#statusline#AsyncRunClear(timer) abort
@@ -50,10 +47,10 @@ function! myconf#statusline#AsyncRun() abort
 	endif
 
 	if g:asyncrun_status == "running"
-		let hi_1 = "%6*"
+		let hi_1 = "%#MyconfStlRunning#"
 		let hi_2 = "%*"
 	elseif g:asyncrun_status == "failure"
-		let hi_1 = "%7*"
+		let hi_1 = "%#MyconfStlError#"
 		let hi_2 = "%*"
 	elseif g:asyncrun_status == "success"
 		let hi_1 = ""
@@ -71,7 +68,7 @@ function! myconf#statusline#SftpSync() abort
 		let lines = []
 
 		if b:sftpsync_status == 'error'
-			let lines += ["%7*"]
+			let lines += ["%#MyconfStlError#"]
 		endif
 
 		let lines += [" [⇒:", b:sftpsync_target]
@@ -115,7 +112,7 @@ function! myconf#statusline#LinterStatus() abort
 	let l:all_errors = l:counts.error + l:counts.style_error
 	let l:all_non_errors = l:counts.total - l:all_errors
 
-	return l:counts.total == 0 ? ' [✓]' : ' %7*[' . printf(
+	return l:counts.total == 0 ? ' [✓]' : ' %#MyconfStlError#[' . printf(
 	\   '×:%d ◬:%d',
 	\   all_errors,
 	\   all_non_errors
@@ -150,7 +147,7 @@ function! myconf#statusline#BuffersInit()
 			endif
 
 			if item.visible
-				let text .= "%8*"
+				let text .= "%#MyconfStlActiveBuffer#"
 				let visible = index
 			endif
 
@@ -293,7 +290,7 @@ endf
 function! myconf#statusline#Init()
 	" Fallback
 	let s:myconf_statusline_max_screen_width = winwidth(0)
-	let s:myconf_statusline_default_buffer_item = " %8*\*%t%m%*"
+	let s:myconf_statusline_default_buffer_item = " %#MyconfStlActiveBuffer#\*%t%m%*"
 
 	if exists('g:CtrlSpaceLoaded')
 		set statusline=%!myconf#statusline#DefaultLine()
