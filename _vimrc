@@ -32,7 +32,6 @@ Plug 'filedil/vim-sftpsync'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
 Plug 'kshenoy/vim-signature'
-Plug 'ludovicchabant/vim-lawrencium'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'okcompute/vim-python-match', { 'for': 'python' }
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
