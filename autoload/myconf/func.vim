@@ -108,3 +108,14 @@ function! myconf#func#StartProfiling()
 	profile file *
 endfunction
 
+function! myconf#func#Retab() range
+	let pat = '\v( {' . &ts . '})+'
+	let repl = '\=repeat("\t", strlen(submatch(0)) / &ts)'
+	execute (a:firstline + 1) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
+endfunction
+
+function! myconf#func#Untab() range
+	let pat = '\v(\t)+'
+	let repl = '\=repeat(" ", strlen(submatch(0)) * &ts)'
+	execute (a:firstline + 1) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
+endfunction

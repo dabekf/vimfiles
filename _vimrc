@@ -364,20 +364,9 @@ xnoremap > >gv
 smap < <C-o><
 smap > <C-o>>
 
-" Fixing indentation
-nnoremap <silent> <Leader>t :%s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-nnoremap <silent> <Leader><A-t> :%s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
-vnoremap <silent> <Leader>t :s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-vnoremap <silent> <Leader><A-t> :s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
-
-nnoremap <silent> <Leader>y :%s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
-vnoremap <silent> <Leader>y :s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
-
-nnoremap <silent> <Leader>T :%s@^\s\+$@@g<CR>:noh<CR>
-vnoremap <silent> <Leader>T :s@^\s\+$@@g<CR>:noh<CR>
-
-nnoremap <A-l> :set list!<CR>
-inoremap <A-l> <C-O>:set list!<CR>
+" Show nontext characters
+nnoremap <A-l> :setlocal list!<CR>
+inoremap <A-l> <C-O>:setlocal list!<CR>
 
 " Fixing broken endings
 nnoremap <Leader>m :%s:\%x0d::g<CR>
