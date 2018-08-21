@@ -7,6 +7,7 @@ endif
 " MyZenburn
 hi WarningMsg guifg=#efef87
 hi Cursor guifg=#000d18 guibg=#efefef
+hi NonText guifg=#5b605e
 
 function! s:DisableFontStyles()
 	let his = ''
@@ -22,17 +23,20 @@ function! s:DisableFontStyles()
 endfunction
 call s:DisableFontStyles()
 
-" StatusLine uses User1 and User2
-
-" User3-5 are free now
-
-" Errors
-hi User6 guifg=#efef87 guibg=#313633
-hi User7 guifg=#e37170 guibg=#313633
-" hi User7 guifg=#cc9393 guibg=#313633
-
-" Buffers
-hi User8 guifg=#ffffff guibg=#313633 gui=underline
+" StatusLine
+hi MyconfStlModeNormalStr guifg=#000000 guibg=#ccdc90
+hi MyconfStlModeNormalRev guifg=#313633 guibg=#ccdc90 gui=reverse
+hi MyconfStlModeVisualStr guifg=white guibg=firebrick3
+hi MyconfStlModeVisualRev guifg=#313633 guibg=firebrick3 gui=reverse
+hi MyconfStlModeInsertStr guifg=yellow guibg=forestgreen
+hi MyconfStlModeInsertRev guifg=#313633 guibg=forestgreen gui=reverse
+hi MyconfStlModeReplaceStr guifg=yellow guibg=#22698C
+hi MyconfStlModeReplaceRev guifg=#313633 guibg=#22698C gui=reverse
+hi MyconfStlModeDefaultStr guifg=yellow guibg=darkorchid
+hi MyconfStlModeDefaultRev guifg=#313633 guibg=darkorchid gui=reverse
+hi MyconfStlActiveBuffer guifg=#ffffff guibg=#313633 gui=underline
+hi MyconfStlRunning guifg=#efef87 guibg=#313633
+hi MyconfStlError guifg=#e37170 guibg=#313633
 
 " BetterWhitespace
 hi ExtraWhitespace gui=undercurl guifg=#dc8c6c guisp=#bc6c4c

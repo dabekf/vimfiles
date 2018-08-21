@@ -114,7 +114,7 @@ set showcmd " Show (partial) command in status line.
 set showmatch " Show matching brackets.
 set smartcase
 set smartindent
-set softtabstop=0
+set softtabstop=4
 set spelllang=en_gb,pl
 set tabstop=4
 set textwidth=0
@@ -146,6 +146,10 @@ nnoremap <F2> :update<CR>
 nnoremap <S-F2> :wa<CR>
 noremap! <F2> <C-o>:update<CR>
 noremap! <S-F2> <C-o>:wa<CR>
+
+" Block help
+nnoremap <silent> <F1> :<CR>
+noremap! <silent> <F1> <C-o>:<CR>
 
 " nnoremap <A-g> :echo expand('%:p:gs?\\?/?')<CR>
 " nnoremap <A-G> :echo fnamemodify(getcwd(), ':gs?\\?/?')<CR>
@@ -180,8 +184,8 @@ nnoremap <silent> <S-F4> :NERDTreeClose<CR>
 
 " Rg
 if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading\ -e
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
+	set grepprg=rg\ --vimgrep\ --no-heading\ -e
+	set grepformat=%f:%l:%c:%m,%f:%l:%m
 	command! -nargs=* Rg :silent grep! <args> | cope
 endif
 
@@ -360,20 +364,9 @@ xnoremap > >gv
 smap < <C-o><
 smap > <C-o>>
 
-" Fixing indentation
-nnoremap <silent> <Leader>t :%s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-nnoremap <silent> <Leader><A-t> :%s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
-vnoremap <silent> <Leader>t :s@^\(    \)\+@\=repeat('	', strlen(submatch(0))/4)@g<CR>:noh<CR>
-vnoremap <silent> <Leader><A-t> :s@^\(  \)\+@\=repeat('	', strlen(submatch(0))/2)@g<CR>:noh<CR>
-
-nnoremap <silent> <Leader>y :%s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
-vnoremap <silent> <Leader>y :s@^\(	\)\+@\=repeat(' ', strlen(submatch(0))*&ts)@g<CR>:noh<CR>
-
-nnoremap <silent> <Leader>T :%s@^\s\+$@@g<CR>:noh<CR>
-vnoremap <silent> <Leader>T :s@^\s\+$@@g<CR>:noh<CR>
-
-nnoremap <A-l> :set list!<CR>
-inoremap <A-l> <C-O>:set list!<CR>
+" Show nontext characters
+nnoremap <A-l> :setlocal list!<CR>
+inoremap <A-l> <C-O>:setlocal list!<CR>
 
 " Fixing broken endings
 nnoremap <Leader>m :%s:\%x0d::g<CR>
@@ -413,7 +406,7 @@ imap <silent> <C-PageDown> <Esc>:tabnext<CR>
 
 " Asyncrun
 augroup QuickFixStatus
-   	autocmd!
+	autocmd!
 	au! BufWinEnter quickfix
 		\ setlocal statusline=%!myconf#statusline#QuickFixLine() |
 		\ setlocal nobl
@@ -444,12 +437,12 @@ let g:ale_python_flake8_executable = 'python'
 let g:ale_python_flake8_options = '-m flake8 --select F,E999'
 highlight ALEErrorSign guifg=#cc9393 guibg=#181818
 let g:ale_linters = {
-\	'python': ['flake8'],
-\	'php': ['php'],
+\ 'python': ['flake8'],
+\ 'php': ['php'],
 \}
 " let g:ale_linters['php'] = ['php', 'phpcs', 'phpmd']
 let g:ale_fixers = {
-\   'javascript': ['eslint'],
+\ 'javascript': ['eslint'],
 \}
 nmap <silent> <Leader>a <Plug>(ale_lint)
 nmap <silent> <Leader>A <Plug>(ale_fix)
