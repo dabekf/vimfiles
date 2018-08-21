@@ -1,6 +1,6 @@
 let g:smartBackspacePattern = join(['\V\s\@<=\.', '\_^\@<=\.', '\[\^;[=,({<>''`"./_$@!:#]\@<=\.', '\(->\)\@<=\.', '-\@<=\[^>]', '\(::\)\@<=\.', '\u\@<!\u'], '\|')
 function! SmartBackspace()
-	return search(g:smartBackspacePattern, 'b')
+    return search(g:smartBackspacePattern, 'b')
 endf
 
 " M-<BS> is delete what I want

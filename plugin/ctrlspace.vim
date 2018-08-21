@@ -2,8 +2,8 @@ map <silent> <C-Enter> <C-c>:CtrlSpace /<CR>
 map! <silent> <C-Enter> <C-c>:CtrlSpace /<CR>
 
 for index in [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-	execute "map <silent> <A-".index."> :call myconf#ctrlspace#Buffer(".index.")<CR>"
-	execute "imap <silent> <A-".index."> <Esc>:call myconf#ctrlspace#Buffer(".index.")<CR>"
+    execute "map <silent> <A-".index."> :call myconf#ctrlspace#Buffer(".index.")<CR>"
+    execute "imap <silent> <A-".index."> <Esc>:call myconf#ctrlspace#Buffer(".index.")<CR>"
 endfor
 
 nmap <silent> <A-Left> :call myconf#ctrlspace#Go('up')<CR>
@@ -20,7 +20,7 @@ map <A-E> :call myconf#ctrlspace#ReloadAll()<CR>
 map <A-e> :e!<CR>
 
 augroup myconf_ctrlspace
-	autocmd!
-	" Help as normal buffers
-	autocmd BufRead * if &buftype == 'help' | setlocal bl | endif
+    autocmd!
+    " Help as normal buffers
+    autocmd BufRead * if &buftype == 'help' | setlocal bl | endif
 augroup END

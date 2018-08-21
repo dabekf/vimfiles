@@ -1,7 +1,7 @@
 runtime colors/zenburn.vim
 
 if !exists('g:colors_name') || g:colors_name != 'zenburn'
-	runtime colors/darkblue.vim
+    runtime colors/darkblue.vim
 endif
 
 " MyZenburn
@@ -10,16 +10,16 @@ hi Cursor guifg=#000d18 guibg=#efefef
 hi NonText guifg=#5b605e
 
 function! s:DisableFontStyles()
-	let his = ''
-	redir => his
-	silent hi
-	redir END
-	let his = substitute(his, '\n\s\+', ' ', 'g')
-	for line in split(his, "\n")
-		if line !~ ' links to ' && line !~ ' cleared$'
-			exe 'hi' substitute(substitute(line, ' xxx ', ' ', ''), '\(italic\|bold\)', 'none', 'g')
-		endif
-	endfor
+    let his = ''
+    redir => his
+    silent hi
+    redir END
+    let his = substitute(his, '\n\s\+', ' ', 'g')
+    for line in split(his, "\n")
+        if line !~ ' links to ' && line !~ ' cleared$'
+            exe 'hi' substitute(substitute(line, ' xxx ', ' ', ''), '\(italic\|bold\)', 'none', 'g')
+        endif
+    endfor
 endfunction
 call s:DisableFontStyles()
 

@@ -1,16 +1,16 @@
 " Underscore and camelcase
 function! UnderscoreToCamelCase(s)
-	let result = substitute(a:s, '\C\S\@<=_\([a-z]\)', '\u\1', 'ge')
-	if (exists("b:underscore_to_camel_case_first_upper") && b:underscore_to_camel_case_first_upper == 1)
-		return substitute(result, '\([a-z]\)', '\u\1', 'e')
-	else
-		return result
-	endif
+    let result = substitute(a:s, '\C\S\@<=_\([a-z]\)', '\u\1', 'ge')
+    if (exists("b:underscore_to_camel_case_first_upper") && b:underscore_to_camel_case_first_upper == 1)
+        return substitute(result, '\([a-z]\)', '\u\1', 'e')
+    else
+        return result
+    endif
 endf
 
 function! CamelCaseToUnderscore(s)
-	let result = substitute(a:s, '\C\<\@!\([A-Z]\)', '\_\l\1', 'ge')
-	return substitute(result, '\([A-Z]\)', '\l\1', 'e')
+    let result = substitute(a:s, '\C\<\@!\([A-Z]\)', '\_\l\1', 'ge')
+    return substitute(result, '\([A-Z]\)', '\l\1', 'e')
 endf
 
 xnoremap <silent> <A-+> mZ"-d:let @- = UnderscoreToCamelCase(@-)<CR>"-Pg`Z

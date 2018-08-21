@@ -6,10 +6,10 @@ let $myconf = fnamemodify($myvimrc, ':h')
 let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
 let g:CtrlSpaceSearchTiming = 250
 if executable("rg")
-	let g:CtrlSpaceGlobCommand = 'rg "" -l --color=never'
+    let g:CtrlSpaceGlobCommand = 'rg "" -l --color=never'
 endif
 if has("gui_running")
-	let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
+    let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
 endif
 
 " call myconf#func#StartProfiling()
@@ -33,7 +33,8 @@ Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
 Plug 'kshenoy/vim-signature'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
-Plug 'okcompute/vim-python-match', { 'for': 'python' }
+Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
+Plug 'hattya/python-indent.vim', { 'for': 'python' }
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx'] }
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
@@ -53,9 +54,9 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
 if hostname() == 'PAPAYA'
-	au GUIEnter * simalt ~x
+    au GUIEnter * simalt ~x
 else
-	au GUIEnter * simalt ~s
+    au GUIEnter * simalt ~s
 endif
 
 set nocompatible
@@ -79,6 +80,7 @@ set clipboard=unnamed
 set completeopt=longest,menu
 set directory=.,$TEMP
 set encoding=utf-8
+set expandtab
 set fileformat=unix
 set fileformats=unix,dos
 set formatoptions=qn12
@@ -98,7 +100,6 @@ set listchars=eol:¬,precedes:«,extends:»,tab:▸·,trail:›,nbsp:_
 set mouse=a
 set nobackup " Don't keep a backup file
 set nocindent
-set noexpandtab
 set nomodeline
 set noshowmode
 set noundofile
@@ -158,22 +159,22 @@ nnoremap <A-G> :echo fnamemodify(getcwd(), ':g')<CR>
 
 " For Midnight Commander
 if has("unix")
-	nnoremap <A-o> <C-o>
-	inoremap <A-o> <C-o>
-	vnoremap <A-o> <C-o>
+    nnoremap <A-o> <C-o>
+    inoremap <A-o> <C-o>
+    vnoremap <A-o> <C-o>
 endif
 
 " File Explorer
 function! s:ToggleNERDTree()
-	let bufname = bufname("%")
+    let bufname = bufname("%")
 
-	if bufname == ""
-		exe "NERDTree"
-	elseif &ft == 'nerdtree'
-		exe "NERDTreeToggle"
-	else
-		exe "NERDTreeFind"
-	endif
+    if bufname == ""
+        exe "NERDTree"
+    elseif &ft == 'nerdtree'
+        exe "NERDTreeToggle"
+    else
+        exe "NERDTreeFind"
+    endif
 endf
 let g:NERDTreeWinSize = 42
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -184,9 +185,9 @@ nnoremap <silent> <S-F4> :NERDTreeClose<CR>
 
 " Rg
 if executable("rg")
-	set grepprg=rg\ --vimgrep\ --no-heading\ -e
-	set grepformat=%f:%l:%c:%m,%f:%l:%m
-	command! -nargs=* Rg :silent grep! <args> | cope
+    set grepprg=rg\ --vimgrep\ --no-heading\ -e
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+    command! -nargs=* Rg :silent grep! <args> | cope
 endif
 
 " LeaderF
@@ -224,8 +225,8 @@ nnoremap <A-h> :noh<CR>
 
 " Identify highlight group
 nnoremap <A-H> :redraw \| echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Redraw screen
 nmap <silent> <C-l> :redraw<CR>:redraws<CR>
@@ -264,10 +265,10 @@ nnoremap <Leader>n /\(\p\\|$\\|\s\)\@!.<CR>
 
 " Undo
 if has("unix")
-	nnoremap <C-Z> u
-	inoremap <C-Z> <C-o>u
-	nnoremap <C-Y> <C-R>
-	inoremap <C-Y> <C-o><C-R>
+    nnoremap <C-Z> u
+    inoremap <C-Z> <C-o>u
+    nnoremap <C-Y> <C-R>
+    inoremap <C-Y> <C-o><C-R>
 endif
 nnoremap <A-u> u
 noremap! <A-u> <C-o>u
@@ -301,33 +302,33 @@ inoremap <silent> <A-t> <C-r>=localtime()<CR>
 
 " Syntax toggle
 function! s:ToggleSyntax()
-	if exists("g:syntax_on")
-		syntax off
-	else
-		syntax enable
-	endif
+    if exists("g:syntax_on")
+        syntax off
+    else
+        syntax enable
+    endif
 endf
 nnoremap <S-F1> :call <SID>ToggleSyntax()<CR>
 noremap! <S-F1> <C-o>::call <SID>ToggleSyntax()<CR>
 
 " Win32 like
 if has("unix")
-	nnoremap <C-V> P
-	inoremap <C-V> <C-o>P
-	vnoremap <C-C> y
-	vnoremap <C-X> d
+    nnoremap <C-V> P
+    inoremap <C-V> <C-o>P
+    vnoremap <C-C> y
+    vnoremap <C-X> d
 endif
 
 " Better selection controls
 if has("win32")
-	snoremap <C-c> <C-o>"+y
-	snoremap <C-x> <C-o>"+d
-	snoremap <Up> <C-c><Up>
-	snoremap <Down> <C-c><Down>
-	snoremap <Left> <C-c><Left>
-	snoremap <Right> <C-c><Right>
-	snoremap <PageUp> <C-c><PageUp>
-	snoremap <PageDown> <C-c><PageDown>
+    snoremap <C-c> <C-o>"+y
+    snoremap <C-x> <C-o>"+d
+    snoremap <Up> <C-c><Up>
+    snoremap <Down> <C-c><Down>
+    snoremap <Left> <C-c><Left>
+    snoremap <Right> <C-c><Right>
+    snoremap <PageUp> <C-c><PageUp>
+    snoremap <PageDown> <C-c><PageDown>
 endif
 
 " Toggle matching parens
@@ -373,10 +374,10 @@ nnoremap <Leader>m :%s:\%x0d::g<CR>
 
 " Mercurial
 if executable('hg')
-	nnoremap ,' :AsyncRun! hg commit -A<CR>
-	nnoremap ,[ :AsyncRun! hg pull --rebase<CR>
-	nnoremap ,] :AsyncRun! hg push<CR>
-	nnoremap ,; :AsyncRun! hg version<CR>:botright copen 8<CR>
+    nnoremap ,' :AsyncRun! hg commit -A<CR>
+    nnoremap ,[ :AsyncRun! hg pull --rebase<CR>
+    nnoremap ,] :AsyncRun! hg push<CR>
+    nnoremap ,; :AsyncRun! hg version<CR>:botright copen 8<CR>
 endif
 
 " Buffers
@@ -384,14 +385,14 @@ nnoremap <Space> zz
 
 " Help
 function! s:Help(topic)
-	try
-		exe "help" a:topic
-		if &buftype == 'help'
-			exe "silent! normal \<C-w>o"
-		endif
-	catch
-		echoerr v:exception
-	endtry
+    try
+        exe "help" a:topic
+        if &buftype == 'help'
+            exe "silent! normal \<C-w>o"
+        endif
+    catch
+        echoerr v:exception
+    endtry
 endf
 command! -nargs=1 -complete=help H :call <SID>Help("<args>")
 command! -bar Helptags :call pathogen#helptags()
@@ -406,15 +407,15 @@ imap <silent> <C-PageDown> <Esc>:tabnext<CR>
 
 " Asyncrun
 augroup QuickFixStatus
-	autocmd!
-	au! BufWinEnter quickfix
-		\ setlocal statusline=%!myconf#statusline#QuickFixLine() |
-		\ setlocal nobl
+    autocmd!
+    au! BufWinEnter quickfix
+        \ setlocal statusline=%!myconf#statusline#QuickFixLine() |
+        \ setlocal nobl
 augroup END
 function! AsyncRunExit()
-	if g:asyncrun_status == 'failure'
-		botright copen 10
-	endif
+    if g:asyncrun_status == 'failure'
+        botright copen 10
+    endif
 endf
 let g:asyncrun_exit = 'call AsyncRunExit()'
 
@@ -460,77 +461,73 @@ nmap <silent> <Leader>w :ToggleStripWhitespaceOnSave<CR>:echo 'Changed b:strip_w
 let g:localvimrc_ask = 0
 
 " Autocommand
+autocmd! vimStartup
 augroup myconf
-	autocmd!
-	" Mail has width 75
-	autocmd FileType mail set tw=75
+    autocmd!
+    " Mail has width 75
+    autocmd FileType mail set tw=75
 
-	" When editing a file, always jump to the last cursor position
-	autocmd BufWinEnter * call myconf#func#JumpToLastPosition()
-	autocmd BufReadPost * delm Z " To stop vim-signature from activating every time
-	autocmd BufReadPost * stopinsert
+    " When editing a file, always jump to the last cursor position
+    autocmd BufWinEnter * call myconf#func#JumpToLastPosition()
+    autocmd BufReadPost * stopinsert
 
-	" When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
-	autocmd FileType crontab setlocal backupcopy=yes
+    " When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
+    autocmd FileType crontab setlocal backupcopy=yes
 
-	" phtml templates
-	autocmd BufNewFile,BufRead *.phtml setlocal filetype=phtml
-	autocmd BufNewFile,BufRead *.css.phtml setlocal filetype=css
-	autocmd BufNewFile,BufRead .htaccess.* setlocal filetype=apache
+    " phtml templates
+    autocmd BufNewFile,BufRead *.phtml setlocal filetype=phtml
+    autocmd BufNewFile,BufRead *.css.phtml setlocal filetype=css
+    autocmd BufNewFile,BufRead .htaccess.* setlocal filetype=apache
 
-	" csv wrapping
-	autocmd BufNewFile,BufRead *.csv setlocal nowrap
+    " csv no-wrapping
+    autocmd BufNewFile,BufRead *.csv setlocal nowrap
 
-	" Indenting
-	autocmd BufNewFile,BufRead *.php,*.phtml,*.js,*.jsx,*.json setlocal indentexpr= smartindent autoindent nocindent
-	autocmd BufNewFile,BufRead *.php setlocal nobomb
-	autocmd BufNewFile,BufRead *.html,*.phtml,*.js,*.jsx,*.json,*.css setlocal tabstop=2
-	autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=4 softtabstop=0 tabstop=4 foldlevel=1
-	autocmd FileType python setlocal nosmartindent
+    " Language specific
+    " autocmd BufNewFile,BufRead *.php,*.phtml,*.js,*.jsx,*.json setlocal indentexpr= smartindent autoindent nocindent
+    autocmd BufNewFile,BufRead *.php setlocal nobomb
+    " autocmd BufNewFile,BufRead *.html,*.phtml,*.js,*.jsx,*.json,*.css setlocal tabstop=2
+    " autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=4 softtabstop=0 tabstop=4 foldlevel=1
+    " autocmd FileType python setlocal nosmartindent
 
-	" Misc
-	autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
-	autocmd CursorHold,CursorHoldI * silent! checktime
+    " Misc
+    autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
+    autocmd CursorHold,CursorHoldI * silent! checktime
 
-	function! s:FixHtmlItalics()
-		hi htmlItalic gui=undercurl
-		hi htmlBoldItalic gui=bold,undercurl
-		hi htmlBoldUnderlineItalic gui=bold,underline,undercurl
-		hi htmlUnderlineItalic gui=underline,undercurl
-	endf
+    function! s:FixHtmlItalics()
+        hi htmlItalic gui=undercurl
+        hi htmlBoldItalic gui=bold,undercurl
+        hi htmlBoldUnderlineItalic gui=bold,underline,undercurl
+        hi htmlUnderlineItalic gui=underline,undercurl
+    endf
 
-	" Fix italics
-	if has("gui")
-		autocmd BufNewFile,BufRead *.htm,*.html,*.phtml call <SID>FixHtmlItalics()
-	endif
+    " Fix italics
+    if has("gui")
+        autocmd BufNewFile,BufRead *.htm,*.html,*.phtml call <SID>FixHtmlItalics()
+    endif
 
-	function! s:InitLexima()
-		if exists('g:loaded_lexima')
-			call lexima#set_default_rules()
-			call lexima#insmode#map_hook('before', '<CR>', '')
+    function! s:InitLexima()
+        if exists('g:loaded_lexima')
+            call lexima#set_default_rules()
+            call lexima#insmode#map_hook('before', '<CR>', '')
 
-			" call lexima#add_rule({'char': '(', 'at': '\%#\S'})
-			" call lexima#add_rule({'char': '[', 'at': '\%#\S'})
-			" call lexima#add_rule({'char': '{', 'at': '\%#\S'})
-			" call lexima#add_rule({'char': "'", 'at': '\%#\w'})
-			" call lexima#add_rule({'char': "'", 'at': '\%#''', 'input': '<Right>', 'priority': 1})
-			" call lexima#add_rule({'char': '"', 'at': '\%#\w'})
-			call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
-			" call lexima#add_rule({'char': '"', 'at': '\%#"', 'input': '<Right>', 'priority': 1})
+            call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
 
-			inoremap <M-'> '
-			inoremap <M-"> "
-		endif
-	endfunction
-	autocmd VimEnter * call <SID>InitLexima()
+            inoremap <M-'> '
+            inoremap <M-"> "
+            inoremap <M-(> (
+            inoremap <M-[> [
+            inoremap <M-{> {
+        endif
+    endfunction
+    autocmd VimEnter * call <SID>InitLexima()
 
-	" Better Whitespace
-	function! s:EnableStripWhiteSpace()
-		if exists("g:loaded_better_whitespace_plugin") && index(g:better_whitespace_filetypes_blacklist, &ft) < 0
-			exec 'EnableStripWhitespaceOnSave'
-		endif
-	endfunction
-	autocmd BufNewFile,BufRead * call <SID>EnableStripWhiteSpace()
+    " Better Whitespace
+    function! s:EnableStripWhiteSpace()
+        if exists("g:loaded_better_whitespace_plugin") && index(g:better_whitespace_filetypes_blacklist, &ft) < 0
+            exec 'EnableStripWhitespaceOnSave'
+        endif
+    endfunction
+    autocmd BufNewFile,BufRead * call <SID>EnableStripWhiteSpace()
 augroup END
 
 filetype plugin on

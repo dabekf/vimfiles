@@ -5,11 +5,11 @@ call myconf#func#Markers('function \?[a-zA-Z0-9_ ]*(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\
 " call myconf#func#Markers2(function('ft#php#Fold'), 0)
 
 if match(expand('%:p'), '\v\\nt-.{-}\\') != -1
-	map <buffer> <Leader>p :call ft#php#Phpcbf()<CR>
+    map <buffer> <Leader>p :call ft#php#Phpcbf()<CR>
 else
-	" map <Leader>p :call ft#php#Phpcbf()<CR>
-	map <buffer> <Leader>p :call ft#php#FixParens()<CR>
-	map <buffer> <Leader>P :call ft#php#FixParensPsr2()<CR>
+    " map <Leader>p :call ft#php#Phpcbf()<CR>
+    map <buffer> <Leader>p :call ft#php#FixParens()<CR>
+    map <buffer> <Leader>P :call ft#php#FixParensPsr2()<CR>
 endif
 
 let tlist_php_settings = 'php;f:function'
