@@ -115,7 +115,7 @@ set showcmd " Show (partial) command in status line.
 set showmatch " Show matching brackets.
 set smartcase
 set smartindent
-set softtabstop=4
+set softtabstop=-1
 set spelllang=en_gb,pl
 set tabstop=4
 set textwidth=0
