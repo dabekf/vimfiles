@@ -13,18 +13,19 @@ endf
 
 " Folding marker generator
 function! myconf#func#Markers(pattern)
-    mark Z
+    mark z
     call cursor(1, 1)
 
     while search(a:pattern, "We") > 0
         exe 'normal zfa}'
     endwhile
-    exe "silent normal g'Z"
+    exe "silent normal g'z"
+    delm z
 endf
 
 " Different approach, probably slower than Markers
 function! myconf#func#Markers2(function, foldlevel)
-    mark Z
+    mark z
     call cursor(1, 1)
 
     let lastline = line('$')
@@ -40,8 +41,9 @@ function! myconf#func#Markers2(function, foldlevel)
             break
         endif
     endwhile
-    exe 'silent normal g`Z'
+    exe 'silent normal g`z'
     exe 'setlocal foldlevel=' . a:foldlevel
+    delm z
 endfunction
 
 " Times the number of times a particular command takes to execute the specified number of times (in seconds).
