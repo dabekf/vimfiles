@@ -364,6 +364,8 @@ xnoremap < <gv
 xnoremap > >gv
 smap < <C-o><
 smap > <C-o>>
+nnoremap <Leader>t :%call myconf#func#Untab()<CR>
+nnoremap <Leader>T :%call myconf#func#Retab()<CR>
 
 " Show nontext characters
 nnoremap <A-l> :setlocal list!<CR>
