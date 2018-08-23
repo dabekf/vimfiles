@@ -114,12 +114,12 @@ endfunction
 function! myconf#func#Retab() range abort
     let pat = '\v( {' . &ts . '})+'
     let repl = '\=repeat("\t", strlen(submatch(0)) / &ts)'
-    silent! execute (a:firstline + 1) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
+    silent! execute (a:firstline) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
 endfunction
 
 function! myconf#func#Untab() range abort
     let pat = '\v(\t)+'
     let repl = '\=repeat(" ", strlen(submatch(0)) * &ts)'
-    silent! execute (a:firstline + 1) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
+    silent! execute (a:firstline) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
 endfunction
 
