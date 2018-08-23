@@ -1,8 +1,8 @@
 if exists("b:did_myftplugin") | finish | endif
 let b:did_myftplugin = 1
 
-call myconf#func#Markers('function \?[a-zA-Z0-9_ ]*(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{')
-" call myconf#func#Markers2(function('ft#php#Fold'), 0)
+call myconf#fold#Markers('function \?[a-zA-Z0-9_ ]*(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{')
+" call myconf#fold#Markers2(function('ft#php#Fold'), 0)
 
 if match(expand('%:p'), '\v\\nt-.{-}\\') != -1
     map <buffer> <Leader>p :call ft#php#Phpcbf()<CR>

@@ -1,4 +1,4 @@
-" call myconf#func#Markers('[:=] function \?([a-zA-Z0-9,_\$ ]*)\s*\n\s*{')
+" call myconf#fold#Markers('[:=] function \?([a-zA-Z0-9,_\$ ]*)\s*\n\s*{')
 " setlocal foldexpr=ft#javascript#Fold(v:lnum)
 " setlocal foldmethod=expr
 

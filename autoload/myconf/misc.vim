@@ -1,5 +1,5 @@
 " Matching parentheses
-function! myconf#func#ToggleMatchParen()
+function! myconf#misc#ToggleMatchParen()
     if !exists("b:matchup_matchparen_enabled") || b:matchup_matchparen_enabled == 1
         let b:matchup_matchparen_enabled = 0
         let b:matchup_matchparen_fallback = 0
@@ -11,43 +11,8 @@ function! myconf#func#ToggleMatchParen()
     endif
 endf
 
-" Folding marker generator
-function! myconf#func#Markers(pattern)
-    mark z
-    call cursor(1, 1)
-
-    while search(a:pattern, "We") > 0
-        exe 'normal zfa}'
-    endwhile
-    exe "silent normal g'z"
-    delm z
-endf
-
-" Different approach, probably slower than Markers
-function! myconf#func#Markers2(function, foldlevel)
-    mark z
-    call cursor(1, 1)
-
-    let lastline = line('$')
-    while 1
-        let linenr = line('.')
-        let foldexpr = a:function(linenr)
-        if foldexpr == '>1'
-            " echo 'fold found on line ' . linenr
-            exe 'silent normal zfa}zo]z'
-        endif
-        call cursor(line('.') + 1, 1)
-        if line('.') >= lastline
-            break
-        endif
-    endwhile
-    exe 'silent normal g`z'
-    exe 'setlocal foldlevel=' . a:foldlevel
-    delm z
-endfunction
-
 " Times the number of times a particular command takes to execute the specified number of times (in seconds).
-function! myconf#func#HowLong(command, numberOfTimes)
+function! myconf#misc#HowLong(command, numberOfTimes)
     " We don't want to be prompted by a message if the command being tried is
     " an echo as that would slow things down while waiting for user input.
     let more = &more
@@ -61,11 +26,11 @@ function! myconf#func#HowLong(command, numberOfTimes)
     return result
 endfunction
 
-function! myconf#func#HowLongVar(command, numberOfTimes)
+function! myconf#misc#HowLongVar(command, numberOfTimes)
     let b:howLong = HowLong(a:command, a:numberOfTimes)
 endfunction
 
-function! myconf#func#HowLongRange(command, numberOfTimes) range
+function! myconf#misc#HowLongRange(command, numberOfTimes) range
     " We don't want to be prompted by a message if the command being tried is
     " an echo as that would slow things down while waiting for user input.
     let more = &more
@@ -79,12 +44,12 @@ function! myconf#func#HowLongRange(command, numberOfTimes) range
     return result
 endfunction
 
-function! myconf#func#HowLongVarRange(command, numberOfTimes) range
+function! myconf#misc#HowLongVarRange(command, numberOfTimes) range
     let b:howLong = HowLongRange(a:command, a:numberOfTimes)
 endfunction
 
 " When editing a file, always jump to the last cursor position
-function! myconf#func#JumpToLastPosition()
+function! myconf#misc#JumpToLastPosition()
     if !exists("b:leave_my_cursor_position_alone")
         if line("'\"") > 0 && line ("'\"") <= line("$")
             normal g`"
@@ -95,7 +60,7 @@ function! myconf#func#JumpToLastPosition()
     endif
 endf
 
-function! myconf#func#ToggleClipboard()
+function! myconf#misc#ToggleClipboard()
     if !exists("b:clipboard")
         let b:clipboard = &cb
         set cb=exclude:.*
@@ -105,27 +70,15 @@ function! myconf#func#ToggleClipboard()
     endif
 endf
 
-function! myconf#func#StartProfiling()
+function! myconf#misc#StartProfiling()
     profile start $myconf/profile.log
     profile func *
     profile file *
 endfunction
 
-function! myconf#func#Retab() range abort
-    let pat = '\v( {' . &ts . '})+'
-    let repl = '\=repeat("\t", strlen(submatch(0)) / &ts)'
-    silent! execute (a:firstline) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
-endfunction
-
-function! myconf#func#Untab() range abort
-    let pat = '\v(\t)+'
-    let repl = '\=repeat(" ", strlen(submatch(0)) * &ts)'
-    silent! execute (a:firstline) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
-endfunction
-
 " Executes normal "NXXX" or regular "RXXX" commands,
 " then restores the cursor position
-function! myconf#func#RunInPlace(cmds)
+function! myconf#misc#RunInPlace(cmds)
     let pos = getpos('.')
     for cmd in a:cmds
         if cmd[0] == 'N'

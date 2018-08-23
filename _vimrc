@@ -12,7 +12,7 @@ if has("gui_running")
     let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
 endif
 
-" call myconf#func#StartProfiling()
+" call myconf#misc#StartProfiling()
 
 " execute pathogen#infect()
 call plug#begin($myconf . '/plugged')
@@ -333,8 +333,8 @@ if has("win32")
 endif
 
 " Toggle matching parens
-nnoremap <A-m> :call myconf#func#ToggleMatchParen()<CR>
-noremap! <A-m> <C-o>:call myconf#func#ToggleMatchParen()<CR>
+nnoremap <A-m> :call myconf#misc#ToggleMatchParen()<CR>
+noremap! <A-m> <C-o>:call myconf#misc#ToggleMatchParen()<CR>
 let g:matchup_matchparen_deferred = 1
 let g:matchup_matchparen_status_offscreen = 0
 
@@ -365,8 +365,8 @@ xnoremap < <gv
 xnoremap > >gv
 smap < <C-o><
 smap > <C-o>>
-nnoremap <Leader>t :%call myconf#func#Untab()<CR>
-nnoremap <Leader>T :%call myconf#func#Retab()<CR>
+nnoremap <Leader>t :%call myconf#format#Untab()<CR>
+nnoremap <Leader>T :%call myconf#format#Retab()<CR>
 
 " Show nontext characters
 nnoremap <A-l> :setlocal list!<CR>
@@ -471,7 +471,7 @@ augroup myconf
     autocmd FileType mail set tw=75
 
     " When editing a file, always jump to the last cursor position
-    autocmd BufWinEnter * call myconf#func#JumpToLastPosition()
+    autocmd BufWinEnter * call myconf#misc#JumpToLastPosition()
     autocmd BufReadPost * stopinsert
 
     " When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
