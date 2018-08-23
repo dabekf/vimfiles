@@ -261,6 +261,10 @@ nnoremap <C-Del> "_dd
 inoremap <C-Del> <C-o>"_dd
 vnoremap <C-Del> "_d
 
+" M-<BS> is delete what I want
+inoremap <silent> <A-BS> <C-o>"_d:call myconf#edit#SmartBackspace()<CR>
+cnoremap <silent> <A-BS> <C-w>
+
 " <Leader>n is find nonprintable characters
 nnoremap <Leader>n /\(\p\\|$\\|\s\)\@!.<CR>
 
@@ -365,8 +369,8 @@ xnoremap < <gv
 xnoremap > >gv
 smap < <C-o><
 smap > <C-o>>
-nnoremap <Leader>t :%call myconf#format#Untab()<CR>
-nnoremap <Leader>T :%call myconf#format#Retab()<CR>
+nnoremap <Leader>t :%call myconf#edit#Untab()<CR>
+nnoremap <Leader>T :%call myconf#edit#Retab()<CR>
 
 " Show nontext characters
 nnoremap <A-l> :setlocal list!<CR>
