@@ -488,25 +488,11 @@ augroup myconf
     " Language specific
     " autocmd BufNewFile,BufRead *.php,*.phtml,*.js,*.jsx,*.json setlocal indentexpr= smartindent autoindent nocindent
     autocmd BufNewFile,BufRead *.php setlocal nobomb
-    " autocmd BufNewFile,BufRead *.html,*.phtml,*.js,*.jsx,*.json,*.css setlocal tabstop=2
-    " autocmd BufNewFile,BufRead *.py setlocal noexpandtab shiftwidth=4 softtabstop=0 tabstop=4 foldlevel=1
-    " autocmd FileType python setlocal nosmartindent
+    autocmd BufNewFile,BufRead *.py setlocal foldlevel=1
 
     " Misc
     autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
     autocmd CursorHold,CursorHoldI * silent! checktime
-
-    function! s:FixHtmlItalics()
-        hi htmlItalic gui=undercurl
-        hi htmlBoldItalic gui=bold,undercurl
-        hi htmlBoldUnderlineItalic gui=bold,underline,undercurl
-        hi htmlUnderlineItalic gui=underline,undercurl
-    endf
-
-    " Fix italics
-    if has("gui")
-        autocmd BufNewFile,BufRead *.htm,*.html,*.phtml call <SID>FixHtmlItalics()
-    endif
 
     function! s:InitLexima()
         if exists('g:loaded_lexima')

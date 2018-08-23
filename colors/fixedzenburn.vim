@@ -24,6 +24,12 @@ function! s:DisableFontStyles()
 endfunction
 call s:DisableFontStyles()
 
+" More styles
+hi htmlItalic gui=undercurl
+hi htmlBoldItalic gui=bold,undercurl
+hi htmlBoldUnderlineItalic gui=bold,underline,undercurl
+hi htmlUnderlineItalic gui=underline,undercurl
+
 " StatusLine
 hi MyconfStlModeNormalStr guifg=#000000 guibg=#ccdc90
 hi MyconfStlModeNormalRev guifg=#313633 guibg=#ccdc90 gui=reverse
