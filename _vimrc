@@ -83,6 +83,7 @@ set encoding=utf-8
 set expandtab
 set fileformat=unix
 set fileformats=unix,dos
+set fillchars=vert:│,fold:─
 set formatoptions=qn12
 " set guifont=Consolas:h12
 set guifont=Fixed_9x15:h11
@@ -96,7 +97,7 @@ set indentexpr=
 set keymodel=startsel
 set langmenu=en
 set laststatus=2
-set listchars=eol:¬,precedes:«,extends:»,tab:▸·,trail:›,nbsp:_
+set listchars=eol:¬,precedes:«,extends:»,tab:⇒\ ,trail:›,nbsp:_
 set mouse=a
 set nobackup " Don't keep a backup file
 set nocindent

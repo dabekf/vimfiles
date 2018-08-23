@@ -60,7 +60,7 @@ function! myconf#statusline#AsyncRun() abort
         let hi_1 = ""
         let hi_2 = ""
     endif
-    return "%( " . hi_1 . "[ar:%{g:asyncrun_status}]%)" . hi_2
+    return "%( " . hi_1 . "ar:%{g:asyncrun_status}%)" . hi_2
 endf
 
 function! myconf#statusline#SftpSync() abort
@@ -71,7 +71,7 @@ function! myconf#statusline#SftpSync() abort
             let lines += ["%#MyconfStlError#"]
         endif
 
-        let lines += [" [⇒:", b:sftpsync_target]
+        let lines += [" ⇒:", b:sftpsync_target]
 
         if b:sftpsync_status == 'running'
             let lines += [":⎋"]
@@ -80,8 +80,6 @@ function! myconf#statusline#SftpSync() abort
         elseif b:sftpsync_status == 'done'
             let lines += [":✓"]
         endif
-
-        let lines += ["]"]
 
         if b:sftpsync_status == 'error'
             let lines += ["%*"]
@@ -100,7 +98,7 @@ function! myconf#statusline#HowLong() abort
         else
             let time = printf('%.2f', b:howLong) . "s"
         endif
-        return " [⎋:" . time . "]"
+        return " ⎋:" . time . ""
     else
         return ""
     endif
@@ -112,25 +110,25 @@ function! myconf#statusline#LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? ' [✓]' : ' %#MyconfStlError#[' . printf(
-    \   '×:%d ◬:%d',
+    return l:counts.total == 0 ? ' ⌘:✓' : ' %#MyconfStlError#⌘:' . printf(
+    \   '%de,%dw',
     \   all_errors,
     \   all_non_errors
-    \) . ']%*'
+    \) . '%*'
 endfunction
 
 function! myconf#statusline#Gitbranch() abort
     if !exists('b:myconf_statusline_gitbranch') || b:myconf_statusline_gitbranch == 'master'
         return ''
     endif
-    return b:myconf_statusline_gitbranch != '' ? ' %([⅄:' . b:myconf_statusline_gitbranch . ']%)' : ''
+    return b:myconf_statusline_gitbranch != '' ? ' %(⅄:' . b:myconf_statusline_gitbranch . '%)' : ''
 endf
 
 function! myconf#statusline#Hgbranch() abort
     if !exists('b:myconf_statusline_hgbranch') || b:myconf_statusline_hgbranch == 'default'
         return ''
     endif
-    return b:myconf_statusline_hgbranch != '' ? ' %([⅄:' . b:myconf_statusline_hgbranch . ']%)' : ''
+    return b:myconf_statusline_hgbranch != '' ? ' %(⅄:' . b:myconf_statusline_hgbranch . '%)' : ''
 endf
 
 function! myconf#statusline#BuffersInit()
@@ -215,9 +213,17 @@ function! myconf#statusline#FileFormat()
     if &ff == "unix"
         return ''
     else
-        return ' [%{&ff}]'
+        return ' %{&ff}'
     endif
 endf
+
+function! myconf#statusline#ExpandTab()
+    if &et
+        return ' ↹:✓'
+    else
+        return ' ↹:×'
+    endif
+endfunction
 
 function! myconf#statusline#QuickFixTitle()
     return exists('w:quickfix_title') ? ' ' . w:quickfix_title : ''
@@ -228,7 +234,9 @@ function! myconf#statusline#RightSide()
         return ' %P'
     endif
 
-    let sl = "%( %m%r%w%y%)"
+    let sl = ""
+    let sl .= myconf#statusline#ExpandTab()
+    let sl .= "%( %M%R%W%{','.&ft}%)"
     let sl .= myconf#statusline#FileFormat()
     let sl .= " ch:%b\(0x%B\)"
     let sl .= " ‖:%c%V"
