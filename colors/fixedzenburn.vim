@@ -8,6 +8,7 @@ endif
 hi WarningMsg guifg=#efef87
 hi Cursor guifg=#000d18 guibg=#efefef
 hi NonText guifg=#5b605e
+hi Folded guibg=#1c1c1c
 
 function! s:DisableFontStyles()
     let his = ''
