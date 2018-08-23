@@ -60,7 +60,7 @@ function! myconf#statusline#AsyncRun() abort
         let hi_1 = ""
         let hi_2 = ""
     endif
-    return "%( " . hi_1 . "[ar:%{g:asyncrun_status}]%)" . hi_2
+    return "%( " . hi_1 . "ar:%{g:asyncrun_status}%)" . hi_2
 endf
 
 function! myconf#statusline#SftpSync() abort
@@ -110,8 +110,8 @@ function! myconf#statusline#LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? ' ⌘:✓' : ' ⌘:%#MyconfStlError#' . printf(
-    \   '×:%d,◬:%d',
+    return l:counts.total == 0 ? ' ⌘:✓' : ' %#MyconfStlError#⌘:' . printf(
+    \   '%de,%dw',
     \   all_errors,
     \   all_non_errors
     \) . '%*'
