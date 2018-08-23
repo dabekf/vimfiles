@@ -123,3 +123,19 @@ function! myconf#func#Untab() range abort
     silent! execute (a:firstline) . "," . a:lastline . 's:' . pat . ':' . repl . ':g'
 endfunction
 
+" Executes normal "NXXX" or regular "RXXX" commands,
+" then restores the cursor position
+function! myconf#func#RunInPlace(cmds)
+    let pos = getpos('.')
+    for cmd in a:cmds
+        if cmd[0] == 'N'
+            exe 'normal ' . cmd[1:]
+        elseif cmd[0] == 'R'
+            exe cmd[1:]
+        else
+            throw "Wrong mode"
+        endif
+    endfor
+    call setpos('.', pos)
+endfunction
+

@@ -13,17 +13,17 @@ function! CamelCaseToUnderscore(s)
     return substitute(result, '\([A-Z]\)', '\l\1', 'e')
 endf
 
-xnoremap <silent> <A-+> mZ"-d:let @- = UnderscoreToCamelCase(@-)<CR>"-Pg`Z
-xnoremap <silent> <A-_> mZ"-d:let @- = CamelCaseToUnderscore(@-)<CR>"-Pg`Z
-nnoremap <silent> <A-+> mZviw"-d:let @- = UnderscoreToCamelCase(@-)<CR>"-Pg`Z
-nnoremap <silent> <A-_> mZviw"-d:let @- = CamelCaseToUnderscore(@-)<CR>"-Pg`Z
-inoremap <silent> <A-+> <C-o>mZ<C-o>viw"-d<C-o>:let @- = UnderscoreToCamelCase(@-)<CR><C-o>"-P<C-o>g`Z
-inoremap <silent> <A-_> <C-o>mZ<C-o>viw"-d<C-o>:let @- = CamelCaseToUnderscore(@-)<CR><C-o>"-P<C-o>g`Z
+xnoremap <silent> <A-+> "-d:let @- = UnderscoreToCamelCase(@-)<CR>"-P
+xnoremap <silent> <A-_> "-d:let @- = CamelCaseToUnderscore(@-)<CR>"-P
+nnoremap <silent> <A-+> :call myconf#func#RunInPlace(['Nviw"-d', 'Rlet @- = UnderscoreToCamelCase(@-)', 'N"-P'])<CR>
+nnoremap <silent> <A-_> :call myconf#func#RunInPlace(['Nviw"-d', 'Rlet @- = CamelCaseToUnderscore(@-)', 'N"-P'])<CR>
+inoremap <silent> <A-+> <C-o>:call myconf#func#RunInPlace(['Nviw"-d', 'Rlet @- = UnderscoreToCamelCase(@-)', 'N"-P'])<CR>
+inoremap <silent> <A-_> <C-o>:call myconf#func#RunInPlace(['Nviw"-d', 'Rlet @- = CamelCaseToUnderscore(@-)', 'N"-P'])<CR>
 
-xnoremap <silent> <A-=> mZgUg`Z
-xnoremap <silent> <A--> mZgug`Z
-nnoremap <silent> <A-=> mZviwgUg`Z
-nnoremap <silent> <A--> mZviwgug`Z
-inoremap <silent> <A-=> <C-o>mZ<C-o>viwgU<C-o>g`Z
-inoremap <silent> <A--> <C-o>mZ<C-o>viwgu<C-o>g`Z
+xnoremap <silent> <A-=> gU
+xnoremap <silent> <A--> gu
+nnoremap <silent> <A-=> :call myconf#func#RunInPlace(['NviwgU'])<CR>
+nnoremap <silent> <A--> :call myconf#func#RunInPlace(['Nviwgu'])<CR>
+inoremap <silent> <A-=> <C-o>:call myconf#func#RunInPlace(['NviwgU'])<CR>
+inoremap <silent> <A--> <C-o>:call myconf#func#RunInPlace(['Nviwgu'])<CR>
 
