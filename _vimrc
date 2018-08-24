@@ -83,7 +83,7 @@ set encoding=utf-8
 set expandtab
 set fileformat=unix
 set fileformats=unix,dos
-set fillchars=vert:│,fold:─
+" set fillchars=vert:│,fold:─
 set formatoptions=qn12
 " set guifont=Consolas:h12
 set guifont=Fixed_9x15:h11
@@ -471,28 +471,10 @@ let g:localvimrc_ask = 0
 autocmd! vimStartup
 augroup myconf
     autocmd!
-    " Mail has width 75
-    autocmd FileType mail set tw=75
 
     " When editing a file, always jump to the last cursor position
     autocmd BufWinEnter * call myconf#misc#JumpToLastPosition()
     autocmd BufReadPost * stopinsert
-
-    " When editing a crontab file, set backupcopy to yes rather than auto. See :help crontab and bug 53437.
-    autocmd FileType crontab setlocal backupcopy=yes
-
-    " phtml templates
-    autocmd BufNewFile,BufRead *.phtml setlocal filetype=phtml
-    autocmd BufNewFile,BufRead *.css.phtml setlocal filetype=css
-    autocmd BufNewFile,BufRead .htaccess.* setlocal filetype=apache
-
-    " csv no-wrapping
-    autocmd BufNewFile,BufRead *.csv setlocal nowrap
-
-    " Language specific
-    " autocmd BufNewFile,BufRead *.php,*.phtml,*.js,*.jsx,*.json setlocal indentexpr= smartindent autoindent nocindent
-    autocmd BufNewFile,BufRead *.php setlocal nobomb
-    autocmd BufNewFile,BufRead *.py setlocal foldlevel=1
 
     " Misc
     autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
