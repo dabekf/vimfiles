@@ -18,6 +18,10 @@ endif
 call plug#begin($myconf . '/plugged')
 Plug 'SirVer/ultisnips'
 Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
+Plug 'SunsetCat/vim-better-whitespace', { 'branch': 'search-history-fix' }
+Plug 'SunsetCat/vim-ctrlspace', { 'branch': 'workspaces-fix' }
+Plug 'SunsetCat/vim-gitbranch', { 'branch': 'hgbranch' }
+Plug 'SunsetCat/vim-sftpsync'
 Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
 Plug 'alvan/vim-closetag'
 Plug 'andymass/vim-matchup'
@@ -25,16 +29,11 @@ Plug 'cohama/lexima.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'embear/vim-localvimrc'
 Plug 'ervandew/supertab'
-Plug 'filedil/vim-better-whitespace', { 'branch': 'search-history-fix' }
-Plug 'filedil/vim-ctrlspace', { 'branch': 'workspaces-fix' }
-Plug 'filedil/vim-gitbranch', { 'branch': 'with-hgbranch' }
-Plug 'filedil/vim-sftpsync'
+Plug 'hattya/python-indent.vim', { 'for': 'python' }
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
 Plug 'kshenoy/vim-signature'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
-Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-Plug 'hattya/python-indent.vim', { 'for': 'python' }
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx'] }
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
@@ -44,6 +43,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
 " Plug 'vim-vdebug/vdebug'
 Plug 'w0rp/ale'
 call plug#end()
