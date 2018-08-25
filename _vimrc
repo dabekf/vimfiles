@@ -20,7 +20,7 @@ Plug 'SirVer/ultisnips'
 Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
 Plug 'SunsetCat/vim-better-whitespace', { 'branch': 'search-history-fix' }
 Plug 'SunsetCat/vim-ctrlspace', { 'branch': 'workspaces-fix' }
-Plug 'SunsetCat/vim-gitbranch', { 'branch': 'hgbranch' }
+Plug 'SunsetCat/vim-hgbranch'
 Plug 'SunsetCat/vim-sftpsync'
 Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
 Plug 'alvan/vim-closetag'
@@ -31,6 +31,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'ervandew/supertab'
 Plug 'hattya/python-indent.vim', { 'for': 'python' }
 Plug 'honza/vim-snippets'
+Plug 'itchyny/vim-gitbranch'
 Plug 'jnurmine/Zenburn'
 Plug 'kshenoy/vim-signature'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
