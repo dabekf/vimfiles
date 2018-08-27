@@ -504,6 +504,14 @@ augroup myconf
         endif
     endfunction
     autocmd BufNewFile,BufRead * call <SID>EnableStripWhiteSpace()
+
+    " Editorconfig trim whitespace bug
+    function! s:ClearEditorConfigTrimHistory()
+        while histget("search", -1) == "\\s\\+$"
+            call histdel("search", -1)
+        endwhile
+    endfunction
+    autocmd BufWrite * call <SID>ClearEditorConfigTrimHistory()
 augroup END
 
 filetype plugin on
