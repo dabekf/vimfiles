@@ -1,19 +1,18 @@
 " Folding marker generator
 function! myconf#fold#Markers(pattern)
-    let pos = getpos('.')
+    let view = winsaveview()
     call cursor(1, 1)
 
     while search(a:pattern, "We") > 0
         exe 'normal zfa}'
     endwhile
 
-    call setpos('.', pos)
-    normal zv
+    call winrestview(view)
 endf
 
 " Different approach, probably slower than Markers
 function! myconf#fold#Markers2(function, foldlevel)
-    let pos = getpos('.')
+    let view = winsaveview()
     call cursor(1, 1)
 
     let lastline = line('$')
@@ -29,7 +28,7 @@ function! myconf#fold#Markers2(function, foldlevel)
             break
         endif
     endwhile
-    call setpos('.', pos)
+    call winrestview(view)
     exe 'setlocal foldlevel=' . a:foldlevel
 endfunction
 

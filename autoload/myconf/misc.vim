@@ -54,8 +54,8 @@ function! myconf#misc#JumpToLastPosition()
         if line("'\"") > 0 && line ("'\"") <= line("$")
             normal g`"
             silent! normal zv
+            normal zz
             let b:leave_my_cursor_position_alone = 1
-            " normal zz
         endif
     endif
 endf
@@ -79,7 +79,7 @@ endfunction
 " Executes normal "NXXX" or regular "RXXX" commands,
 " then restores the cursor position
 function! myconf#misc#RunInPlace(cmds)
-    let pos = getpos('.')
+    let view = winsaveview()
     for cmd in a:cmds
         if cmd[0] == 'N'
             exe 'normal ' . cmd[1:]
@@ -89,6 +89,6 @@ function! myconf#misc#RunInPlace(cmds)
             throw "Wrong mode"
         endif
     endfor
-    call setpos('.', pos)
+    call winrestview(view)
 endfunction
 
