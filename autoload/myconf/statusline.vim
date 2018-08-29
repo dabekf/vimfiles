@@ -211,17 +211,25 @@ endf
 
 function! myconf#statusline#FileFormat()
     if &ff == "unix"
-        return ''
+        return ""
     else
-        return ' %{&ff}'
+        return " %{&ff}"
+    endif
+endf
+
+function! myconf#statusline#FileType()
+    if &ft == ""
+        return ""
+    else
+        return "%{','.&ft}"
     endif
 endf
 
 function! myconf#statusline#ExpandTab()
     if &et
-        return ' ↹:✓'
+        return " ↹:✓"
     else
-        return ' ↹:×'
+        return " ↹:×"
     endif
 endfunction
 
@@ -236,7 +244,7 @@ function! myconf#statusline#RightSide()
 
     let sl = ""
     let sl .= myconf#statusline#ExpandTab()
-    let sl .= "%( %M%R%W%{','.&ft}%)"
+    let sl .= "%( %M%R%W" . myconf#statusline#FileType() . "%)"
     let sl .= myconf#statusline#FileFormat()
     let sl .= " ch:%b\(0x%B\)"
     let sl .= " ‖:%c%V"

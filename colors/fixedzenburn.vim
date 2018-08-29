@@ -10,6 +10,10 @@ hi Cursor guifg=#000d18 guibg=#efefef
 hi NonText guifg=#5b605e
 hi Folded guibg=#1c1c1c
 
+hi TabLine       guifg=#d0d0b8 guibg=#222222 gui=none
+hi TabLineSel    guifg=#f0f0b0 guibg=#333333 gui=bold
+hi TabLineFill   guifg=#dccdcc guibg=#101010 gui=none
+
 function! s:DisableFontStyles()
     let his = ''
     redir => his

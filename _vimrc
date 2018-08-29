@@ -37,6 +37,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' }
 Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx'] }
+Plug 'ruedigerha/vim-fullscreen'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'sgur/vim-editorconfig'
 Plug 'shawncplus/phpcomplete.vim', { 'for': ['php', 'phtml'] }
@@ -45,7 +46,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-" Plug 'vim-vdebug/vdebug'
+Plug 'vim-vdebug/vdebug'
 Plug 'w0rp/ale'
 call plug#end()
 
@@ -88,7 +89,7 @@ set fileformats=unix,dos
 set formatoptions=qn12
 " set guifont=Consolas:h12
 set guifont=Fixed_9x15:h11
-set guioptions=egcA
+set guioptions=gcA
 set hidden
 set history=100
 set hlsearch
@@ -325,6 +326,10 @@ if has("unix")
     vnoremap <C-X> d
 endif
 
+" Win32 fullscreen
+let g:vimfullscreen_default_keymap = 0
+nmap <silent> <F11> <Plug>(fullscreen_toggle)
+
 " Better selection controls
 if has("win32")
     snoremap <C-c> <C-o>"+y
@@ -472,6 +477,8 @@ let g:localvimrc_ask = 0
 autocmd! vimStartup
 augroup myconf
     autocmd!
+
+    autocmd VimEnter * ToggleFullscreen
 
     " When editing a file, always jump to the last cursor position
     autocmd BufWinEnter * call myconf#misc#JumpToLastPosition()
