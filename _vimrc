@@ -17,7 +17,6 @@ endif
 " execute pathogen#infect()
 call plug#begin($myconf . '/plugged')
 Plug 'SirVer/ultisnips'
-Plug 'StanAngeloff/php.vim', { 'for': ['php', 'phtml'] }
 Plug 'SunsetCat/vim-better-whitespace', { 'branch': 'search-history-fix' }
 Plug 'SunsetCat/vim-ctrlspace', { 'branch': 'workspaces-fix' }
 Plug 'SunsetCat/vim-hgbranch'
@@ -473,6 +472,9 @@ nmap <silent> <Leader>w :ToggleStripWhitespaceOnSave<CR>:echo 'Changed b:strip_w
 " Localrc
 let g:localvimrc_ask = 0
 
+" Signature
+nmap m<C-R> :SignatureRefresh<CR>
+
 " Autocommand
 autocmd! vimStartup
 augroup myconf
@@ -511,6 +513,14 @@ augroup myconf
         endif
     endfunction
     autocmd BufNewFile,BufRead * call <SID>EnableStripWhiteSpace()
+
+    " Editorconfig trim whitespace bug
+    function! s:ClearEditorConfigTrimHistory()
+        while histget("search", -1) == "\\s\\+$"
+            call histdel("search", -1)
+        endwhile
+    endfunction
+    autocmd BufWrite * call <SID>ClearEditorConfigTrimHistory()
 augroup END
 
 filetype plugin on
