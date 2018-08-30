@@ -12,6 +12,20 @@ if has("gui_running")
     let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
 endif
 
+" Vdebug
+if !exists('g:vdebug_options')
+  let g:vdebug_options = {}
+endif
+let g:vdebug_options.break_on_open = 0
+let g:vdebug_options.ide_key = 'fdabek-dbg'
+let g:vdebug_options.marker_default = '⬦'
+let g:vdebug_options.marker_closed_tree = '▸'
+let g:vdebug_options.marker_open_tree = '▾'
+
+let g:vdebug_options.path_maps = {
+\   "/home/www/fd3.to5.tabelaofert.pl": "C:\\Users\\fdabek\\Projects\\fd3.to5.tabelaofert.pl"
+\}
+
 " call myconf#misc#StartProfiling()
 
 " execute pathogen#infect()
@@ -480,7 +494,12 @@ autocmd! vimStartup
 augroup myconf
     autocmd!
 
-    autocmd VimEnter * ToggleFullscreen
+    function! s:ToggleFullscreen()
+        if exists('g:loaded_fullscreen')
+            ToggleFullscreen
+        endif
+    endfunction
+    autocmd VimEnter * call <SID>ToggleFullscreen()
 
     " When editing a file, always jump to the last cursor position
     autocmd BufWinEnter * call myconf#misc#JumpToLastPosition()
