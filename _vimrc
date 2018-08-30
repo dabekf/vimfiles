@@ -2,30 +2,8 @@
 let $myvimrc = expand('<sfile>')
 let $myconf = fnamemodify($myvimrc, ':h')
 
-" First things first
-let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
-let g:CtrlSpaceSearchTiming = 250
-if executable("rg")
-    let g:CtrlSpaceGlobCommand = 'rg "" -l --color=never'
-endif
-if has("gui_running")
-    let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
-endif
-
-" Vdebug
-if !exists('g:vdebug_options')
-  let g:vdebug_options = {}
-endif
-let g:vdebug_options.break_on_open = 0
-let g:vdebug_options.ide_key = 'fdabek-dbg'
-let g:vdebug_options.marker_default = '⬦'
-let g:vdebug_options.marker_closed_tree = '▸'
-let g:vdebug_options.marker_open_tree = '▾'
-
-let g:vdebug_options.path_maps = {
-\   "/home/www/fd3.to5.tabelaofert.pl": "C:\\Users\\fdabek\\Projects\\fd3.to5.tabelaofert.pl"
-\}
-
+" These must be set before plugins
+call myconf#options#SetGlobalOptions()
 " call myconf#misc#StartProfiling()
 
 " execute pathogen#infect()
@@ -59,7 +37,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-Plug 'vim-vdebug/vdebug'
+" Plug 'vim-vdebug/vdebug'
 Plug 'w0rp/ale'
 call plug#end()
 
