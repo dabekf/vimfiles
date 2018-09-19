@@ -6,7 +6,7 @@ augroup myconf_autocmd
     autocmd FileType crontab setlocal backupcopy=yes
 
     " phtml templates
-    autocmd BufNewFile,BufRead *.phtml setlocal filetype=phtml
+    autocmd BufNewFile,BufRead *.phtml setlocal filetype=phtml ai
     autocmd BufNewFile,BufRead *.css.phtml setlocal filetype=css
     autocmd BufNewFile,BufRead .htaccess.* setlocal filetype=apache
 
