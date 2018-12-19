@@ -16,7 +16,7 @@ Plug 'SunsetCat/vim-sftpsync'
 Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
 Plug 'alvan/vim-closetag'
 Plug 'andymass/vim-matchup'
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'embear/vim-localvimrc'
 Plug 'ervandew/supertab'
@@ -38,7 +38,7 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
 " Plug 'vim-vdebug/vdebug'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 call plug#end()
 
 " menu language to english
@@ -474,7 +474,7 @@ augroup myconf
 
     function! s:ToggleFullscreen()
         if exists('g:loaded_fullscreen')
-            ToggleFullscreen
+            " ToggleFullscreen
         endif
     endfunction
     autocmd VimEnter * call <SID>ToggleFullscreen()
