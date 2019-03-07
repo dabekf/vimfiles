@@ -15,10 +15,10 @@ augroup myconf_autocmd
 
     " PHP
     autocmd BufNewFile,BufRead *.php setlocal nobomb
-    autocmd BufRead *.php call myconf#fold#Markers('\([a-z]\+ \)\+function \?[a-zA-Z0-9_ ]\+(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{')
+    " autocmd BufRead *.php call myconf#fold#Markers('\([a-z]\+ \)\+function \?[a-zA-Z0-9_ ]\+(.*)\(:[a-zA-Z0-9_]\+\)\?\s*\n\s*{')
     " autocmd BufNewFile,BufRead *.php call myconf#fold#Markers2(function('ft#php#Fold'), 0)
 
     " Python
-    autocmd BufNewFile,BufRead *.py setlocal foldlevel=1
+    " autocmd BufNewFile,BufRead *.py setlocal foldlevel=1
 augroup END
 

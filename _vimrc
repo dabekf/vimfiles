@@ -11,34 +11,23 @@ call plug#begin($myconf . '/plugged')
 Plug 'SirVer/ultisnips'
 Plug 'SunsetCat/vim-better-whitespace', { 'branch': 'search-history-fix' }
 Plug 'SunsetCat/vim-ctrlspace', { 'branch': 'workspaces-fix' }
-Plug 'SunsetCat/vim-hgbranch'
+" Plug 'SunsetCat/vim-hgbranch'
 Plug 'SunsetCat/vim-sftpsync'
 Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
 Plug 'alvan/vim-closetag'
 Plug 'andymass/vim-matchup'
-" Plug 'cohama/lexima.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'embear/vim-localvimrc'
-Plug 'ervandew/supertab'
-Plug 'hattya/python-indent.vim', { 'for': 'python' }
 Plug 'honza/vim-snippets'
-Plug 'itchyny/vim-gitbranch'
 Plug 'jnurmine/Zenburn'
 Plug 'kshenoy/vim-signature'
-Plug 'mxw/vim-jsx', { 'for': 'jsx' }
-Plug 'othree/html5.vim', { 'for': ['html', 'php'] }
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx'] }
 Plug 'ruedigerha/vim-fullscreen'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'sgur/vim-editorconfig'
-Plug 'shawncplus/phpcomplete.vim', { 'for': ['php', 'phtml'] }
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-" Plug 'vim-vdebug/vdebug'
-" Plug 'w0rp/ale'
 call plug#end()
 
 " menu language to english
@@ -275,7 +264,6 @@ noremap! <A-r> <C-o><C-R>
 
 " Fix completion
 inoremap <expr> <C-Y> pumvisible() ? "\<C-Y>" : "\<C-O>\<C-R>"
-let g:lexima_no_default_rules = 1
 
 " Paste in Insert mode on the end of line
 " Fix copied from paste.vim and ms.vim
@@ -341,6 +329,7 @@ let g:matchup_matchparen_status_offscreen = 0
 
 " Commenting
 nmap <A-c> gcc<Down>
+nmap <C-/> gcc
 " nmap <A-C> gcgc
 xmap <A-c> gc
 smap <A-c> <C-g>gc
@@ -423,37 +412,6 @@ function! AsyncRunExit()
 endf
 let g:asyncrun_exit = 'call AsyncRunExit()'
 
-" Ale (linting)
-let g:ale_sign_error = '»»'
-let g:ale_sign_style_error = "S»"
-" let g:ale_sign_warning = '┄┄'
-let g:ale_sign_warning = '▪▪'
-let g:ale_sign_style_warning = 'S┄'
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-" let g:ale_sign_column_always = 1
-" let g:ale_change_sign_column_color = 1
-" let g:ale_warn_about_trailing_whitespace = 0
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_python_flake8_executable = 'python'
-let g:ale_python_flake8_options = '-m flake8 --select F,E999'
-highlight ALEErrorSign guifg=#cc9393 guibg=#181818
-let g:ale_linters = {
-\ 'python': ['flake8'],
-\ 'php': ['php'],
-\}
-" let g:ale_linters['php'] = ['php', 'phpcs', 'phpmd']
-let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\}
-nmap <silent> <Leader>a <Plug>(ale_lint)
-nmap <silent> <Leader>A <Plug>(ale_fix)
-nmap <silent> <A-n> 0<Plug>(ale_next_wrap)zv
-nmap <silent> <A-p> 0<Plug>(ale_previous_wrap)zv
-
 " BetterWhitespace
 let g:better_whitespace_filetypes_blacklist = ['', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
 let g:better_whitespace_enabled = 0
@@ -486,22 +444,6 @@ augroup myconf
     " Misc
     autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
     autocmd CursorHold,CursorHoldI * silent! checktime
-
-    function! s:InitLexima()
-        if exists('g:loaded_lexima')
-            call lexima#set_default_rules()
-            call lexima#insmode#map_hook('before', '<CR>', '')
-
-            call lexima#add_rule({'char': '"', 'at': '\w\%#"\@!'})
-
-            inoremap <M-'> '
-            inoremap <M-"> "
-            inoremap <M-(> (
-            inoremap <M-[> [
-            inoremap <M-{> {
-        endif
-    endfunction
-    autocmd VimEnter * call <SID>InitLexima()
 
     " Better Whitespace
     function! s:EnableStripWhiteSpace()
