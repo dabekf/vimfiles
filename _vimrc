@@ -328,8 +328,7 @@ let g:matchup_matchparen_deferred = 1
 let g:matchup_matchparen_status_offscreen = 0
 
 " Commenting
-nmap <A-c> gcc<Down>
-nmap <C-/> gcc
+nmap <A-c> gcc
 " nmap <A-C> gcgc
 xmap <A-c> gc
 smap <A-c> <C-g>gc
