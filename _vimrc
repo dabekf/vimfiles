@@ -30,7 +30,7 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 call plug#end()
 
-" menu language to english
+" Menu language to english
 let $LANG = 'en'
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
