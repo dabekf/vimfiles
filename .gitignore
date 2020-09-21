@@ -10,3 +10,7 @@
 # Logs
 /profile.log
 
+# IDE
+.project/
+.vscode/
+.sublime/

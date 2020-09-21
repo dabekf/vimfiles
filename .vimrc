@@ -467,4 +467,3 @@ augroup myconf
 augroup END
 
 filetype plugin on
-
