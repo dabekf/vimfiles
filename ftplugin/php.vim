@@ -9,9 +9,8 @@ endif
 let tlist_php_settings = 'php;f:function'
 
 let g:tcomment#filetype#guess_php = 'php'
-xmap <buffer> <A-C> <C-_>aphp_2_block<CR>
+xmap <buffer> <Esc>C <C-_>aphp_2_block<CR>
 
 " setlocal colorcolumn=120
 
 let b:match_words='<?php:?>,\<switch\>:\<endswitch\>,\<if\>:\<elseif\>:\<else\>,\<while\>:\<endwhile\>,\<do\>:\<while\>,\<for\>:\<endfor\>,\<foreach\>:\<endforeach\>,(:),[:],{:},<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)\%(>\|$\|[ \t][^>]*\%(>\|$\)\):<\@<=/\1>'
-

@@ -1,15 +1,14 @@
 " Underscore and camelcase
-xnoremap <silent> <A-+> "-d:let @- = UnderscoreToCamelCase(@-)<CR>"-P
-xnoremap <silent> <A-_> "-d:let @- = CamelCaseToUnderscore(@-)<CR>"-P
-nnoremap <silent> <A-+> :call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#UnderscoreToCamelCase(@-)', 'N"-P'])<CR>
-nnoremap <silent> <A-_> :call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#CamelCaseToUnderscore(@-)', 'N"-P'])<CR>
-inoremap <silent> <A-+> <C-o>:call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#UnderscoreToCamelCase(@-)', 'N"-P'])<CR>
-inoremap <silent> <A-_> <C-o>:call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#CamelCaseToUnderscore(@-)', 'N"-P'])<CR>
+xnoremap <silent> <Esc>+ "-d:let @- = UnderscoreToCamelCase(@-)<CR>"-P
+xnoremap <silent> <Esc>_ "-d:let @- = CamelCaseToUnderscore(@-)<CR>"-P
+nnoremap <silent> <Esc>+ :call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#UnderscoreToCamelCase(@-)', 'N"-P'])<CR>
+nnoremap <silent> <Esc>_ :call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#CamelCaseToUnderscore(@-)', 'N"-P'])<CR>
+inoremap <silent> <Esc>+ <C-o>:call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#UnderscoreToCamelCase(@-)', 'N"-P'])<CR>
+inoremap <silent> <Esc>_ <C-o>:call myconf#misc#RunInPlace(['Nviw"-d', 'Rlet @- = myconf#edit#CamelCaseToUnderscore(@-)', 'N"-P'])<CR>
 
-xnoremap <silent> <A-=> gU
-xnoremap <silent> <A--> gu
-nnoremap <silent> <A-=> :call myconf#misc#RunInPlace(['NviwgU'])<CR>
-nnoremap <silent> <A--> :call myconf#misc#RunInPlace(['Nviwgu'])<CR>
-inoremap <silent> <A-=> <C-o>:call myconf#misc#RunInPlace(['NviwgU'])<CR>
-inoremap <silent> <A--> <C-o>:call myconf#misc#RunInPlace(['Nviwgu'])<CR>
-
+xnoremap <silent> <Esc>= gU
+xnoremap <silent> <Esc>- gu
+nnoremap <silent> <Esc>= :call myconf#misc#RunInPlace(['NviwgU'])<CR>
+nnoremap <silent> <Esc>- :call myconf#misc#RunInPlace(['Nviwgu'])<CR>
+inoremap <silent> <Esc>= <C-o>:call myconf#misc#RunInPlace(['NviwgU'])<CR>
+inoremap <silent> <Esc>- <C-o>:call myconf#misc#RunInPlace(['Nviwgu'])<CR>

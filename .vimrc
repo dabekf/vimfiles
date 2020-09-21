@@ -84,7 +84,7 @@ set mouse=a
 set nobackup " Don't keep a backup file
 set nocindent
 set nomodeline
-set noshowmode
+set showmode
 set noundofile
 set ruler
 set selection=inclusive
@@ -334,7 +334,7 @@ nmap <Esc>c gcc
 " nmap <Esc>C gcgc
 xmap <Esc>c gc
 smap <Esc>c <C-g>gc
-imap <Esc>c <C-_><C-_><C-o><Down>
+imap <Esc>c <C-_><C-_>
 
 " Folding
 set foldmethod=manual
