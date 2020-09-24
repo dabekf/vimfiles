@@ -45,7 +45,7 @@ hi MyconfStlModeReplaceStr guifg=yellow guibg=#22698C
 hi MyconfStlModeReplaceRev guifg=#313633 guibg=#22698C gui=reverse
 hi MyconfStlModeDefaultStr guifg=yellow guibg=darkorchid
 hi MyconfStlModeDefaultRev guifg=#313633 guibg=darkorchid gui=reverse
-hi MyconfStlActiveBuffer guifg=#ffffff guibg=#313633 gui=underline
+hi MyconfStlActiveBuffer ctermfg=15 guifg=#ffffff guibg=#313633 gui=underline
 hi MyconfStlRunning guifg=#efef87 guibg=#313633
 hi MyconfStlError guifg=#e37170 guibg=#313633
 
@@ -63,4 +63,3 @@ hi default DbgBreakptLine guifg=#ffffff guibg=#284F28
 hi default DbgBreakptSign guifg=#ffffff guibg=#284F28
 
 let g:colors_name="fixedzenburn"
-

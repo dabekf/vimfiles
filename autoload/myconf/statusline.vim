@@ -306,7 +306,7 @@ endf
 function! myconf#statusline#Init()
     " Fallback
     let s:myconf_statusline_max_screen_width = winwidth(0)
-    let s:myconf_statusline_default_buffer_item = " %#MyconfStlActiveBuffer#\*%t%m%*"
+    let s:myconf_statusline_default_buffer_item = " %#MyconfStlActiveBuffer#\★%t%m%*"
 
     if exists('g:CtrlSpaceLoaded')
         set statusline=%!myconf#statusline#DefaultLine()
@@ -314,4 +314,3 @@ function! myconf#statusline#Init()
         set statusline=%!myconf#statusline#SimpleLine()
     endif
 endfunction
-

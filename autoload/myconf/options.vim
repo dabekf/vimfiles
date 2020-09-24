@@ -1,13 +1,18 @@
 function! myconf#options#SetGlobalOptions()
     " CtrlSpace
-    let g:CtrlSpaceFileEngine = "file_engine_windows_386.exe"
+    let g:CtrlSpaceFileEngine = "file_engine_linux_amd64.exe"
     let g:CtrlSpaceSearchTiming = 250
     if executable("rg")
         let g:CtrlSpaceGlobCommand = 'rg "" -l --color=never'
     endif
-    if has("gui_running")
-        let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
-    endif
+    let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
+
+    let g:CtrlSpaceKeys = { "Buffer":
+        \{
+            \"Up": "ctrlspace#keys#common#Up",
+            \"Down": "ctrlspace#keys#common#Down"
+        \}
+    \}
 
     " Vdebug
     if !exists('g:vdebug_options')

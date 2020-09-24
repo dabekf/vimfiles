@@ -94,13 +94,13 @@ let g:sftpsync_projects = {
 \    },
 \}
 
-nnoremap <silent> <F12> :call sftpsync#Upload(expand('%:p'), 'test')<CR>
-nnoremap <silent> <S-F12> :call sftpsync#Upload(expand('%:p'), 'production')<CR>
-nnoremap <silent> <C-F12> :call sftpsync#Upload(expand('%:p'), 'beta')<CR>
-
-nnoremap <silent> <M-F12> :call sftpsync#Cycle(['test', '', 'production'])<CR>
-
 if exists('g:sftpsync_loaded')
+    nnoremap <silent> <F12> :call sftpsync#Upload(expand('%:p'), 'test')<CR>
+    nnoremap <silent> <S-F12> :call sftpsync#Upload(expand('%:p'), 'production')<CR>
+    nnoremap <silent> <C-F12> :call sftpsync#Upload(expand('%:p'), 'beta')<CR>
+
+    nnoremap <silent> <M-F12> :call sftpsync#Cycle(['test', '', 'production'])<CR>
+
     augroup sftpsync
         autocmd!
         autocmd BufNewFile,BufRead ~/Projects/* call sftpsync#Init('test', 1)
@@ -109,4 +109,3 @@ if exists('g:sftpsync_loaded')
         autocmd BufWritePost ~/Documents/Projects/redNet/* call sftpsync#Upload()
     augroup END
 endif
-

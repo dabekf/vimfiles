@@ -6,10 +6,14 @@ for index in [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
     execute "imap <silent> <Esc>".index." <Esc>:call myconf#ctrlspace#Buffer(".index.")<CR>"
 endfor
 
-nmap <silent> <Esc>Left :call myconf#ctrlspace#Go('up')<CR>
-imap <silent> <Esc>Left <C-c>:call myconf#ctrlspace#Go('up')<CR>
-nmap <silent> <Esc>Right :call myconf#ctrlspace#Go('down')<CR>
-imap <silent> <Esc>Right <C-c>:call myconf#ctrlspace#Go('down')<CR>
+nmap <silent> <A-Left> :call myconf#ctrlspace#Go('up')<CR>
+imap <silent> <A-Left><C-c>:call myconf#ctrlspace#Go('up')<CR>
+nmap <silent> <A-Right> :call myconf#ctrlspace#Go('down')<CR>
+imap <silent> <A-Right> <C-c>:call myconf#ctrlspace#Go('down')<CR>
+nmap <silent> <Esc>, :call myconf#ctrlspace#Go('up')<CR>
+imap <silent> <Esc>, <C-c>:call myconf#ctrlspace#Go('up')<CR>
+nmap <silent> <Esc>. :call myconf#ctrlspace#Go('down')<CR>
+imap <silent> <Esc>. <C-c>:call myconf#ctrlspace#Go('down')<CR>
 
 noremap <silent> <Esc>q :call myconf#ctrlspace#Quit()<CR>
 noremap! <silent> <Esc>q <C-c>:call myconf#ctrlspace#Quit()<CR>

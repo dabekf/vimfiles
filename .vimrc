@@ -7,12 +7,11 @@ call myconf#options#SetGlobalOptions()
 " call myconf#misc#StartProfiling()
 
 " execute pathogen#infect()
-call plug#begin($myconf . '/plugged')
-Plug 'SirVer/ultisnips'
+silent! call plug#begin($myconf . '/plugged')
+" Plug 'SirVer/ultisnips'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-ctrlspace/vim-ctrlspace'
-" Plug 'SunsetCat/vim-hgbranch'
-Plug 'SunsetCat/vim-sftpsync'
+" Plug 'SunsetCat/vim-sftpsync'
 Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
 Plug 'alvan/vim-closetag'
 Plug 'andymass/vim-matchup'
@@ -21,7 +20,6 @@ Plug 'embear/vim-localvimrc'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
 Plug 'kshenoy/vim-signature'
-Plug 'ruedigerha/vim-fullscreen'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'sgur/vim-editorconfig'
 Plug 'skywind3000/asyncrun.vim'
@@ -84,6 +82,7 @@ set mouse=a
 set nobackup " Don't keep a backup file
 set nocindent
 set nomodeline
+set showcmd
 set showmode
 set noundofile
 set ruler
@@ -109,7 +108,7 @@ set viminfo='2000,\"50000,h"
 set virtualedit=block,onemore
 set whichwrap=b,s,<,>
 set wildignore=.git,.svn,.hg,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.swo,*.jpg,*.png,*.gif,*.zip,*.pdf,*.exe,*.pyc,tags,*.tags
-set wildmode=longest:full
+set wildmode=full
 set winaltkeys=no
 set wrap " Add binding!
 
@@ -145,6 +144,21 @@ if has("unix")
     nnoremap <Esc>o <C-o>
     inoremap <Esc>o <C-o>
     vnoremap <Esc>o <C-o>
+endif
+
+" For screen and poor quality terminals
+if has("unix")
+    " set <Home>=[1~
+    " set <End>=[4~
+    set <C-Home>=[1;5H
+    set <C-End>=[1;5F
+    set <F13>=[1;3D
+    map <F13> <A-Left>
+    map! <F13> <A-Left>
+    set <F14>=[1;3C
+    map <F14> <A-Right>
+    map! <F14> <A-Right>
+    set t_Co=256
 endif
 
 " File Explorer
@@ -243,19 +257,18 @@ nnoremap <C-Del> "_dd
 inoremap <C-Del> <C-o>"_dd
 vnoremap <C-Del> "_d
 
-" M-<BS> is delete what I want
-inoremap <silent> <A-BS> <C-o>"_d:call myconf#edit#SmartBackspace()<CR>
-cnoremap <silent> <A-BS> <C-w>
+" Ctrl-d is delete what I want
+inoremap <silent> <C-d> <C-o>"_d:call myconf#edit#SmartBackspace()<CR>
 
 " <Leader>n is find nonprintable characters
 nnoremap <Leader>n /\(\p\\|$\\|\s\)\@!.<CR>
 
 " Undo
 if has("unix")
-    nnoremap <C-Z> u
-    inoremap <C-Z> <C-o>u
-    nnoremap <C-Y> <C-R>
-    inoremap <C-Y> <C-o><C-R>
+    nnoremap <C-z> u
+    inoremap <C-z> <C-o>u
+    nnoremap <C-y> <C-R>
+    inoremap <C-y> <C-o><C-R>
 endif
 nnoremap <Esc>u u
 noremap! <Esc>u <C-o>u
