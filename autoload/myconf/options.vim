@@ -6,13 +6,7 @@ function! myconf#options#SetGlobalOptions()
         let g:CtrlSpaceGlobCommand = 'rg "" -l --color=never'
     endif
     let g:CtrlSpaceSymbols = { "WLoad": "↑", "WSave": "↓", "File": "◯", "CTab": "▣", "Tabs": "▢" }
-
-    let g:CtrlSpaceKeys = { "Buffer":
-        \{
-            \"Up": "ctrlspace#keys#common#Up",
-            \"Down": "ctrlspace#keys#common#Down"
-        \}
-    \}
+    let g:CtrlSpaceUseMouseAndArrowsInTerm = 1
 
     " Vdebug
     if !exists('g:vdebug_options')
