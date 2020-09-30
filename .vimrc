@@ -148,10 +148,14 @@ endif
 
 " For screen and poor quality terminals
 if has("unix")
-    " set <Home>=[1~
-    " set <End>=[4~
     set <C-Home>=[1;5H
     set <C-End>=[1;5F
+    set <F15>=[1~
+    map <F15> <Home>
+    map! <F15> <Home>
+    set <F16>=[4~
+    map <F16> <End>
+    map! <F16> <End>
     set <F13>=[1;3D
     map <F13> <A-Left>
     map! <F13> <A-Left>
