@@ -66,8 +66,7 @@ set fileformat=unix
 set fileformats=unix,dos
 " set fillchars=vert:│,fold:─
 set formatoptions=qn12
-" set guifont=Consolas:h12
-set guifont=Fixed_9x15:h11
+set guifont="Output Mono NF:h11"
 set guioptions=gcA
 set hidden
 set history=100
@@ -126,14 +125,24 @@ noremap <Esc>W <C-c>:xa!<CR>
 noremap! <Esc>w <C-c>:x!<CR>
 noremap! <Esc>W <C-c>:xa!<CR>
 
+nnoremap <Esc>s :update<CR>
+nnoremap <Esc>S :wa<CR>
+noremap! <Esc>s <C-o>:update<CR>
+noremap! <Esc>S <C-o>:wa<CR>
+
 nnoremap <F2> :update<CR>
 nnoremap <S-F2> :wa<CR>
 noremap! <F2> <C-o>:update<CR>
 noremap! <S-F2> <C-o>:wa<CR>
 
+nnoremap <F3> n
+nnoremap <S-F3> N
+noremap! <F3> <C-o>n
+noremap! <S-F3> <C-o>N
+
 " Block help
-nnoremap <silent> <F1> :<CR>
-noremap! <silent> <F1> <C-o>:<CR>
+" nnoremap <silent> <F1> :<CR>
+" noremap! <silent> <F1> <C-o>:<CR>
 
 " nnoremap <Esc>g :echo expand('%:p:gs?\\?/?')<CR>
 " nnoremap <Esc>G :echo fnamemodify(getcwd(), ':gs?\\?/?')<CR>
@@ -151,6 +160,10 @@ endif
 if has("unix")
     set <C-Home>=[1;5H
     set <C-End>=[1;5F
+    set <S-F1>=[1;2P
+    set <S-F2>=[1;2Q
+    set <S-F3>=[1;2R
+    set <S-F4>=[1;2S
     set <F15>=[1~
     map <F15> <Home>
     map! <F15> <Home>
@@ -179,8 +192,8 @@ function! s:ToggleNERDTree()
     endif
 endf
 let g:NERDTreeWinSize = 42
-let g:NERDTreeDirArrowCollapsible = '▾'
-let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '↑'
+let g:NERDTreeDirArrowExpandable = '↓'
 let g:NERDTreeQuitOnOpen = 1
 nnoremap <silent> <F4> :call <SID>ToggleNERDTree()<CR>
 nnoremap <silent> <S-F4> :NERDTreeClose<CR>
@@ -199,7 +212,7 @@ let g:Lf_IndexTimeLimit = 10
 let g:Lf_NeedCacheTime = 0.5
 " let g:Lf_RememberLastSearch = 1
 " let g:Lf_ShowRelativePath = 0
-let g:Lf_StlSeparator = { 'left': '▶', 'right': '◀' }
+let g:Lf_StlSeparator = { 'left': '→', 'right': '←' }
 let g:Lf_WildIgnore = { 'dir': [], 'file': ['.*'] }
 let g:Lf_WindowHeight = 15
 let g:Lf_WorkingDirectoryMode = 'Ac'
@@ -292,7 +305,7 @@ exe 'inoremap <silent> <script> <C-V> <C-G>u' . paste#paste_cmd['i']
 exe 'vnoremap <silent> <script> <C-V> ' . paste#paste_cmd['v']
 
 " Paste mode
-set pastetoggle=<Leader>q
+set pastetoggle=<F1>
 
 " Paste with nopaste
 noremap! <MiddleMouse> <C-o>:set paste<CR><MiddleMouse><C-o>:set nopaste<CR>
@@ -321,24 +334,6 @@ if has("unix")
     inoremap <C-V> <C-o>P
     vnoremap <C-C> y
     vnoremap <C-X> d
-endif
-
-" Win32 fullscreen
-if has("win32")
-    let g:vimfullscreen_default_keymap = 0
-    nmap <silent> <F11> <Plug>(fullscreen_toggle)
-endif
-
-" Better selection controls
-if has("win32")
-    snoremap <C-c> <C-o>"+y
-    snoremap <C-x> <C-o>"+d
-    snoremap <Up> <C-c><Up>
-    snoremap <Down> <C-c><Down>
-    snoremap <Left> <C-c><Left>
-    snoremap <Right> <C-c><Right>
-    snoremap <PageUp> <C-c><PageUp>
-    snoremap <PageDown> <C-c><PageDown>
 endif
 
 " Toggle matching parens
@@ -463,6 +458,7 @@ augroup myconf
     " Misc
     autocmd FileChangedShell * echohl WarningMsg | echo "Warning: File changed on disk" | echohl None
     autocmd CursorHold,CursorHoldI * silent! checktime
+    autocmd BufRead,BufNewFile *.conf setlocal filetype=conf
 
     " Better Whitespace
     function! s:EnableStripWhiteSpace()

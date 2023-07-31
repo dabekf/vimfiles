@@ -34,7 +34,7 @@ function! myconf#statusline#Mode()
         let hiName = 'MyconfStlModeDefault'
     endif
     let paste = &paste == 1 ? '·PASTE' : ''
-    return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %#" . hiName. "Rev#▶%*"
+    return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %#" . hiName . "Rev#→%*"
 endf
 
 function! myconf#statusline#AsyncRunClear(timer) abort
@@ -74,11 +74,11 @@ function! myconf#statusline#SftpSync() abort
         let lines += [" ⇒:", b:sftpsync_target]
 
         if b:sftpsync_status == 'running'
-            let lines += [":⎋"]
+            let lines += [":"]
         elseif b:sftpsync_status == 'error'
             let lines += [":×"]
         elseif b:sftpsync_status == 'done'
-            let lines += [":✓"]
+            let lines += [":"]
         endif
 
         if b:sftpsync_status == 'error'
@@ -98,7 +98,7 @@ function! myconf#statusline#HowLong() abort
         else
             let time = printf('%.2f', b:howLong) . "s"
         endif
-        return " ⎋:" . time . ""
+        return " T:" . time . ""
     else
         return ""
     endif
@@ -110,7 +110,7 @@ function! myconf#statusline#LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? ' ⌘:✓' : ' %#MyconfStlError#⌘:' . printf(
+    return l:counts.total == 0 ? ' L:' : ' %#MyconfStlError#L:' . printf(
     \   '%de,%dw',
     \   all_errors,
     \   all_non_errors
@@ -121,14 +121,7 @@ function! myconf#statusline#Gitbranch() abort
     if !exists('b:myconf_statusline_gitbranch') || b:myconf_statusline_gitbranch == 'master'
         return ''
     endif
-    return b:myconf_statusline_gitbranch != '' ? ' %(⅄:' . b:myconf_statusline_gitbranch . '%)' : ''
-endf
-
-function! myconf#statusline#Hgbranch() abort
-    if !exists('b:myconf_statusline_hgbranch') || b:myconf_statusline_hgbranch == 'default'
-        return ''
-    endif
-    return b:myconf_statusline_hgbranch != '' ? ' %(⅄:' . b:myconf_statusline_hgbranch . '%)' : ''
+    return b:myconf_statusline_gitbranch != '' ? ' %(:' . b:myconf_statusline_gitbranch . '%)' : ''
 endf
 
 function! myconf#statusline#BuffersInit()
@@ -227,9 +220,9 @@ endf
 
 function! myconf#statusline#ExpandTab()
     if &et
-        return " ↹:✓"
+        return "  ()"
     else
-        return " ↹:×"
+        return "  (×)"
     endif
 endfunction
 
@@ -247,8 +240,8 @@ function! myconf#statusline#RightSide()
     let sl .= "%( %M%R%W" . myconf#statusline#FileType() . "%)"
     let sl .= myconf#statusline#FileFormat()
     let sl .= " ch:%b\(0x%B\)"
-    let sl .= " ‖:%c%V"
-    let sl .= " =:%l\/%L"
+    let sl .= " ║:%c%V"
+    let sl .= " ═:%l\/%L"
     let sl .= " %P"
 
     return sl
@@ -287,7 +280,6 @@ function! myconf#statusline#DefaultLine()
             let sl .= myconf#statusline#LinterStatus()
         endif
         let sl .= myconf#statusline#Gitbranch()
-        let sl .= myconf#statusline#Hgbranch()
         let sl .= myconf#statusline#AsyncRun()
         if exists('g:sftpsync_loaded')
             let sl .= myconf#statusline#SftpSync()
