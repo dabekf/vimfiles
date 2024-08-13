@@ -27,6 +27,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 " Menu language to english
@@ -56,10 +57,10 @@ set autowrite " Automatically save before commands like :next and :make
 set background=dark
 set backspace=indent,eol,start
 set backupcopy=yes
-set backupdir=$TEMP,.
+set backupdir=~/.backup
 set clipboard=unnamed
 set completeopt=longest,menu
-set directory=.,$TEMP
+set directory=.,~/.backup
 set encoding=utf-8
 set expandtab
 set fileformat=unix
@@ -103,7 +104,7 @@ set tabstop=4
 set textwidth=0
 set tags=./.tags,.tags
 set timeoutlen=1000
-set undodir=$TEMP,.
+set undodir=~/.backup
 set viminfo='2000,\"50000,h"
 set virtualedit=block,onemore
 set whichwrap=b,s,<,>
@@ -355,6 +356,12 @@ set foldmethod=manual
 " inoremap <silent> <Esc>f <C-O>za<C-O>[z<End>
 nnoremap <silent> <Esc>f za
 inoremap <silent> <Esc>f <C-O>za
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Closetag
 let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml,*.php,*.js,*.jsx'
