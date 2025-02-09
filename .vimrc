@@ -8,17 +8,16 @@ call myconf#options#SetGlobalOptions()
 
 " execute pathogen#infect()
 silent! call plug#begin($myconf . '/plugged')
-" Plug 'SirVer/ultisnips'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-ctrlspace/vim-ctrlspace'
-" Plug 'SunsetCat/vim-sftpsync'
-Plug 'Yggdroot/LeaderF', { 'do': './install.bat' }
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'alvan/vim-closetag'
 Plug 'andymass/vim-matchup'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'embear/vim-localvimrc'
 Plug 'honza/vim-snippets'
 Plug 'jnurmine/Zenburn'
+Plug 'sainnhe/sonokai'
 Plug 'kshenoy/vim-signature'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'sgur/vim-editorconfig'
@@ -35,20 +34,24 @@ let $LANG = 'en'
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-if hostname() == 'PAPAYA'
-    au GUIEnter * simalt ~x
-else
-    au GUIEnter * simalt ~s
-endif
-
 set nocompatible
 
-" Theme first
+" Zenburn theme
 let g:zenburn_high_Contrast = 1
 let g:zenburn_old_Visual = 1
 let g:zenburn_alternate_Visual = 1
 let g:zenburn_unified_CursorColumn = 1
-colorscheme fixedzenburn
+"colorscheme fixedzenburn
+
+" Sonokai theme
+let g:sonokai_style = 'shusia'
+let g:sonokai_better_performance = 1
+let g:sonokai_enable_italic = 1
+augroup SonokaiCustom
+    autocmd!
+    autocmd ColorScheme sonokai call myconf#sonokai#CustomColors()
+augroup END
+colorscheme sonokai
 
 " Settings
 set autoindent
@@ -101,6 +104,7 @@ set smartindent
 set softtabstop=-1
 set spelllang=en_gb,pl
 set tabstop=4
+set termguicolors
 set textwidth=0
 set tags=./.tags,.tags
 set timeoutlen=1000
@@ -158,27 +162,27 @@ if has("unix")
 endif
 
 " For screen and poor quality terminals
-if has("unix")
-    set <C-Home>=[1;5H
-    set <C-End>=[1;5F
-    set <S-F1>=[1;2P
-    set <S-F2>=[1;2Q
-    set <S-F3>=[1;2R
-    set <S-F4>=[1;2S
-    set <F15>=[1~
-    map <F15> <Home>
-    map! <F15> <Home>
-    set <F16>=[4~
-    map <F16> <End>
-    map! <F16> <End>
-    set <F13>=[1;3D
-    map <F13> <A-Left>
-    map! <F13> <A-Left>
-    set <F14>=[1;3C
-    map <F14> <A-Right>
-    map! <F14> <A-Right>
-    set t_Co=256
-endif
+"if has("unix")
+"    set <C-Home>=[1;5H
+"    set <C-End>=[1;5F
+"    set <S-F1>=[1;2P
+"    set <S-F2>=[1;2Q
+"    set <S-F3>=[1;2R
+"    set <S-F4>=[1;2S
+"    set <F15>=[1~
+"    map <F15> <Home>
+"    map! <F15> <Home>
+"    set <F16>=[4~
+"    map <F16> <End>
+"    map! <F16> <End>
+"    set <F13>=[1;3D
+"    map <F13> <A-Left>
+"    map! <F13> <A-Left>
+"    set <F14>=[1;3C
+"    map <F14> <A-Right>
+"    map! <F14> <A-Right>
+"    set t_Co=256
+"endif
 
 " File Explorer
 function! s:ToggleNERDTree()
@@ -252,8 +256,7 @@ nmap <silent> <Esc># :setlocal cursorcolumn! cursorline!<CR>
 imap <silent> <Esc># <C-o>:setlocal cursorcolumn! cursorline!<CR>
 
 " <Leader>v brings up my .vimrc
-" <Leader>V reloads it -- making all changes active (have to save first)
-nnoremap <silent> <Leader>v :e $myvimrc<CR>:cd $myconf<CR>
+nnoremap <silent> <Leader>v :e $myvimrc<CR>
 
 " <Leader>f is fileformat
 nnoremap <Leader>f :set fileformat=unix<CR>
@@ -286,8 +289,10 @@ nnoremap <Leader>n /\(\p\\|$\\|\s\)\@!.<CR>
 if has("unix")
     nnoremap <C-z> u
     inoremap <C-z> <C-o>u
+    vnoremap <C-z> <C-o>u
     nnoremap <C-y> <C-R>
     inoremap <C-y> <C-o><C-R>
+    vnoremap <C-y> <C-o><C-R>
 endif
 nnoremap <Esc>u u
 noremap! <Esc>u <C-o>u
@@ -416,8 +421,8 @@ nmap <M-Down> <C-w><Down>
 imap <M-Down> <C-o><C-w><Down>
 nmap <M-Up> <C-w><Up>
 imap <M-Up> <C-o><C-w><Up>
-imap <silent> <C-PageUp> <Esc>:tabprev<CR>
-imap <silent> <C-PageDown> <Esc>:tabnext<CR>
+"imap <silent> <C-PageUp> <Esc>:tabprev<CR>
+"imap <silent> <C-PageDown> <Esc>:tabnext<CR>
 
 " Asyncrun
 augroup QuickFixStatus

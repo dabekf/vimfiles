@@ -14,25 +14,25 @@ hi TabLine       guifg=#d0d0b8 guibg=#222222 gui=none
 hi TabLineSel    guifg=#f0f0b0 guibg=#333333 gui=bold
 hi TabLineFill   guifg=#dccdcc guibg=#101010 gui=none
 
-function! s:DisableFontStyles()
-    let his = ''
-    redir => his
-    silent hi
-    redir END
-    let his = substitute(his, '\n\s\+', ' ', 'g')
-    for line in split(his, "\n")
-        if line !~ ' links to ' && line !~ ' cleared$'
-            exe 'hi' substitute(substitute(line, ' xxx ', ' ', ''), '\(italic\|bold\)', 'none', 'g')
-        endif
-    endfor
-endfunction
-call s:DisableFontStyles()
+"function! s:DisableFontStyles()
+"    let his = ''
+"    redir => his
+"    silent hi
+"    redir END
+"    let his = substitute(his, '\n\s\+', ' ', 'g')
+"    for line in split(his, "\n")
+"        if line !~ ' links to ' && line !~ ' cleared$'
+"            exe 'hi' substitute(substitute(line, ' xxx ', ' ', ''), '\(italic\|bold\)', 'none', 'g')
+"        endif
+"    endfor
+"endfunction
+"call s:DisableFontStyles()
 
 " More styles
-hi htmlItalic gui=undercurl
-hi htmlBoldItalic gui=bold,undercurl
-hi htmlBoldUnderlineItalic gui=bold,underline,undercurl
-hi htmlUnderlineItalic gui=underline,undercurl
+"hi htmlItalic gui=undercurl
+"hi htmlBoldItalic gui=bold,undercurl
+"hi htmlBoldUnderlineItalic gui=bold,underline,undercurl
+"hi htmlUnderlineItalic gui=underline,undercurl
 
 " StatusLine
 hi MyconfStlModeNormalStr guifg=#000000 guibg=#ccdc90
@@ -46,6 +46,7 @@ hi MyconfStlModeReplaceRev guifg=#313633 guibg=#22698C gui=reverse
 hi MyconfStlModeDefaultStr guifg=yellow guibg=darkorchid
 hi MyconfStlModeDefaultRev guifg=#313633 guibg=darkorchid gui=reverse
 hi MyconfStlActiveBuffer ctermfg=15 guifg=#ffffff guibg=#313633 gui=underline
+hi MyconfStlInactiveBuffer ctermfg=15 guifg=#bbbbbb guibg=#313633 gui=underline
 hi MyconfStlRunning guifg=#efef87 guibg=#313633
 hi MyconfStlError guifg=#e37170 guibg=#313633
 

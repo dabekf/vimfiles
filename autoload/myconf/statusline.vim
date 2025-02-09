@@ -34,7 +34,8 @@ function! myconf#statusline#Mode()
         let hiName = 'MyconfStlModeDefault'
     endif
     let paste = &paste == 1 ? '·PASTE' : ''
-    return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . " %#" . hiName . "Rev#→%*"
+    "return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . "→ %#" . hiName . "Rev#%*"
+    return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . "→ %*"
 endf
 
 function! myconf#statusline#AsyncRunClear(timer) abort
@@ -140,6 +141,8 @@ function! myconf#statusline#BuffersInit()
             if item.visible
                 let text .= "%#MyconfStlActiveBuffer#"
                 let visible = index
+            else
+                let text .= "%#MyconfStlInactiveBuffer#"
             endif
 
             " let name = fnamemodify(item.text, ":p:h:t")[0] . '/' . fnamemodify(item.text, ":t")
@@ -168,9 +171,7 @@ function! myconf#statusline#BuffersInit()
                 let text .= "+"
             endif
 
-            if item.visible
-                let text .= "%*"
-            endif
+            let text .= "%*"
 
             let result += [text]
             let index += 1
