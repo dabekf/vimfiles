@@ -498,6 +498,9 @@ augroup myconf
         endif
     endfunction
     autocmd BufWritePost * call ClearEditorConfigTrimHistory()
+
+    " Update statusline upon entering command mode
+    autocmd CmdlineEnter : redrawstatus
 augroup END
 
 filetype plugin on

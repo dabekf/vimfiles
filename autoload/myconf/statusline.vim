@@ -22,19 +22,19 @@ let s:myconf_statusline_currentmode={
     \}
 
 function! myconf#statusline#Mode()
-    if (mode() =~# '\v(n|no)')
+    let l:mode = mode()
+    if (l:mode =~# '\v(n|no)')
         let hiName = 'MyconfStlModeNormal'
-    elseif (mode() =~# '\v(v|V)' || s:myconf_statusline_currentmode[mode()] ==# 'V·Block' || get(s:myconf_statusline_currentmode, mode(), '') ==# 't')
+    elseif (l:mode =~# '\v(v|V)' || s:myconf_statusline_currentmode[l:mode] ==# 'V·Block' || get(s:myconf_statusline_currentmode, l:mode, '') ==# 't')
         let hiName = 'MyconfStlModeVisual'
-    elseif (mode() ==# 'i')
+    elseif (l:mode ==# 'i')
         let hiName = 'MyconfStlModeInsert'
-    elseif (mode() ==# 'R')
+    elseif (l:mode ==# 'R')
         let hiName = 'MyconfStlModeReplace'
     else
         let hiName = 'MyconfStlModeDefault'
     endif
     let paste = &paste == 1 ? '·PASTE' : ''
-    "return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . "→ %#" . hiName . "Rev#%*"
     return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . "→ %*"
 endf
 
