@@ -36,6 +36,14 @@ source $VIMRUNTIME/menu.vim
 
 set nocompatible
 
+" Colors
+if has('termguicolors')
+    if &term == "screen.xterm-256color"
+        set term=xterm-256color " Italics from sonokai don't work with screen.xterm-256color
+    endif
+    set termguicolors
+endif
+
 " Zenburn theme
 let g:zenburn_high_Contrast = 1
 let g:zenburn_old_Visual = 1
