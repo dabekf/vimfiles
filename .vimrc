@@ -41,7 +41,11 @@ if has('termguicolors')
     if &term == "screen.xterm-256color"
         set term=xterm-256color " Italics from sonokai don't work with screen.xterm-256color
     endif
-    set termguicolors
+    if &term == "xterm-256color"
+        set termguicolors
+    else
+        set notermguicolors
+    endif
 endif
 
 " Zenburn theme
@@ -55,6 +59,7 @@ let g:zenburn_unified_CursorColumn = 1
 let g:sonokai_style = 'shusia'
 let g:sonokai_better_performance = 1
 let g:sonokai_enable_italic = 1
+let g:sonokai_colors_override = {'bg0': ['#1f1f1f', '234']}
 augroup SonokaiCustom
     autocmd!
     autocmd ColorScheme sonokai call myconf#sonokai#CustomColors()
