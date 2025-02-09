@@ -117,7 +117,6 @@ set smartindent
 set softtabstop=-1
 set spelllang=en_gb,pl
 set tabstop=4
-set termguicolors
 set textwidth=0
 set tags=./.tags,.tags
 set timeoutlen=1000
