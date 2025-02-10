@@ -1,6 +1,3 @@
-map <silent> <C-Enter> <C-c>:CtrlSpace /<CR>
-map! <silent> <C-Enter> <C-c>:CtrlSpace /<CR>
-
 for index in [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
     execute "map <silent> <Esc>".index." :call myconf#ctrlspace#Buffer(".index.")<CR>"
     execute "imap <silent> <Esc>".index." <Esc>:call myconf#ctrlspace#Buffer(".index.")<CR>"

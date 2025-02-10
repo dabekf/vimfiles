@@ -29,6 +29,8 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'junegunn/vim-easy-align'
 call plug#end()
 
+let syntax_off = 1 " Without this CtrlSpace will disable syntax when loading multiple files
+
 " Menu language to english
 let $LANG = 'en'
 source $VIMRUNTIME/delmenu.vim
