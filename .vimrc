@@ -21,7 +21,6 @@ Plug 'sainnhe/sonokai'
 Plug 'kshenoy/vim-signature'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'sgur/vim-editorconfig'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
@@ -405,14 +404,6 @@ inoremap <Esc>l <C-O>:setlocal list!<CR>
 " Fixing broken endings
 nnoremap <Leader>m :%s:\%x0d::g<CR>
 
-" Mercurial
-if executable('hg')
-    nnoremap ,' :AsyncRun! hg commit -A<CR>
-    nnoremap ,[ :AsyncRun! hg pull --rebase<CR>
-    nnoremap ,] :AsyncRun! hg push<CR>
-    nnoremap ,; :AsyncRun! hg version<CR>:botright copen 8<CR>
-endif
-
 " Buffers
 nnoremap <Space> zz
 
@@ -437,20 +428,6 @@ nmap <M-Up> <C-w><Up>
 imap <M-Up> <C-o><C-w><Up>
 "imap <silent> <C-PageUp> <Esc>:tabprev<CR>
 "imap <silent> <C-PageDown> <Esc>:tabnext<CR>
-
-" Asyncrun
-augroup QuickFixStatus
-    autocmd!
-    au! BufWinEnter quickfix
-        \ setlocal statusline=%!myconf#statusline#QuickFixLine() |
-        \ setlocal nobl
-augroup END
-function! AsyncRunExit()
-    if g:asyncrun_status == 'failure'
-        botright copen 10
-    endif
-endf
-let g:asyncrun_exit = 'call AsyncRunExit()'
 
 " BetterWhitespace
 let g:better_whitespace_filetypes_blacklist = ['', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']

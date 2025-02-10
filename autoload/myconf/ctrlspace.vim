@@ -24,7 +24,7 @@ function! myconf#ctrlspace#BufferList(tabnr)
         endif
     endfor
 
-    call sort(bufferList, function("myconf#ctrlspace#CompareByPath"))
+    " call sort(bufferList, function("myconf#ctrlspace#CompareByPath"))
 
     return bufferList
 endfunction
@@ -42,7 +42,7 @@ function! myconf#ctrlspace#CompareByPath(a, b)
 endfunction
 
 function! myconf#ctrlspace#FiletypeIsSpecial()
-    let filetypes = ['hgcommit']
+    let filetypes = ['gitcommit', 'hgcommit']
     if index(filetypes, &ft) != -1
         return 1
     endif

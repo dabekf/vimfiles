@@ -38,60 +38,6 @@ function! myconf#statusline#Mode()
     return "%#" . hiName . "Str# " . toupper(s:myconf_statusline_currentmode[mode()]) . paste . "→ %*"
 endf
 
-function! myconf#statusline#AsyncRunClear(timer) abort
-    let g:asyncrun_status = ''
-endf
-
-function! myconf#statusline#AsyncRun() abort
-    if !exists('g:asyncrun_status')
-        return ''
-    endif
-
-    if g:asyncrun_status == "running"
-        let hi_1 = "%#MyconfStlRunning#"
-        let hi_2 = "%*"
-    elseif g:asyncrun_status == "failure"
-        let hi_1 = "%#MyconfStlError#"
-        let hi_2 = "%*"
-    elseif g:asyncrun_status == "success"
-        let hi_1 = ""
-        let hi_2 = ""
-        call timer_start(200, 'myconf#statusline#AsyncRunClear')
-    else
-        let hi_1 = ""
-        let hi_2 = ""
-    endif
-    return "%( " . hi_1 . "ar:%{g:asyncrun_status}%)" . hi_2
-endf
-
-function! myconf#statusline#SftpSync() abort
-    if exists("b:sftpsync_target") && b:sftpsync_target != "" && exists("b:sftpsync_status")
-        let lines = []
-
-        if b:sftpsync_status == 'error'
-            let lines += ["%#MyconfStlError#"]
-        endif
-
-        let lines += [" ⇒:", b:sftpsync_target]
-
-        if b:sftpsync_status == 'running'
-            let lines += [":"]
-        elseif b:sftpsync_status == 'error'
-            let lines += [":×"]
-        elseif b:sftpsync_status == 'done'
-            let lines += [":"]
-        endif
-
-        if b:sftpsync_status == 'error'
-            let lines += ["%*"]
-        endif
-
-        return join(lines, "")
-    else
-        return ""
-    endif
-endf
-
 function! myconf#statusline#HowLong() abort
     if exists('b:howLong') && b:howLong > 0
         if b:howLong < 0.01
@@ -280,11 +226,7 @@ function! myconf#statusline#DefaultLine()
         if exists('g:loaded_ale')
             let sl .= myconf#statusline#LinterStatus()
         endif
-        let sl .= myconf#statusline#Gitbranch()
-        let sl .= myconf#statusline#AsyncRun()
-        if exists('g:sftpsync_loaded')
-            let sl .= myconf#statusline#SftpSync()
-        endif
+        " let sl .= myconf#statusline#Gitbranch()
     else
         let sl = myconf#statusline#Mode()
         let sl .= buffers
